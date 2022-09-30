@@ -5,6 +5,7 @@ public class Unit : Node2D
     [Export] public float maxHP, speed;
 
     private float hp;
+    private float currentSpeed;
 
     public float HP
     {
@@ -21,6 +22,8 @@ public class Unit : Node2D
             }
         }
     }
+
+    public float CurrentSpeed { get => currentSpeed; private set => currentSpeed = value; }
 
 
     //第一次进入场景，获取各个Node，血量调节
