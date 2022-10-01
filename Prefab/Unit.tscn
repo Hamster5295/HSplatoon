@@ -5,8 +5,11 @@
 [node name="Unit" type="KinematicBody2D"]
 z_index = 10
 script = ExtResource( 1 )
+acceleration = 0.0
 
 [node name="Sprite" type="Sprite" parent="."]
+
+[node name="Component" type="Node2D" parent="."]
 
 [node name="Weapon" type="Node2D" parent="."]
 

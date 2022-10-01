@@ -23,7 +23,7 @@ public class Unit : KinematicBody2D
         }
     }
 
-    public float CurrentSpeed { get => currentSpeed; protected set { currentSpeed = Mathf.Clamp(value, -speed, speed); } }
+    public float CurrentSpeed { get => currentSpeed; set { currentSpeed = Mathf.Clamp(value, -speed, speed); } }
 
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
