@@ -3,28 +3,25 @@ using System.Collections.Generic;
 
 public class Unit : Node2D
 {
-    [Export] public float maxHP, speed;
-
-    private float hp;
-    private float currentSpeed;
+    [Export] public float maxHP, speed, acceleration = 50f, fraction = 100f;
 
     public float HP
     {
         get
         {
-            return hp;
+            return HP;
         }
         private set
         {
-            hp = value;
-            if (hp < 0)
+            HP = value;
+            if (HP < 0)
             {
                 //死亡逻辑
             }
         }
     }
 
-    public float CurrentSpeed { get => currentSpeed; private set => currentSpeed = value; }
+    public float CurrentSpeed { get => CurrentSpeed; protected set { CurrentSpeed = Mathf.Clamp(value, 0, speed); } }
 
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
@@ -42,8 +39,10 @@ public class Unit : Node2D
     //和Unity的Update()等效，不过Time.deltaTime变成了这里的delta
     public override void _Process(float delta)
     {
-
+        Translate(Vector2.Up * CurrentSpeed * delta);
+        CurrentSpeed -= fraction * delta;
     }
+
 
     public void TakeDamage(float damage, float speedDecrease)
     {
