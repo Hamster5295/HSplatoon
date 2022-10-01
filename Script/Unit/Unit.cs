@@ -5,6 +5,8 @@ public class Unit : KinematicBody2D
 {
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed;
 
+    private Weapon weapon;
+
     private float hp;
     private float currentSpeed;
 
@@ -36,13 +38,6 @@ public class Unit : KinematicBody2D
         parent_buff = GetNode<Node2D>("Buff");
     }
 
-    //和Unity的Update()等效，不过Time.deltaTime变成了这里的delta
-    // public override void _Process(float delta)
-    // {
-    //     Translate(Vector2.Up.Rotated(Rotation) * CurrentSpeed * delta);
-    //     CurrentSpeed -= acceleration / 2 * delta * Mathf.Sign(CurrentSpeed);
-    // }
-
     public override void _PhysicsProcess(float delta)
     {
         MoveAndSlide(Vector2.Up.Rotated(Rotation) * CurrentSpeed);
@@ -53,6 +48,10 @@ public class Unit : KinematicBody2D
     public void TakeDamage(float damage, float speedDecrease)
     {
         HP -= damage;
+    }
+
+    public void SetWeapon(PackedScene weapon){
+        
     }
 
     public void ApplyBuff(PackedScene buff)
