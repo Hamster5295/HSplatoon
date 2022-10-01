@@ -2,16 +2,26 @@ using Godot;
 
 public class Player : Unit
 {
-
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Process(float delta)
     {
-        if (@event.IsActionPressed("move_forward"))
+        if (Input.IsActionPressed("move_forward"))
         {
-            CurrentSpeed += acceleration * GetProcessDeltaTime();
+            CurrentSpeed += acceleration * delta;
         }
-        else if (@event.IsActionPressed("move_backward"))
+        else if (Input.IsActionPressed("move_backward"))
         {
-            CurrentSpeed -= acceleration * GetProcessDeltaTime();
+            CurrentSpeed -= acceleration * delta;
         }
+
+        if (Input.IsActionPressed("move_left"))
+        {
+            Rotate(-rotateSpeed * delta);
+        }
+        if (Input.IsActionPressed("move_right"))
+        {
+            Rotate(rotateSpeed * delta);
+        }
+
+        base._Process(delta);
     }
 }

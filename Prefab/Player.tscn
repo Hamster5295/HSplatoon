@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Prefab/Unit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Texture/GameUnit.png" type="Texture" id=2]
+[ext_resource path="res://Script/Unit/Player.cs" type="Script" id=3]
 
 [node name="Player" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+maxHP = 50.0
+speed = 300.0
+acceleration = 800.0
+rotateSpeed = 3.14
 
 [node name="Sprite" parent="." index="0"]
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )

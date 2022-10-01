@@ -3,25 +3,25 @@ using System.Collections.Generic;
 
 public class Unit : Node2D
 {
-    [Export] public float maxHP, speed, acceleration = 50f, fraction = 100f;
+    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed;
+
+    private float hp;
+    private float currentSpeed;
 
     public float HP
     {
-        get
-        {
-            return HP;
-        }
+        get => hp;
         private set
         {
-            HP = value;
-            if (HP < 0)
+            hp = value;
+            if (hp < 0)
             {
                 //死亡逻辑
             }
         }
     }
 
-    public float CurrentSpeed { get => CurrentSpeed; protected set { CurrentSpeed = Mathf.Clamp(value, 0, speed); } }
+    public float CurrentSpeed { get => currentSpeed; protected set { currentSpeed = Mathf.Clamp(value, -speed, speed); } }
 
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
@@ -39,8 +39,8 @@ public class Unit : Node2D
     //和Unity的Update()等效，不过Time.deltaTime变成了这里的delta
     public override void _Process(float delta)
     {
-        Translate(Vector2.Up * CurrentSpeed * delta);
-        CurrentSpeed -= fraction * delta;
+        Translate(Vector2.Up.Rotated(Rotation) * CurrentSpeed * delta);
+        CurrentSpeed -= acceleration / 2 * delta * Mathf.Sign(CurrentSpeed);
     }
 
 
