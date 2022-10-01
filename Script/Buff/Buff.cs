@@ -1,9 +1,11 @@
 using Godot;
-using System;
+using System.Collections.Generic;
 
 //Buff生效时，会作为玩家的子物体
-public class Buff : Node2D
+//Godot自带有对象池，直接创建、销毁此物体的开销不算太大
+public class Buff : Node2D, IInfomatable
 {
+    [Export] public string tag;
     [Export] public BuffType type;
     [Export] public float intensity;
     [Export] public float duration;
@@ -33,19 +35,38 @@ public class Buff : Node2D
         timer += delta;
         if (timer >= duration)
         {
-            OnBuffReleased();
-            QueueFree();
+            owner.RemoveBuff(tag);
         }
     }
 
-    public void OnBuffReleased()
+    public override void _ExitTree()
     {
+        if (!IsInstanceValid(owner)) return;
+
         switch (type)
         {
             case BuffType.SpeedDecrease:
                 owner.speed -= deltaValue;
                 break;
         }
+    }
+
+    public Dictionary<string, string> GetInfo()
+    {
+        string buffName = "";
+
+        switch (type)
+        {
+            case BuffType.SpeedDecrease:
+                buffName = "减速";
+                break;
+        }
+
+        return new Dictionary<string, string>
+        {
+            {buffName,Mathf.RoundToInt(intensity*100)+"%"},
+            {"持续时间",duration+"秒"}
+        };
     }
 }
 
