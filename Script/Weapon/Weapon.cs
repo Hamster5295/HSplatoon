@@ -7,6 +7,7 @@ public class Weapon : Component<Unit>
     [Signal] public delegate void OnUseStay(float delta);
     [Signal] public delegate void OnUseEnd();
 
+    [Export] public string weaponName;
     [Export] public PackedScene bullet;
     [Export] public WeaponType type;
     [Export] public float damage;
@@ -27,6 +28,11 @@ public class Weapon : Component<Unit>
         {
             if (item is Position2D p) Heads.Add(p);
         }
+    }
+
+    public void Fire()
+    {
+
     }
 
     public Vector2 GetDirection()
