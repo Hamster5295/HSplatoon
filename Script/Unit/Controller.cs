@@ -2,24 +2,26 @@ using Godot;
 
 public class Controller : Component<Unit>
 {
+
     public override void _PhysicsProcess(float delta)
     {
-        if (Input.IsActionPressed("move_forward"))
+        if (Input.IsActionPressed("move_up"))
         {
-            host.CurrentSpeed += host.acceleration * delta;
+            host.ApplyAccel(Vector2.Up, delta);
         }
-        else if (Input.IsActionPressed("move_backward"))
+        else if (Input.IsActionPressed("move_down"))
         {
-            host.CurrentSpeed -= host.acceleration * delta;
+            host.ApplyAccel(Vector2.Down, delta);
         }
-
         if (Input.IsActionPressed("move_left"))
         {
-            host.Rotate(-host.rotateSpeed * delta);
+            host.ApplyAccel(Vector2.Left, delta);
         }
         if (Input.IsActionPressed("move_right"))
         {
-            host.Rotate(host.rotateSpeed * delta);
+            host.ApplyAccel(Vector2.Right, delta);
         }
+
+        host.LookAt(cam.Position - GetViewportRect().Size / 2 + GetViewport().GetMousePosition());
     }
 }

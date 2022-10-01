@@ -8,7 +8,7 @@ public class Unit : KinematicBody2D
     private Weapon weapon;
 
     private float hp;
-    private float currentSpeed;
+    private Vector2 currentSpeed;
 
     public float HP
     {
@@ -23,7 +23,7 @@ public class Unit : KinematicBody2D
         }
     }
 
-    public float CurrentSpeed { get => currentSpeed; set { currentSpeed = Mathf.Clamp(value, -speed, speed); } }
+    public Vector2 CurrentSpeed { get => currentSpeed; set { currentSpeed = value.LimitLength(speed); } }
 
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
@@ -40,18 +40,23 @@ public class Unit : KinematicBody2D
 
     public override void _PhysicsProcess(float delta)
     {
-        MoveAndSlide(Vector2.Up.Rotated(Rotation) * CurrentSpeed);
-        CurrentSpeed -= acceleration / 2 * delta * Mathf.Sign(CurrentSpeed);
+        MoveAndSlide(CurrentSpeed);
+        CurrentSpeed -= acceleration / 2 * delta * CurrentSpeed.Normalized();
     }
 
+    public void ApplyAccel(Vector2 direction, float delta)
+    {
+        CurrentSpeed += acceleration * delta * direction;
+    }
 
     public void TakeDamage(float damage, float speedDecrease)
     {
         HP -= damage;
     }
 
-    public void SetWeapon(PackedScene weapon){
-        
+    public void SetWeapon(PackedScene weapon)
+    {
+
     }
 
     public void ApplyBuff(PackedScene buff)
