@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class Unit : KinematicBody2D
 {
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed;
+    [Export] public Color color;
 
     private Weapon weapon;
 
@@ -36,6 +37,8 @@ public class Unit : KinematicBody2D
 
         parent_weapon = GetNode<Node2D>("Weapon");
         parent_buff = GetNode<Node2D>("Buff");
+
+        Modulate = color;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -47,6 +50,19 @@ public class Unit : KinematicBody2D
     public void ApplyAccel(Vector2 direction, float delta)
     {
         CurrentSpeed += acceleration * delta * direction;
+    }
+
+    public void ChangeDirection(Vector2 axis)
+    {
+        Vector2 result = axis * currentSpeed;
+        if (result.x < 0)
+        {
+            currentSpeed.x *= -1;
+        }
+        if (result.y < 0)
+        {
+            currentSpeed.y *= -1;
+        }
     }
 
     public void TakeDamage(float damage, float speedDecrease)

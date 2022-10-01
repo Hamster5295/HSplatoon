@@ -1,8 +1,11 @@
 using Godot;
 using System.Collections.Generic;
 
-public class Weapon : Node2D
+public class Weapon : Component<Unit>
 {
+    [Export] public PackedScene bullet;
+    [Export] public float damage;
+
     private Sprite sprite;
     private Tween tween;
 

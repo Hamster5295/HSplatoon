@@ -10,9 +10,10 @@ height = 18.0
 
 [node name="Player" instance=ExtResource( 1 )]
 maxHP = 100.0
-speed = 300.0
-acceleration = 600.0
+speed = 150.0
+acceleration = 1000.0
 rotateSpeed = 3.14
+color = Color( 0, 0.647059, 1, 1 )
 
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 0.1, 0.1 )
