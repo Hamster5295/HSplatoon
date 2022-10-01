@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Script/Unit/Unit.cs" type="Script" id=1]
 
-[node name="Unit" type="Node2D"]
+[node name="Unit" type="KinematicBody2D"]
 z_index = 10
 script = ExtResource( 1 )
 
@@ -11,3 +11,5 @@ script = ExtResource( 1 )
 [node name="Weapon" type="Node2D" parent="."]
 
 [node name="Buff" type="Node2D" parent="."]
+
+[node name="Col" type="CollisionShape2D" parent="."]

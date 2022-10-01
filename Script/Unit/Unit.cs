@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public class Unit : Node2D
+public class Unit : KinematicBody2D
 {
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed;
 
@@ -37,9 +37,15 @@ public class Unit : Node2D
     }
 
     //和Unity的Update()等效，不过Time.deltaTime变成了这里的delta
-    public override void _Process(float delta)
+    // public override void _Process(float delta)
+    // {
+    //     Translate(Vector2.Up.Rotated(Rotation) * CurrentSpeed * delta);
+    //     CurrentSpeed -= acceleration / 2 * delta * Mathf.Sign(CurrentSpeed);
+    // }
+
+    public override void _PhysicsProcess(float delta)
     {
-        Translate(Vector2.Up.Rotated(Rotation) * CurrentSpeed * delta);
+        MoveAndSlide(Vector2.Up.Rotated(Rotation) * CurrentSpeed);
         CurrentSpeed -= acceleration / 2 * delta * Mathf.Sign(CurrentSpeed);
     }
 
