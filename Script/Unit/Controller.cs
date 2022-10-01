@@ -22,6 +22,7 @@ public class Controller : Component<Unit>
             host.ApplyAccel(Vector2.Right, delta);
         }
 
-        host.LookAt(cam.Position - GetViewportRect().Size / 2 + GetViewport().GetMousePosition());
+        host.LookAt(CameraInstance.current.Position - GetViewportRect().Size / 2 + GetViewport().GetMousePosition());
+        host.Rotate(Mathf.Tau / 4);
     }
 }
