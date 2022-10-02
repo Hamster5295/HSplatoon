@@ -3,13 +3,19 @@ using System.Collections.Generic;
 
 public class Bullet : Area2D
 {
-    [Export] public float damage, speed, debuff;
+    [Export] public float damage, speed, lifeTime, debuff;
+    [Export] public int colorSpread;
+
+    private float timer = 0;
 
     public Bullet Init(Weapon weapon)
     {
         Position = weapon.GetHead();
         GlobalRotation = weapon.GlobalRotation;
         debuff = weapon.speedDecrease;
+
+        Modulate = weapon.Host.color;
+
         Connect("body_entered", this, nameof(OnBodyEntered));
         return this;
     }
@@ -21,7 +27,7 @@ public class Bullet : Area2D
 
     public override void _ExitTree()
     {
-        base._ExitTree();
+
     }
 
     private void OnBodyEntered(Node n)
@@ -32,5 +38,10 @@ public class Bullet : Area2D
         {
             u.TakeDamage(damage, debuff);
         }
+    }
+
+    public void SpreadColor()
+    {
+
     }
 }
