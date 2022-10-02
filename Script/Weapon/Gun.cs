@@ -10,6 +10,7 @@ public class Gun : Component<Weapon>
     {
         base._Ready();
 
+        host.type = WeaponType.Gun;
         host.Connect(nameof(Weapon.OnUseStay), this, nameof(OnUseStay));
     }
 

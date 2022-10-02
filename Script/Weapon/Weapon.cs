@@ -12,8 +12,11 @@ public class Weapon : Component<Unit>
     [Export] public WeaponType type;
     [Export] public float damage;
 
+    private Node2D parent_bullet;
     private Sprite sprite;
     private Tween tween;
+
+    private int headIndex = 0;
 
     private List<Position2D> heads = new List<Position2D>();
 
@@ -23,6 +26,7 @@ public class Weapon : Component<Unit>
     {
         sprite = GetNode<Sprite>("Sprite");
         tween = GetNode<Tween>("Tween");
+        parent_bullet = host.GetNode<Node2D>("..");
 
         foreach (var item in GetNode<Node2D>("Heads").GetChildren())
         {
@@ -32,7 +36,9 @@ public class Weapon : Component<Unit>
 
     public void Fire()
     {
-
+        headIndex++;
+        if (headIndex >= heads.Count) headIndex = 0;
+        parent_bullet.AddChild(bullet.Instance<Bullet>().Init(heads[headIndex].GlobalPosition, GlobalRotation));
     }
 
     public Vector2 GetDirection()
