@@ -73,7 +73,7 @@ public class Unit : KinematicBody2D
     public void TakeDamage(float damage, float speedDecrease)
     {
         HP -= damage;
-
+        ApplyBuff(Buff.Create("DamageSD", BuffType.SpeedDecrease, speedDecrease, 0.5f));
     }
 
     public void SetWeapon(PackedScene w)
@@ -82,18 +82,17 @@ public class Unit : KinematicBody2D
         parent_weapon.AddChild(weapon);
     }
 
-    public void ApplyBuff(PackedScene buff)
+    public void ApplyBuff(Buff buff)
     {
-        var b = buff.Instance<Buff>();
-        if (HasBuff(b.tag))
+        if (HasBuff(buff.tag))
         {
-            b.QueueFree();
+            buff.QueueFree();
         }
 
-        parent_buff.AddChild(b);
-        b.OnBuffAdded(this);
+        parent_buff.AddChild(buff);
+        buff.OnBuffAdded(this);
 
-        buffs.Add(b.tag, b);
+        buffs.Add(buff.tag, buff);
     }
 
     public void RemoveBuff(string tag)

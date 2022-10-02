@@ -5,6 +5,8 @@ using System.Collections.Generic;
 //Godot自带有对象池，直接创建、销毁此物体的开销不算太大
 public class Buff : Node2D, IInfomatable
 {
+    private static PackedScene buff = ResourceLoader.Load<PackedScene>("res://Prefab/Buff.tscn");
+
     [Export] public string tag;
     [Export] public BuffType type;
     [Export] public float intensity;
@@ -15,6 +17,17 @@ public class Buff : Node2D, IInfomatable
     //变化量，此处Buff的算法是，先计算 总量*增减百分数 获取增减的真实值，然后记录在此处。当Buff结束时返还给Unit
     private float deltaValue = 0;
     private Unit owner;
+
+    public static Buff Create(string tag, BuffType type, float intensity, float duration)
+    {
+        Buff b = buff.Instance<Buff>();
+        b.tag = tag;
+        b.type = type;
+        b.intensity = intensity;
+        b.duration = duration;
+
+        return b;
+    }
 
     //由Unit调用
     public void OnBuffAdded(Unit target)

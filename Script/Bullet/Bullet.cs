@@ -27,7 +27,7 @@ public class Bullet : Area2D
 
     public override void _ExitTree()
     {
-
+        SpreadColor(colorSpread);
     }
 
     private void OnBodyEntered(Node n)
@@ -40,7 +40,7 @@ public class Bullet : Area2D
         }
     }
 
-    public void SpreadColor()
+    public void SpreadColor(int spread)
     {
 
     }
