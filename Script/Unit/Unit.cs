@@ -5,6 +5,7 @@ public class Unit : KinematicBody2D
 {
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed;
     [Export] public Color color;
+    [Export] public PackedScene debug_weapon;
 
     private Weapon weapon;
 
@@ -39,6 +40,11 @@ public class Unit : KinematicBody2D
         parent_buff = GetNode<Node2D>("Buff");
 
         Modulate = color;
+
+
+        //For test only
+        weapon = debug_weapon.Instance<Weapon>();
+        parent_weapon.AddChild(weapon);
     }
 
     public override void _PhysicsProcess(float delta)

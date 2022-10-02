@@ -24,6 +24,8 @@ public class Weapon : Component<Unit>
 
     public override void _Ready()
     {
+        base._Ready();
+
         sprite = GetNode<Sprite>("Sprite");
         tween = GetNode<Tween>("Tween");
         parent_bullet = host.GetNode<Node2D>("..");
