@@ -1,3 +1,9 @@
 [gd_scene format=2]
 
 [node name="Bullet" type="Area2D"]
+collision_layer = 2
+monitorable = false
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Col" type="CollisionShape2D" parent="."]
