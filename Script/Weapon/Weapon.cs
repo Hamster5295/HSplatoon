@@ -10,7 +10,7 @@ public class Weapon : Component<Unit>
     [Export] public string weaponName;
     [Export] public PackedScene bullet;
     [Export] public WeaponType type;
-    [Export] public float damage;
+    [Export] public float damage, speedDecrease;
 
     private Node2D parent_bullet;
     private Sprite sprite;
@@ -40,7 +40,12 @@ public class Weapon : Component<Unit>
     {
         headIndex++;
         if (headIndex >= heads.Count) headIndex = 0;
-        parent_bullet.AddChild(bullet.Instance<Bullet>().Init(heads[headIndex].GlobalPosition, GlobalRotation));
+        parent_bullet.AddChild(bullet.Instance<Bullet>().Init(this));
+    }
+
+    public Vector2 GetHead()
+    {
+        return heads[headIndex].GlobalPosition;
     }
 
     public Vector2 GetDirection()

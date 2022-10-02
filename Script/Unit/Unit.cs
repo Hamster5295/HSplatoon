@@ -43,8 +43,7 @@ public class Unit : KinematicBody2D
 
 
         //For test only
-        weapon = debug_weapon.Instance<Weapon>();
-        parent_weapon.AddChild(weapon);
+        SetWeapon(debug_weapon);
     }
 
     public override void _PhysicsProcess(float delta)
@@ -74,11 +73,13 @@ public class Unit : KinematicBody2D
     public void TakeDamage(float damage, float speedDecrease)
     {
         HP -= damage;
+
     }
 
-    public void SetWeapon(PackedScene weapon)
+    public void SetWeapon(PackedScene w)
     {
-
+        weapon = w.Instance<Weapon>();
+        parent_weapon.AddChild(weapon);
     }
 
     public void ApplyBuff(PackedScene buff)
