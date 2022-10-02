@@ -28,7 +28,7 @@ public class Weapon : Component<Unit>
 
         sprite = GetNode<Sprite>("Sprite");
         tween = GetNode<Tween>("Tween");
-        parent_bullet = host.GetNode<Node2D>("..");
+        parent_bullet = Host.GetNode<Node2D>("..");
 
         foreach (var item in GetNode<Node2D>("Heads").GetChildren())
         {

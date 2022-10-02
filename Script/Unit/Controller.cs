@@ -7,26 +7,26 @@ public class Controller : Component<Unit>
     {
         if (Input.IsActionPressed("move_up"))
         {
-            host.ChangeDirection(Vector2.Up);
-            host.ApplyAccel(Vector2.Up, delta);
+            Host.ChangeDirection(Vector2.Up);
+            Host.ApplyAccel(Vector2.Up, delta);
         }
         else if (Input.IsActionPressed("move_down"))
         {
-            host.ChangeDirection(Vector2.Down);
-            host.ApplyAccel(Vector2.Down, delta);
+            Host.ChangeDirection(Vector2.Down);
+            Host.ApplyAccel(Vector2.Down, delta);
         }
         if (Input.IsActionPressed("move_left"))
         {
-            host.ChangeDirection(Vector2.Left);
-            host.ApplyAccel(Vector2.Left, delta);
+            Host.ChangeDirection(Vector2.Left);
+            Host.ApplyAccel(Vector2.Left, delta);
         }
         if (Input.IsActionPressed("move_right"))
         {
-            host.ChangeDirection(Vector2.Right);
-            host.ApplyAccel(Vector2.Right, delta);
+            Host.ChangeDirection(Vector2.Right);
+            Host.ApplyAccel(Vector2.Right, delta);
         }
 
-        host.LookAt(Mouse.GetGlobalPos());
-        host.Rotate(Mathf.Tau / 4);
+        Host.LookAt(Mouse.GetGlobalPos());
+        Host.Rotate(Mathf.Tau / 4);
     }
 }

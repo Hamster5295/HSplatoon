@@ -7,6 +7,6 @@ public class CameraInstance : Component<Camera2D>
     public override void _Ready()
     {
         base._Ready();
-        if (host.Current) current = host;
+        if (Host.Current) current = Host;
     }
 }

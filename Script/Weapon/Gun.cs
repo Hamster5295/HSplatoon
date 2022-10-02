@@ -10,8 +10,8 @@ public class Gun : Component<Weapon>
     {
         base._Ready();
 
-        host.type = WeaponType.Gun;
-        host.Connect(nameof(Weapon.OnUseStay), this, nameof(OnUseStay));
+        Host.type = WeaponType.Gun;
+        Host.Connect(nameof(Weapon.OnUseStay), this, nameof(OnUseStay));
     }
 
     public void OnUseStay(float delta)
@@ -20,7 +20,7 @@ public class Gun : Component<Weapon>
         if (timer >= cd)
         {
             timer = 0;
-            host.Fire();
+            Host.Fire();
         }
     }
 }

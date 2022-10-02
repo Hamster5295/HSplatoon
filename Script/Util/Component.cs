@@ -2,7 +2,9 @@ using Godot;
 
 public class Component<T> : Node2D where T : Node2D
 {
-    protected T host;
+    private T host;
+
+    public T Host { get => host; private set => host = value; }
 
     public override void _Ready()
     {
@@ -11,6 +13,6 @@ public class Component<T> : Node2D where T : Node2D
         {
             path += "/..";
         }
-        host = GetNode<T>(path);
+        Host = GetNode<T>(path);
     }
 }
