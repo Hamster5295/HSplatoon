@@ -49,7 +49,8 @@ public class Unit : KinematicBody2D
     public override void _PhysicsProcess(float delta)
     {
         MoveAndSlide(CurrentSpeed);
-        CurrentSpeed -= acceleration / 2 * delta * CurrentSpeed.Normalized();
+        var deltaSpeed = acceleration / 2 * delta * CurrentSpeed.Normalized();
+        CurrentSpeed -= deltaSpeed.Length() > CurrentSpeed.Length() ? CurrentSpeed : deltaSpeed;
     }
 
     public void ApplyAccel(Vector2 direction, float delta)
