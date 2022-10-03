@@ -3,15 +3,17 @@ using System.Collections.Generic;
 
 public class Unit : KinematicBody2D
 {
-    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed;
+    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkSave = 0.7f, inkGainSpeed;
     [Export] public Team team;
     [Export] public PackedScene debug_weapon;
 
     private Weapon weapon;
     private Color color;
 
-    private float hp;
+    private float hp, ink;
+
     private Vector2 currentSpeed;
+    private bool isDiving = false;
 
     public float HP
     {
@@ -26,10 +28,13 @@ public class Unit : KinematicBody2D
         }
     }
 
+    public float Ink { get => ink; private set => ink = Mathf.Clamp(value, 0, maxInk); }
+
     public Vector2 CurrentSpeed { get => currentSpeed; set { currentSpeed = value.LimitLength(speed); } }
 
     public Weapon Weapon { get => weapon; }
     public Color Color { get => color; private set => color = value; }
+
 
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
@@ -49,6 +54,21 @@ public class Unit : KinematicBody2D
         //For test only
         SetWeapon(debug_weapon);
 
+    }
+
+    public override void _Process(float delta)
+    {
+        if (isDiving)
+        {
+            Ink += inkGainSpeed * delta;
+        }
+        else
+        {
+            if (Ink > maxInk * inkSave)
+            {
+                Ink -= inkGainSpeed * delta;
+            }
+        }
     }
 
     public override void _PhysicsProcess(float delta)
@@ -116,5 +136,11 @@ public class Unit : KinematicBody2D
     public bool HasBuff(string tag)
     {
         return buffs.ContainsKey(tag);
+    }
+
+    public void Dive()
+    {
+        if (isDiving) return;
+        isDiving = true;
     }
 }
