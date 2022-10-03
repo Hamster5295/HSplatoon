@@ -10,7 +10,7 @@ public class Weapon : Component<Unit>
     [Export] public string weaponName;
     [Export] public PackedScene bullet;
     [Export] public WeaponType type;
-    [Export] public float damage, speedDecrease, range;
+    [Export] public float damage, speedDecrease, range, recoil;
 
     private Node2D parent_bullet;
     private Sprite sprite;
@@ -41,6 +41,10 @@ public class Weapon : Component<Unit>
         headIndex++;
         if (headIndex >= heads.Count) headIndex = 0;
         parent_bullet.AddChild(bullet.Instance<Bullet>().Init(this));
+
+        tween.StopAll();
+        tween.InterpolateProperty(this, "position:y", recoil, 0, 0.2f);
+        tween.Start();
     }
 
     public Vector2 GetHead()
