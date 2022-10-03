@@ -19,7 +19,7 @@ public class Bullet : Area2D
         debuff = weapon.speedDecrease;
         range = weapon.range;
 
-        Modulate = weapon.Host.color;
+        Modulate = weapon.Host.Color;
 
         Connect("body_entered", this, nameof(OnBodyEntered));
         return this;

@@ -4,8 +4,7 @@
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Prefab/Weapon/Gun.tscn" type="PackedScene" id=4]
-
-[sub_resource type="CapsuleShape2D" id=1]
+[ext_resource path="res://Scene/HMap.cs" type="Script" id=5]
 
 [node name="Sample" type="Node2D"]
 
@@ -40,14 +39,7 @@ texture = ExtResource( 3 )
 position = Vector2( 312, -26 )
 polygon = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32, 31, -32 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 68, 2 )
-shape = SubResource( 1 )
-
-[node name="Icon" type="Polygon2D" parent="."]
-position = Vector2( 28, -99 )
-antialiased = true
-texture = ExtResource( 3 )
-polygon = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32, 31, -32 )
-uv = PoolVector2Array( 64, 0, 64, 64, 0, 64, 0, 0, 63, 0 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ) ]
+[node name="TileMap" type="TileMap" parent="."]
+cell_size = Vector2( 16, 16 )
+format = 1
+script = ExtResource( 5 )
