@@ -2,6 +2,16 @@ using Godot;
 
 public class Controller : Component<Unit>
 {
+    private bool isMouseHolded = false;
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton e)
+        {
+            if (@e.Pressed) { Host.Weapon.HandleBegin(); isMouseHolded = true; }
+            else { Host.Weapon.HandleEnd(); isMouseHolded = false; }
+        }
+    }
 
     public override void _PhysicsProcess(float delta)
     {
@@ -28,5 +38,7 @@ public class Controller : Component<Unit>
 
         Host.LookAt(Mouse.GetGlobalPos());
         Host.Rotate(Mathf.Tau / 4);
+
+        if(isMouseHolded) Host.Weapon.HandleStay(delta);
     }
 }

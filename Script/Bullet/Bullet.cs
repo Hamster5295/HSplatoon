@@ -7,9 +7,12 @@ public class Bullet : Area2D
     [Export] public int colorSpread;
 
     private float timer = 0;
+    private Unit owner;
 
     public Bullet Init(Weapon weapon)
     {
+        owner = weapon.Host;
+
         Position = weapon.GetHead();
         GlobalRotation = weapon.GlobalRotation;
         debuff = weapon.speedDecrease;
@@ -32,6 +35,8 @@ public class Bullet : Area2D
 
     private void OnBodyEntered(Node n)
     {
+        if (n == owner) return;
+
         QueueFree();
 
         if (n is Unit u)

@@ -52,6 +52,21 @@ public class Weapon : Component<Unit>
     {
         return Vector2.Up.Rotated(GlobalRotation);
     }
+
+    public void HandleBegin()
+    {
+        EmitSignal(nameof(OnUseBegin));
+    }
+
+    public void HandleStay(float delta)
+    {
+        EmitSignal(nameof(OnUseStay), delta);
+    }
+
+    public void HandleEnd()
+    {
+        EmitSignal(nameof(OnUseEnd));
+    }
 }
 
 public enum WeaponType

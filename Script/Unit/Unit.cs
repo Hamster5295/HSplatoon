@@ -27,6 +27,8 @@ public class Unit : KinematicBody2D
 
     public Vector2 CurrentSpeed { get => currentSpeed; set { currentSpeed = value.LimitLength(speed); } }
 
+    public Weapon Weapon { get => weapon; }
+
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
     private Node2D parent_weapon, parent_buff;
@@ -80,7 +82,7 @@ public class Unit : KinematicBody2D
     public void SetWeapon(PackedScene w)
     {
         weapon = w.Instance<Weapon>();
-        parent_weapon.AddChild(weapon);
+        parent_weapon.AddChild(Weapon);
     }
 
     public void ApplyBuff(Buff buff)
@@ -92,6 +94,8 @@ public class Unit : KinematicBody2D
 
         parent_buff.AddChild(buff);
         buff.OnBuffAdded(this);
+
+        if (buffs.ContainsKey(buff.tag)) { buffs.Remove(buff.tag); }
 
         buffs.Add(buff.tag, buff);
     }
