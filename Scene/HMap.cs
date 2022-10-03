@@ -13,7 +13,7 @@ public class HMap : TileMap
         instance = this;
     }
 
-    public static bool IsSameTeam(Vector2 globalPos, Team t)
+    public static bool IsOnTeamColor(Vector2 globalPos, Team t)
     {
         return instance.IsSameTeamInterval(globalPos, t);
     }

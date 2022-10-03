@@ -20,7 +20,7 @@ public class Controller : Component<Unit>
             Host.ChangeDirection(Vector2.Up);
             Host.ApplyAccel(Vector2.Up, delta);
         }
-        else if (Input.IsActionPressed("move_down"))
+        if (Input.IsActionPressed("move_down"))
         {
             Host.ChangeDirection(Vector2.Down);
             Host.ApplyAccel(Vector2.Down, delta);
@@ -35,10 +35,19 @@ public class Controller : Component<Unit>
             Host.ChangeDirection(Vector2.Right);
             Host.ApplyAccel(Vector2.Right, delta);
         }
+        if (Input.IsActionPressed("move_dive"))
+        {
+            if (HMap.IsOnTeamColor(GlobalPosition, Host.team))
+            {
+                //Dive
+            }
+        }
 
         Host.LookAt(Mouse.GetGlobalPos());
         Host.Rotate(Mathf.Tau / 4);
 
-        if(isMouseHolded) Host.Weapon.HandleStay(delta);
+        if (isMouseHolded) Host.Weapon.HandleStay(delta);
+
+
     }
 }
