@@ -4,7 +4,8 @@ public class Gun : Component<Weapon>
 {
     [Export] public float cd;
 
-    private float timer;
+    private float timer = 0;
+    private bool isUsing = false;
 
     public override void _Ready()
     {
@@ -12,7 +13,16 @@ public class Gun : Component<Weapon>
 
         Host.type = WeaponType.Gun;
         Host.Connect(nameof(Weapon.OnUseBegin), this, nameof(OnUseBegin));
+        Host.Connect(nameof(Weapon.OnUseBegin), this, nameof(OnUseBegin));
         Host.Connect(nameof(Weapon.OnUseStay), this, nameof(OnUseStay));
+    }
+
+    public override void _Process(float delta)
+    {
+        if (!isUsing && timer < cd)
+        {
+            timer += delta;
+        }
     }
 
     public void OnUseStay(float delta)
@@ -27,6 +37,11 @@ public class Gun : Component<Weapon>
 
     public void OnUseBegin()
     {
-        timer = cd;
+        isUsing = true;
+    }
+
+    public void OnUseEnd()
+    {
+        isUsing = false;
     }
 }

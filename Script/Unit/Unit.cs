@@ -76,6 +76,8 @@ public class Unit : KinematicBody2D
     public void TakeDamage(float damage, float speedDecrease)
     {
         HP -= damage;
+
+        if (speedDecrease == 0) return;
         ApplyBuff(Buff.Create("DamageSD", BuffType.SpeedDecrease, speedDecrease, 0.5f));
     }
 
