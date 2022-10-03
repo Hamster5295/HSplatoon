@@ -24,6 +24,7 @@ editor_draw_drag_margin = true
 script = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+diveTexture = null
 debug_weapon = ExtResource( 4 )
 
 [node name="Remote" type="RemoteTransform2D" parent="Player"]

@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Script/Unit/Unit.cs" type="Script" id=1]
+[ext_resource path="res://Texture/DivedUnit.png" type="Texture" id=2]
 
 [node name="Unit" type="KinematicBody2D"]
 z_index = 10
 script = ExtResource( 1 )
 acceleration = 0.0
+diveTexture = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 

@@ -27,4 +27,9 @@ public class TeamUtils
 
         return Colors.Black;
     }
+
+    public static Color GetDarkColor(Team t)
+    {
+        return GetColor(t) - new Color(0.15f, 0.15f, 0.15f, 0);
+    }
 }

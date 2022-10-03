@@ -17,7 +17,7 @@ public class HMap : TileMap
     {
         foreach (var item in map)
         {
-            DrawRect(new Rect2(item.Key * CellSize.x + CellSize / 2, CellSize), TeamUtils.GetColor(item.Value));
+            DrawRect(new Rect2(item.Key * CellSize.x + CellSize / 2, CellSize), TeamUtils.GetDarkColor(item.Value));
         }
     }
 
