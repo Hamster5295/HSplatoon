@@ -28,7 +28,7 @@ public class Unit : KinematicBody2D
         }
     }
 
-    public float Ink { get => ink; private set => ink = Mathf.Clamp(value, 0, maxInk); }
+    public float Ink { get => ink; set => ink = Mathf.Clamp(value, 0, maxInk); }
 
     public Vector2 CurrentSpeed { get => currentSpeed; set { currentSpeed = value.LimitLength(speed); } }
 

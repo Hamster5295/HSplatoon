@@ -10,7 +10,7 @@ public class Weapon : Component<Unit>
     [Export] public string weaponName;
     [Export] public PackedScene bullet;
     [Export] public WeaponType type;
-    [Export] public float damage, speedDecrease, range, recoil;
+    [Export] public float damage, speedDecrease, range, inkCost, recoil;
 
     private Node2D parent_bullet;
     private Sprite sprite;
@@ -38,6 +38,9 @@ public class Weapon : Component<Unit>
 
     public void Fire()
     {
+        if (Host.Ink < inkCost) return;
+        Host.Ink -= inkCost;
+
         headIndex++;
         if (headIndex >= heads.Count) headIndex = 0;
         parent_bullet.AddChild(bullet.Instance<Bullet>().Init(this));
