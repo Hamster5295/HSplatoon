@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Unit : KinematicBody2D
 {
-    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkSave = 0.7f, inkGainSpeed;
+    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkSave = 0.7f, inkGainSpeed, landBuffer;
     [Export] public Team team;
     [Export(PropertyHint.ResourceType, "Texture")] public Texture diveTexture;
     [Export] public PackedScene debug_weapon;
@@ -13,9 +13,9 @@ public class Unit : KinematicBody2D
     private Color color;
     private Texture normalTexture;
 
-    private float hp, ink, targetRotation;
+    private float hp, ink, targetRotation, landTimer = 0;
     private Vector2 currentSpeed;
-    private bool isDiving = false;
+    private bool isDiving = false, isLanding = false;
 
     public float HP
     {
@@ -76,6 +76,18 @@ public class Unit : KinematicBody2D
                 Ink -= inkGainSpeed * delta;
             }
         }
+
+        if (isLanding)
+        {
+            if (landTimer > 0)
+            {
+                landTimer -= delta;
+            }
+            else
+            {
+                LandImmediately();
+            }
+        }
     }
 
     public override void _PhysicsProcess(float delta)
@@ -134,6 +146,7 @@ public class Unit : KinematicBody2D
         if (HasBuff(buff.tag))
         {
             buff.QueueFree();
+            return;
         }
 
         parent_buff.AddChild(buff);
@@ -146,6 +159,7 @@ public class Unit : KinematicBody2D
 
     public void RemoveBuff(string tag)
     {
+        GD.Print("gg");
         if (!HasBuff(tag)) return;
 
         buffs[tag].QueueFree();
@@ -159,8 +173,18 @@ public class Unit : KinematicBody2D
 
     public void Dive()
     {
+        if (!HMap.IsOnTeamColor(GlobalPosition, team)) return;
+
+        if (isLanding)
+        {
+            isDiving = false;
+            isLanding = false;
+        }
+
         if (IsDiving) return;
+
         IsDiving = true;
+
         ApplyBuff(Buff.Create("Dive", BuffType.Dive, 0.5f, -1));
         sprite.Texture = diveTexture;
 
@@ -169,11 +193,19 @@ public class Unit : KinematicBody2D
 
     public void Land()
     {
-        if (!IsDiving) return;
-        IsDiving = false;
+        if (!isDiving) return;
+        if (isLanding) return;
+        landTimer = landBuffer;
+        isLanding = true;
+    }
+
+    public void LandImmediately()
+    {
         RemoveBuff("Dive");
         sprite.Texture = normalTexture;
-
         weapon.Visible = true;
+
+        isDiving = false;
+        isLanding = false;
     }
 }
