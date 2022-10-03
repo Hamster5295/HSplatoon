@@ -5,13 +5,15 @@ public class Unit : KinematicBody2D
 {
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkSave = 0.7f, inkGainSpeed;
     [Export] public Team team;
+    [Export(PropertyHint.ResourceType, "Texture")] public Texture diveTexture;
     [Export] public PackedScene debug_weapon;
 
+    private Sprite sprite;
     private Weapon weapon;
     private Color color;
+    private Texture normalTexture;
 
     private float hp, ink;
-
     private Vector2 currentSpeed;
     private bool isDiving = false;
 
@@ -48,8 +50,11 @@ public class Unit : KinematicBody2D
 
         parent_weapon = GetNode<Node2D>("Weapon");
         parent_buff = GetNode<Node2D>("Buff");
+        sprite = GetNode<Sprite>("Sprite");
 
         Modulate = Color;
+
+        normalTexture = sprite.Texture;
 
         //For test only
         SetWeapon(debug_weapon);
@@ -142,5 +147,15 @@ public class Unit : KinematicBody2D
     {
         if (isDiving) return;
         isDiving = true;
+        ApplyBuff(Buff.Create("Dive", BuffType.Dive, 0.5f, -1));
+        sprite.Texture = diveTexture;
+    }
+
+    public void Land()
+    {
+        if (!isDiving) return;
+        isDiving = false;
+        RemoveBuff("Dive");
+        sprite.Texture = normalTexture;
     }
 }

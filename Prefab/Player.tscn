@@ -13,7 +13,7 @@ maxHP = 100.0
 speed = 200.0
 acceleration = 1500.0
 rotateSpeed = 3.14
-color = Color( 0, 0.647059, 1, 1 )
+inkGainSpeed = 10.0
 
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 0.1, 0.1 )

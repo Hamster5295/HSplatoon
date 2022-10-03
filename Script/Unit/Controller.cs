@@ -39,7 +39,9 @@ public class Controller : Component<Unit>
         {
             if (HMap.IsOnTeamColor(GlobalPosition, Host.team))
             {
-                //Dive
+                Host.Dive();
+            }else{
+                Host.Land();
             }
         }
 

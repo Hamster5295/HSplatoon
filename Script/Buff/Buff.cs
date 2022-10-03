@@ -18,6 +18,11 @@ public class Buff : Node2D, IInfomatable
     private float deltaValue = 0;
     private Unit owner;
 
+    public override void _Process(float delta)
+    {
+        OnUpdate(delta);
+    }
+
     public static Buff Create(string tag, BuffType type, float intensity, float duration)
     {
         Buff b = buff.Instance<Buff>();
@@ -37,7 +42,8 @@ public class Buff : Node2D, IInfomatable
         switch (type)
         {
             case BuffType.SpeedDecrease:
-                deltaValue = owner.speed * intensity;
+            case BuffType.Dive:
+                deltaValue = owner.speed * (intensity + 1);
                 owner.speed += deltaValue;
                 break;
         }
@@ -45,6 +51,8 @@ public class Buff : Node2D, IInfomatable
 
     public void OnUpdate(float delta)
     {
+        if (duration == -1) return;
+
         timer += delta;
         if (timer >= duration)
         {
@@ -73,6 +81,10 @@ public class Buff : Node2D, IInfomatable
             case BuffType.SpeedDecrease:
                 buffName = "减速";
                 break;
+
+            case BuffType.Dive:
+                buffName = "潜水";
+                break;
         }
 
         return new Dictionary<string, string>
@@ -85,5 +97,5 @@ public class Buff : Node2D, IInfomatable
 
 public enum BuffType
 {
-    SpeedDecrease
+    SpeedDecrease, Dive
 }

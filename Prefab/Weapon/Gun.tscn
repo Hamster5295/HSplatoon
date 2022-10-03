@@ -11,6 +11,7 @@ bullet = ExtResource( 4 )
 damage = 5.0
 speedDecrease = 0.5
 range = 400.0
+inkCost = 1.0
 
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 0.1, 0.1 )
