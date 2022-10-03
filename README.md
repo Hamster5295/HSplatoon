@@ -1,5 +1,5 @@
 # HSplatoon
-冰岩面试作品
+冰岩实习作品
 
 Demo game for the practice of BingYan Studio
 
