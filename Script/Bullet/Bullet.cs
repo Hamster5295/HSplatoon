@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 public class Bullet : Area2D
 {
-    [Export] public float damage, speed, range, debuff;
-    [Export] public int colorSpread;
+    [Export] public float speed;
+
+    private float damage, range, debuff;
+    private int colorSpread;
 
     private Unit owner;
 
@@ -16,8 +18,11 @@ public class Bullet : Area2D
 
         Position = weapon.GetHead();
         GlobalRotation = weapon.GlobalRotation;
+
+        damage = weapon.damage;
         debuff = weapon.speedDecrease;
         range = weapon.range;
+        colorSpread = weapon.spread;
 
         Modulate = weapon.Host.Color;
 
@@ -32,11 +37,6 @@ public class Bullet : Area2D
         travelled += deltaDistance;
 
         if (travelled >= range) QueueFree();
-    }
-
-    public override void _ExitTree()
-    {
-        // SpreadColor(colorSpread);
     }
 
     private void OnBodyEntered(Node n)
