@@ -3,11 +3,12 @@ using System.Collections.Generic;
 
 public class Bullet : Area2D
 {
-    [Export] public float damage, speed, lifeTime, debuff;
+    [Export] public float damage, speed, range, debuff;
     [Export] public int colorSpread;
 
-    private float timer = 0;
     private Unit owner;
+
+    private float timer = 0, travelled = 0;
 
     public Bullet Init(Weapon weapon)
     {
@@ -16,6 +17,7 @@ public class Bullet : Area2D
         Position = weapon.GetHead();
         GlobalRotation = weapon.GlobalRotation;
         debuff = weapon.speedDecrease;
+        range = weapon.range;
 
         Modulate = weapon.Host.color;
 
@@ -25,7 +27,11 @@ public class Bullet : Area2D
 
     public override void _Process(float delta)
     {
-        Translate(Vector2.Up.Rotated(Rotation) * speed * delta);
+        var deltaDistance = speed * delta;
+        Translate(Vector2.Up.Rotated(Rotation) * deltaDistance);
+        travelled += deltaDistance;
+
+        if (travelled >= range) QueueFree();
     }
 
     public override void _ExitTree()

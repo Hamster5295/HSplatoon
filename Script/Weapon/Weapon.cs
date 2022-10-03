@@ -10,7 +10,7 @@ public class Weapon : Component<Unit>
     [Export] public string weaponName;
     [Export] public PackedScene bullet;
     [Export] public WeaponType type;
-    [Export] public float damage, speedDecrease;
+    [Export] public float damage, speedDecrease, range;
 
     private Node2D parent_bullet;
     private Sprite sprite;

@@ -11,6 +11,7 @@ public class Gun : Component<Weapon>
         base._Ready();
 
         Host.type = WeaponType.Gun;
+        Host.Connect(nameof(Weapon.OnUseBegin), this, nameof(OnUseBegin));
         Host.Connect(nameof(Weapon.OnUseStay), this, nameof(OnUseStay));
     }
 
@@ -22,5 +23,10 @@ public class Gun : Component<Weapon>
             timer = 0;
             Host.Fire();
         }
+    }
+
+    public void OnUseBegin()
+    {
+        timer = cd;
     }
 }
