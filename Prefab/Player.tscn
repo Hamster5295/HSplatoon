@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 15.0
-height = 18.0
+height = 10.0
 
 [node name="Player" instance=ExtResource( 1 )]
 maxHP = 100.0
@@ -18,13 +18,11 @@ inkGainSpeed = 10.0
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
+offset = Vector2( 0, -60 )
 
 [node name="Controller" type="Node2D" parent="Component" index="0"]
 script = ExtResource( 3 )
 
-[node name="Weapon" parent="." index="2"]
-position = Vector2( 0, 10 )
-
 [node name="Col" parent="." index="4"]
-position = Vector2( 0, 3 )
+position = Vector2( 0, -3 )
 shape = SubResource( 1 )

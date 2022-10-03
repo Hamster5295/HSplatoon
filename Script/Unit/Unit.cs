@@ -13,7 +13,7 @@ public class Unit : KinematicBody2D
     private Color color;
     private Texture normalTexture;
 
-    private float hp, ink;
+    private float hp, ink, targetRotation;
     private Vector2 currentSpeed;
     private bool isDiving = false;
 
@@ -37,7 +37,7 @@ public class Unit : KinematicBody2D
     public Weapon Weapon { get => weapon; }
     public Color Color { get => color; private set => color = value; }
     public bool IsDiving { get => isDiving; private set => isDiving = value; }
-
+    // public float TargetRotation { get => targetRotation; set => targetRotation = value; }
 
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
@@ -83,6 +83,18 @@ public class Unit : KinematicBody2D
         MoveAndSlide(CurrentSpeed);
         var deltaSpeed = acceleration / 2 * delta * CurrentSpeed.Normalized();
         CurrentSpeed -= deltaSpeed.Length() > CurrentSpeed.Length() ? CurrentSpeed : deltaSpeed;
+
+        if (currentSpeed.Length() == 0) return;
+        targetRotation = Vector2.Up.AngleTo(currentSpeed);
+
+        if (!Mathf.IsEqualApprox(GlobalRotation, targetRotation))
+        {
+            GlobalRotation = Mathf.LerpAngle(GlobalRotation, targetRotation, 0.15f);
+        }
+        else
+        {
+            GlobalRotation = targetRotation;
+        }
     }
 
     public void ApplyAccel(Vector2 direction, float delta)

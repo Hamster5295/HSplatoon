@@ -48,8 +48,8 @@ public class Controller : Component<Unit>
             Host.Land();
 
 
-        Host.LookAt(Mouse.GetGlobalPos());
-        Host.Rotate(Mathf.Tau / 4);
+        Host.Weapon.LookAt(Mouse.GetGlobalPos());
+        Host.Weapon.Rotate(Mathf.Tau / 4);
 
         if (isMouseHolded) Host.Weapon.HandleStay(delta);
 
