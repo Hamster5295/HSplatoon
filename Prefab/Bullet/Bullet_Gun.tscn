@@ -21,3 +21,4 @@ shape = SubResource( 1 )
 [node name="ColorSpread" type="Node2D" parent="." index="2"]
 script = ExtResource( 3 )
 count = 4
+rand = 1.0

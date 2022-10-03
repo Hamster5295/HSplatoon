@@ -36,6 +36,7 @@ public class Unit : KinematicBody2D
 
     public Weapon Weapon { get => weapon; }
     public Color Color { get => color; private set => color = value; }
+    public bool IsDiving { get => isDiving; private set => isDiving = value; }
 
 
     //Buff由Tag控制唯一性
@@ -64,7 +65,7 @@ public class Unit : KinematicBody2D
 
     public override void _Process(float delta)
     {
-        if (isDiving)
+        if (IsDiving)
         {
             Ink += inkGainSpeed * delta;
         }
@@ -146,17 +147,21 @@ public class Unit : KinematicBody2D
 
     public void Dive()
     {
-        if (isDiving) return;
-        isDiving = true;
+        if (IsDiving) return;
+        IsDiving = true;
         ApplyBuff(Buff.Create("Dive", BuffType.Dive, 0.5f, -1));
         sprite.Texture = diveTexture;
+
+        weapon.Visible = false;
     }
 
     public void Land()
     {
-        if (!isDiving) return;
-        isDiving = false;
+        if (!IsDiving) return;
+        IsDiving = false;
         RemoveBuff("Dive");
         sprite.Texture = normalTexture;
+
+        weapon.Visible = true;
     }
 }

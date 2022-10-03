@@ -40,6 +40,7 @@ public class Weapon : Component<Unit>
     public void Fire()
     {
         if (Host.Ink < inkCost) return;
+        if(Host.IsDiving) return;
         Host.Ink -= inkCost;
 
         headIndex++;

@@ -35,15 +35,18 @@ public class Controller : Component<Unit>
             Host.ChangeDirection(Vector2.Right);
             Host.ApplyAccel(Vector2.Right, delta);
         }
+
+        if (Input.IsActionJustPressed("move_dive"))
+            if (HMap.IsOnTeamColor(GlobalPosition, Host.team)) Host.Dive();
+
         if (Input.IsActionPressed("move_dive"))
-        {
             if (HMap.IsOnTeamColor(GlobalPosition, Host.team))
-            {
                 Host.Dive();
-            }else{
-                Host.Land();
-            }
-        }
+            else Host.Land();
+
+        if (Input.IsActionJustReleased("move_dive"))
+            Host.Land();
+
 
         Host.LookAt(Mouse.GetGlobalPos());
         Host.Rotate(Mathf.Tau / 4);

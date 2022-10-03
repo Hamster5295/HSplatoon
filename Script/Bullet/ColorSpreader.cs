@@ -6,10 +6,13 @@ public class ColorSpreader : Component<Bullet>
     // private static Texture circle;
 
     [Export] public int count;
+    [Export] public float rand;
 
     private float deltaDistance = 0, travelled = 0;
 
     private Node2D paintParent;
+
+    private float offset;
 
     public override void _Ready()
     {
@@ -19,12 +22,14 @@ public class ColorSpreader : Component<Bullet>
         deltaDistance = Host.Range / (float)count;
 
         paintParent = Host.UnitOwner.GetParent().GetNode<Node2D>("ColorMap");
+
+        offset = (GD.Randf() - 0.5f) * 2 * rand * 16;
     }
 
     private void OnMove(float delta)
     {
         travelled += delta;
-        if (travelled > deltaDistance)
+        if (travelled > deltaDistance + offset)
         {
             travelled = 0;
             Spread();
