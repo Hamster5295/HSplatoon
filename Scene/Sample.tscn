@@ -4,7 +4,7 @@
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Prefab/Weapon/Gun.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scene/HMap.cs" type="Script" id=5]
+[ext_resource path="res://Script/Util/HMap.cs" type="Script" id=5]
 
 [node name="Sample" type="Node2D"]
 
@@ -39,7 +39,7 @@ texture = ExtResource( 3 )
 position = Vector2( 312, -26 )
 polygon = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32, 31, -32 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="ColorMap" type="TileMap" parent="."]
 cell_size = Vector2( 16, 16 )
 format = 1
 script = ExtResource( 5 )

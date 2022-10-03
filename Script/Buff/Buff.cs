@@ -67,6 +67,7 @@ public class Buff : Node2D, IInfomatable
         switch (type)
         {
             case BuffType.SpeedDecrease:
+            case BuffType.Dive:
                 owner.speed -= deltaValue;
                 break;
         }

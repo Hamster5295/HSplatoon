@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class Bullet : Area2D
 {
+    [Signal] public delegate void OnMove(float delta);
+    [Signal] public delegate void OnDestory();
+
     [Export] public float speed;
 
     private float damage, range, debuff;
@@ -12,17 +15,21 @@ public class Bullet : Area2D
 
     private float timer = 0, travelled = 0;
 
+    public float Range { get => range; private set => range = value; }
+    public int ColorSpread { get => colorSpread; private set => colorSpread = value; }
+    public Unit UnitOwner { get => owner; private set => owner = value; }
+
     public Bullet Init(Weapon weapon)
     {
-        owner = weapon.Host;
+        UnitOwner = weapon.Host;
 
         Position = weapon.GetHead();
         GlobalRotation = weapon.GlobalRotation;
 
         damage = weapon.damage;
         debuff = weapon.speedDecrease;
-        range = weapon.range;
-        colorSpread = weapon.spread;
+        Range = weapon.range;
+        ColorSpread = weapon.spread;
 
         Modulate = weapon.Host.Color;
 
@@ -36,14 +43,16 @@ public class Bullet : Area2D
         Translate(Vector2.Up.Rotated(Rotation) * deltaDistance);
         travelled += deltaDistance;
 
-        if (travelled >= range) QueueFree();
+        EmitSignal(nameof(OnMove), deltaDistance);
+
+        if (travelled >= Range) Release();
     }
 
     private void OnBodyEntered(Node n)
     {
-        if (n == owner) return;
+        if (n == UnitOwner) return;
 
-        QueueFree();
+        Release();
 
         if (n is Unit u)
         {
@@ -51,8 +60,9 @@ public class Bullet : Area2D
         }
     }
 
-    public void SpreadColor(int spread)
+    public void Release()
     {
-
+        EmitSignal(nameof(OnDestory));
+        QueueFree();
     }
 }

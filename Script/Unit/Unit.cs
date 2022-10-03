@@ -47,6 +47,7 @@ public class Unit : KinematicBody2D
     {
         HP = maxHP;
         Color = TeamUtils.GetColor(team);
+        ink = maxInk;
 
         parent_weapon = GetNode<Node2D>("Weapon");
         parent_buff = GetNode<Node2D>("Buff");

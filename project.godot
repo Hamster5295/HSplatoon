@@ -18,11 +18,6 @@ config/icon="res://icon.png"
 
 Mouse="*res://Script/Util/Mouse.cs"
 
-[display]
-
-window/size/test_width=1920
-window/size/test_height=1080
-
 [global]
 
 anti=false
