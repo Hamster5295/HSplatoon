@@ -22,6 +22,9 @@ texture = ExtResource( 2 )
 [node name="Controller" type="Node2D" parent="Component" index="0"]
 script = ExtResource( 3 )
 
+[node name="Weapon" parent="." index="2"]
+position = Vector2( 0, 10 )
+
 [node name="Col" parent="." index="4"]
 position = Vector2( 0, 3 )
 shape = SubResource( 1 )

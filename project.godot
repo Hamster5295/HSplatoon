@@ -17,6 +17,10 @@ config/icon="res://icon.png"
 
 Mouse="*res://Script/Util/Mouse.cs"
 
+[global]
+
+anti=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
