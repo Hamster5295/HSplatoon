@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Prefab/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Prefab/Weapon/Gun.tscn" type="PackedScene" id=4]
 
+[sub_resource type="CapsuleShape2D" id=1]
+
 [node name="Sample" type="Node2D"]
 
 [node name="Cam" type="Camera2D" parent="."]
 unique_name_in_owner = true
 current = true
+process_mode = 0
 smoothing_enabled = true
 smoothing_speed = 10.0
 drag_margin_left = 0.1
@@ -24,7 +27,7 @@ script = ExtResource( 2 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 debug_weapon = ExtResource( 4 )
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+[node name="Remote" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Cam")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -36,3 +39,15 @@ texture = ExtResource( 3 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2( 312, -26 )
 polygon = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32, 31, -32 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 68, 2 )
+shape = SubResource( 1 )
+
+[node name="Icon" type="Polygon2D" parent="."]
+position = Vector2( 28, -99 )
+antialiased = true
+texture = ExtResource( 3 )
+polygon = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32, 31, -32 )
+uv = PoolVector2Array( 64, 0, 64, 64, 0, 64, 0, 0, 63, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ) ]

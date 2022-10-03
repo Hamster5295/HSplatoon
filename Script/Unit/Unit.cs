@@ -42,10 +42,10 @@ public class Unit : KinematicBody2D
         parent_buff = GetNode<Node2D>("Buff");
 
         Modulate = color;
-
-
+        
         //For test only
         SetWeapon(debug_weapon);
+
     }
 
     public override void _PhysicsProcess(float delta)
