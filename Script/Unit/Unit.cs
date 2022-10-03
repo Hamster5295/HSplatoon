@@ -4,10 +4,11 @@ using System.Collections.Generic;
 public class Unit : KinematicBody2D
 {
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed;
-    [Export] public Color color;
+    [Export] public Team team;
     [Export] public PackedScene debug_weapon;
 
     private Weapon weapon;
+    private Color color;
 
     private float hp;
     private Vector2 currentSpeed;
@@ -28,6 +29,7 @@ public class Unit : KinematicBody2D
     public Vector2 CurrentSpeed { get => currentSpeed; set { currentSpeed = value.LimitLength(speed); } }
 
     public Weapon Weapon { get => weapon; }
+    public Color Color { get => color; private set => color = value; }
 
     //Buff由Tag控制唯一性
     private Dictionary<string, Buff> buffs = new System.Collections.Generic.Dictionary<string, Buff>();
@@ -37,12 +39,13 @@ public class Unit : KinematicBody2D
     public override void _Ready()
     {
         HP = maxHP;
+        Color = TeamUtils.GetColor(team);
 
         parent_weapon = GetNode<Node2D>("Weapon");
         parent_buff = GetNode<Node2D>("Buff");
 
-        Modulate = color;
-        
+        Modulate = Color;
+
         //For test only
         SetWeapon(debug_weapon);
 
