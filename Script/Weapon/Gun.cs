@@ -13,7 +13,7 @@ public class Gun : Component<Weapon>
 
         Host.type = WeaponType.Gun;
         Host.Connect(nameof(Weapon.OnUseBegin), this, nameof(OnUseBegin));
-        Host.Connect(nameof(Weapon.OnUseBegin), this, nameof(OnUseBegin));
+        Host.Connect(nameof(Weapon.OnUseEnd), this, nameof(OnUseEnd));
         Host.Connect(nameof(Weapon.OnUseStay), this, nameof(OnUseStay));
     }
 
@@ -38,6 +38,11 @@ public class Gun : Component<Weapon>
     public void OnUseBegin()
     {
         isUsing = true;
+        if (timer >= cd)
+        {
+            timer = 0;
+            Host.Fire();
+        }
     }
 
     public void OnUseEnd()
