@@ -48,12 +48,14 @@ public class Controller : Component<Unit>
 
         if (isMouseHolded) Host.Weapon.HandleStay(delta);
 
-        if(Input.IsActionJustPressed("use_secondary")){
-            
+        if (Input.IsActionJustPressed("use_secondary"))
+        {
+            Host.Weapon.HandleSecondary();
         }
 
-        if(Input.IsActionJustPressed("use_special")){
-
+        if (Input.IsActionJustPressed("use_special"))
+        {
+            Host.Weapon.HandleSpecial();
         }
     }
 }

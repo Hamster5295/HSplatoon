@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract class SecondaryWeapon : WeaponComponent
+public class SecondaryWeapon : WeaponComponent
 {
     [Export] public int count = 1;
 
@@ -12,8 +12,11 @@ public abstract class SecondaryWeapon : WeaponComponent
         Host.Connect(nameof(Weapon.OnActivateSecondary), this, nameof(OnActivateSecondary));
     }
 
-    public abstract void OnUseSecondary(float delta);
-    
+    public void OnUseSecondary()
+    {
+        Fire();
+    }
+
     public virtual void OnActivateSecondary(float delta)
     {
         Host.SetState(WeaponState.Secondary, count);
