@@ -11,10 +11,9 @@ public class Weapon : Component<Unit>
     [Signal] public delegate void OnUseSpecial();
 
     [Export] public string weaponName;
-    [Export] public PackedScene bullet;
     [Export] public WeaponType type;
-    [Export] public float damage, range, inkCost, arc, recoil;
-    [Export] public int spread;
+    [Export] public float recoil;
+
 
     private Node2D parent_bullet;
     private Sprite sprite;
@@ -40,15 +39,19 @@ public class Weapon : Component<Unit>
         }
     }
 
-    public void Fire()
+    public void Fire(Bullet bullet)
     {
-        if (Host.Ink < inkCost) return;
+        // if (Host.Ink < inkCost) return;
         if (Host.IsDiving) return;
-        Host.Ink -= inkCost;
+        // Host.Ink -= inkCost;
 
         headIndex++;
         if (headIndex >= heads.Count) headIndex = 0;
-        parent_bullet.AddChild(bullet.Instance<Bullet>().Init(this));
+
+        bullet.Position = GetHead();
+        bullet.Rotation = GlobalRotation;
+
+        parent_bullet.AddChild(bullet);
 
         tween.StopAll();
         tween.InterpolateProperty(this, "position", recoil * Vector2.Down.Rotated(Rotation), Vector2.Zero, 0.2f);

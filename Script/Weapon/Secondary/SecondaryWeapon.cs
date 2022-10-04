@@ -1,4 +1,4 @@
-public abstract class SecondaryWeapon : Component<Weapon>
+public abstract class SecondaryWeapon : WeaponComponent
 {
     public override void _Ready()
     {

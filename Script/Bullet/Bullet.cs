@@ -19,19 +19,17 @@ public class Bullet : Area2D
     public int ColorSpread { get => colorSpread; private set => colorSpread = value; }
     public Unit UnitOwner { get => owner; private set => owner = value; }
 
-    public Bullet Init(Weapon weapon)
+    public Bullet Init(WeaponComponent weapon)
     {
-        UnitOwner = weapon.Host;
+        UnitOwner = weapon.Host.Host;
 
-        Position = weapon.GetHead();
-        GlobalRotation = weapon.GlobalRotation;
         Rotate(Mathf.Deg2Rad(weapon.arc) * (GD.Randf() - 0.5f));
 
         damage = weapon.damage;
         Range = weapon.range;
         ColorSpread = weapon.spread;
 
-        Modulate = weapon.Host.Color;
+        Modulate = TeamUtils.GetLightColor(weapon.Host.Host.team);
 
         Connect("body_entered", this, nameof(OnBodyEntered));
         return this;

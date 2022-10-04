@@ -7,6 +7,8 @@ public enum Team
 
 public class TeamUtils
 {
+    private static Color swift = new Color(0.2f, 0.2f, 0.2f, 0);
+
     public static Color GetColor(Team t)
     {
         switch (t)
@@ -30,6 +32,11 @@ public class TeamUtils
 
     public static Color GetDarkColor(Team t)
     {
-        return GetColor(t) - new Color(0.2f, 0.2f, 0.2f, 0);
+        return GetColor(t) - swift;
+    }
+
+    public static Color GetLightColor(Team t)
+    {
+        return GetColor(t) + swift;
     }
 }

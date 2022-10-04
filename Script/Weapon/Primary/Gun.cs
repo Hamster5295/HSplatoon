@@ -27,7 +27,7 @@ public class Gun : PrimaryWeapon
         if (timer >= cd)
         {
             timer = 0;
-            Host.Fire();
+            Fire();
         }
     }
 
@@ -37,7 +37,7 @@ public class Gun : PrimaryWeapon
         if (timer >= cd)
         {
             timer = 0;
-            Host.Fire();
+            Fire();
         }
     }
 
