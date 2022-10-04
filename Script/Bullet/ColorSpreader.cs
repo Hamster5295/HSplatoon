@@ -23,7 +23,7 @@ public class ColorSpreader : Component<Bullet>
 
         paintParent = Host.UnitOwner.GetParent().GetNode<Node2D>("ColorMap");
 
-        offset = (GD.Randf() - 0.5f) * 2 * rand * 16;
+        offset = (GD.Randf() - 0.5f) * 2 * rand * HMap.GetSize().x;
 
         Spread();
     }

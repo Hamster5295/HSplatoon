@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Unit : KinematicBody2D
 {
+    public static float DAMAGE_PER_SECOND_ON_ENEMY_COLOR = 10, SPEED_DECREASE_WHEN_HIT = -0.3f;
+
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkGainSpeed, landBuffer;
     [Export] public Team team;
     [Export(PropertyHint.ResourceType, "Texture")] public Texture diveTexture;
@@ -109,6 +111,11 @@ public class Unit : KinematicBody2D
                 }
             }
         }
+
+        if (HMap.IsOnEnemyTeamColor(GlobalPosition, team))
+        {
+            TakeDamage(DAMAGE_PER_SECOND_ON_ENEMY_COLOR * delta);
+        }
     }
 
     public override void _PhysicsProcess(float delta)
@@ -151,12 +158,11 @@ public class Unit : KinematicBody2D
         }
     }
 
-    public void TakeDamage(float damage, float speedDecrease)
+    public void TakeDamage(float damage)
     {
         HP -= damage;
 
-        if (speedDecrease == 0) return;
-        ApplyBuff("DamageSD", BuffType.Speed, speedDecrease, 0.5f);
+        ApplyBuff("DamageSD", BuffType.Speed, SPEED_DECREASE_WHEN_HIT, 0.5f);
     }
 
     public void SetWeapon(PackedScene w)

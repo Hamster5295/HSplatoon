@@ -21,6 +21,11 @@ public class HMap : TileMap
         }
     }
 
+    public static Vector2 GetSize()
+    {
+        return instance.CellSize;
+    }
+
     public static bool IsOnTeamColor(Vector2 globalPos, Team t)
     {
         return instance.IsSameTeamInterval(globalPos, t);
@@ -41,6 +46,18 @@ public class HMap : TileMap
     private bool IsOnEmptyCellInterval(Vector2 globalPos)
     {
         return !map.ContainsKey(WorldToMap(globalPos));
+    }
+
+    public static bool IsOnEnemyTeamColor(Vector2 globalPos, Team t)
+    {
+        return instance.IsOnEnemyTeamColorInterval(globalPos, t);
+    }
+
+    private bool IsOnEnemyTeamColorInterval(Vector2 globalPos, Team t)
+    {
+        var tilePos = WorldToMap(globalPos);
+        if (!map.ContainsKey(tilePos)) return false;
+        return map[tilePos] != t;
     }
 
     public static void Claim(Vector2 globalPos, Team t)

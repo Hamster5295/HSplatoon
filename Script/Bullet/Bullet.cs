@@ -8,7 +8,7 @@ public class Bullet : Area2D
 
     [Export] public float speed;
 
-    private float damage, range, debuff;
+    private float damage, range;
     private int colorSpread;
 
     private Unit owner;
@@ -28,7 +28,6 @@ public class Bullet : Area2D
         Rotate(Mathf.Deg2Rad(weapon.arc) * (GD.Randf() - 0.5f));
 
         damage = weapon.damage;
-        debuff = weapon.speedDecrease;
         Range = weapon.range;
         ColorSpread = weapon.spread;
 
@@ -57,7 +56,7 @@ public class Bullet : Area2D
 
         if (n is Unit u)
         {
-            u.TakeDamage(damage, debuff);
+            u.TakeDamage(damage);
         }
     }
 
