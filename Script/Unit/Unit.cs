@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Unit : KinematicBody2D
 {
-    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkSave = 0.7f, inkGainSpeed, landBuffer;
+    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkGainSpeed, landBuffer;
     [Export] public Team team;
     [Export(PropertyHint.ResourceType, "Texture")] public Texture diveTexture;
     [Export] public PackedScene debug_weapon;
@@ -68,13 +68,6 @@ public class Unit : KinematicBody2D
         if (IsDiving)
         {
             Ink += inkGainSpeed * delta;
-        }
-        else
-        {
-            if (Ink > maxInk * inkSave)
-            {
-                Ink -= inkGainSpeed * delta;
-            }
         }
 
         if (isLanding)
@@ -159,7 +152,6 @@ public class Unit : KinematicBody2D
 
     public void RemoveBuff(string tag)
     {
-        GD.Print("gg");
         if (!HasBuff(tag)) return;
 
         buffs[tag].QueueFree();

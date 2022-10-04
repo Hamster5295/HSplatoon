@@ -40,7 +40,7 @@ public class Weapon : Component<Unit>
     public void Fire()
     {
         if (Host.Ink < inkCost) return;
-        if(Host.IsDiving) return;
+        if (Host.IsDiving) return;
         Host.Ink -= inkCost;
 
         headIndex++;
@@ -48,7 +48,7 @@ public class Weapon : Component<Unit>
         parent_bullet.AddChild(bullet.Instance<Bullet>().Init(this));
 
         tween.StopAll();
-        tween.InterpolateProperty(this, "position:y", recoil, 0, 0.2f);
+        tween.InterpolateProperty(this, "position", recoil * Vector2.Down.Rotated(Rotation), Vector2.Zero, 0.2f);
         tween.Start();
     }
 
