@@ -33,6 +33,16 @@ public class HMap : TileMap
         return map[tilePos] == t;
     }
 
+    public static bool IsOnEmptyCell(Vector2 globalPos)
+    {
+        return instance.IsOnEmptyCellInterval(globalPos);
+    }
+
+    private bool IsOnEmptyCellInterval(Vector2 globalPos)
+    {
+        return !map.ContainsKey(WorldToMap(globalPos));
+    }
+
     public static void Claim(Vector2 globalPos, Team t)
     {
         instance.ClaimInterval(globalPos, t);

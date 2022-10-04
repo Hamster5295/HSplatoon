@@ -98,8 +98,15 @@ public class Unit : KinematicBody2D
             }
             else
             {
-                RemoveBuff("Dive_Ink");
-                ApplyBuff("Dive_Land", BuffType.Dive, -0.5f, -1);
+                if (HMap.IsOnEmptyCell(GlobalPosition))
+                {
+                    RemoveBuff("Dive_Ink");
+                    ApplyBuff("Dive_Land", BuffType.Dive, -0.5f, -1);
+                }
+                else
+                {
+                    Land();
+                }
             }
         }
     }
