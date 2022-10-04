@@ -20,6 +20,9 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -70 )
 
+[node name="Head" parent="Heads" index="0"]
+position = Vector2( 0, -19 )
+
 [node name="Gun" type="Node2D" parent="." index="3"]
 script = ExtResource( 1 )
 cd = 0.15
