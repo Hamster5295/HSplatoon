@@ -18,6 +18,7 @@ public class Bullet : Area2D
     public float Range { get => range; private set => range = value; }
     public int ColorSpread { get => colorSpread; private set => colorSpread = value; }
     public Unit UnitOwner { get => owner; private set => owner = value; }
+    public float Damage { get => damage; set => damage = value; }
 
     public Bullet Init(WeaponComponent weapon)
     {
@@ -25,7 +26,7 @@ public class Bullet : Area2D
 
         Rotate(Mathf.Deg2Rad(weapon.arc) * (GD.Randf() - 0.5f));
 
-        damage = weapon.damage;
+        Damage = weapon.damage;
         Range = weapon.range;
         ColorSpread = weapon.spread;
 
@@ -54,7 +55,7 @@ public class Bullet : Area2D
 
         if (n is Unit u)
         {
-            u.TakeDamage(damage);
+            u.TakeDamage(Damage);
         }
     }
 

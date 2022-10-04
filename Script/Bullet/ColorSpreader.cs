@@ -7,6 +7,7 @@ public class ColorSpreader : Component<Bullet>
 
     [Export] public int count;
     [Export] public float rand;
+    [Export] public bool spreadOnCreate = true;
 
     private float deltaDistance = 0, travelled = 0;
 
@@ -19,13 +20,13 @@ public class ColorSpreader : Component<Bullet>
         base._Ready();
         Host.Connect(nameof(Bullet.OnMove), this, nameof(OnMove));
         Host.Connect(nameof(Bullet.OnDestory), this, nameof(OnDestory));
-        deltaDistance = Host.Range / (float)(count - 1);
+        deltaDistance = Host.Range / (float)count;
 
         paintParent = Host.UnitOwner.GetParent().GetNode<Node2D>("ColorMap");
 
         offset = (GD.Randf() - 0.5f) * 2 * rand * HMap.GetSize().x;
 
-        Spread();
+        if (spreadOnCreate) Spread();
     }
 
     private void OnMove(float delta)

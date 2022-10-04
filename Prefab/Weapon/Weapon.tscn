@@ -8,6 +8,8 @@ recoil = 3.0
 
 [node name="Sprite" type="Sprite" parent="."]
 
+[node name="Components" type="Node2D" parent="."]
+
 [node name="Heads" type="Node2D" parent="."]
 
 [node name="Head" type="Position2D" parent="Heads"]

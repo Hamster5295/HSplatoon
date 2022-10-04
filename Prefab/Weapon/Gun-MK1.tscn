@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Prefab/Weapon/Gun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Script/Weapon/Secondary/SecondaryWeapon.cs" type="Script" id=2]
+
+[node name="Gun-MK1" instance=ExtResource( 1 )]
+weaponName = "测试用枪"
+
+[node name="Bomb" type="Node2D" parent="Components" index="1"]
+script = ExtResource( 2 )
+damage = 30.0
+range = 5.0
+spread = 5

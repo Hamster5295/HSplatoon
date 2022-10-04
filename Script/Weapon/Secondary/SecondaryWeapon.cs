@@ -12,12 +12,12 @@ public class SecondaryWeapon : WeaponComponent
         Host.Connect(nameof(Weapon.OnActivateSecondary), this, nameof(OnActivateSecondary));
     }
 
-    public void OnUseSecondary()
+    public virtual void OnUseSecondary()
     {
         Fire();
     }
 
-    public virtual void OnActivateSecondary(float delta)
+    public virtual void OnActivateSecondary()
     {
         Host.SetState(WeaponState.Secondary, count);
     }

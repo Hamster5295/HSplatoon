@@ -13,10 +13,7 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -70 )
 
-[node name="Head" parent="Heads" index="0"]
-position = Vector2( 0, -19 )
-
-[node name="Gun" type="Node2D" parent="." index="3"]
+[node name="Gun" type="Node2D" parent="Components" index="0"]
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
@@ -28,3 +25,6 @@ inkCost = 1.0
 arc = 10.0
 spread = 3
 cd = 0.15
+
+[node name="Head" parent="Heads" index="0"]
+position = Vector2( 0, -19 )
