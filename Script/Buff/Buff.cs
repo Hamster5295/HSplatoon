@@ -41,9 +41,9 @@ public class Buff : Node2D, IInfomatable
 
         switch (type)
         {
-            case BuffType.SpeedDecrease:
+            case BuffType.Speed:
             case BuffType.Dive:
-                deltaValue = owner.speed * (intensity + 1);
+                deltaValue = owner.speed * intensity;
                 owner.speed += deltaValue;
                 break;
         }
@@ -66,7 +66,7 @@ public class Buff : Node2D, IInfomatable
 
         switch (type)
         {
-            case BuffType.SpeedDecrease:
+            case BuffType.Speed:
             case BuffType.Dive:
                 owner.speed -= deltaValue;
                 break;
@@ -79,8 +79,8 @@ public class Buff : Node2D, IInfomatable
 
         switch (type)
         {
-            case BuffType.SpeedDecrease:
-                buffName = "减速";
+            case BuffType.Speed:
+                buffName = "速度";
                 break;
 
             case BuffType.Dive:
@@ -98,5 +98,5 @@ public class Buff : Node2D, IInfomatable
 
 public enum BuffType
 {
-    SpeedDecrease, Dive
+    Speed, Dive
 }

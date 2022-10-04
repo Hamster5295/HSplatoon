@@ -13,9 +13,9 @@ public class Unit : KinematicBody2D
     private Color color;
     private Texture normalTexture;
 
-    private float hp, ink, targetRotation, landTimer = 0;
+    private float hp, ink, targetRotation, originalSpeed;
     private Vector2 currentSpeed;
-    private bool isDiving = false, isLanding = false;
+    private bool isDiving = false;
 
     public float HP
     {
@@ -32,7 +32,16 @@ public class Unit : KinematicBody2D
 
     public float Ink { get => ink; set => ink = Mathf.Clamp(value, 0, maxInk); }
 
-    public Vector2 CurrentSpeed { get => currentSpeed; set { currentSpeed = value.LimitLength(speed); } }
+    public Vector2 CurrentSpeed
+    {
+        get => currentSpeed;
+        set
+        {
+            var length = value.Length();
+            if (length > currentSpeed.Length() && length > speed) return;
+            currentSpeed = value;
+        }
+    }
 
     public Weapon Weapon { get => weapon; }
     public Color Color { get => color; private set => color = value; }
@@ -49,6 +58,7 @@ public class Unit : KinematicBody2D
         HP = maxHP;
         Color = TeamUtils.GetColor(team);
         ink = maxInk;
+        originalSpeed = speed;
 
         parent_weapon = GetNode<Node2D>("Weapon");
         parent_buff = GetNode<Node2D>("Buff");
@@ -68,17 +78,16 @@ public class Unit : KinematicBody2D
         if (IsDiving)
         {
             Ink += inkGainSpeed * delta;
-        }
 
-        if (isLanding)
-        {
-            if (landTimer > 0)
+            if (HMap.IsOnTeamColor(GlobalPosition, team))
             {
-                landTimer -= delta;
+                RemoveBuff("Dive_Land");
+                ApplyBuff("Dive_Ink", BuffType.Dive, 1, -1);
             }
             else
             {
-                LandImmediately();
+                RemoveBuff("Dive_Ink");
+                ApplyBuff("Dive_Land", BuffType.Dive, -0.5f, -1);
             }
         }
     }
@@ -125,7 +134,7 @@ public class Unit : KinematicBody2D
         HP -= damage;
 
         if (speedDecrease == 0) return;
-        ApplyBuff(Buff.Create("DamageSD", BuffType.SpeedDecrease, speedDecrease, 0.5f));
+        ApplyBuff("DamageSD", BuffType.Speed, speedDecrease, 0.5f);
     }
 
     public void SetWeapon(PackedScene w)
@@ -134,14 +143,15 @@ public class Unit : KinematicBody2D
         parent_weapon.AddChild(Weapon);
     }
 
-    public void ApplyBuff(Buff buff)
+    public void ApplyBuff(string tag, BuffType type, float intensity, float duration)
     {
-        if (HasBuff(buff.tag))
-        {
-            buff.QueueFree();
-            return;
-        }
+        if (HasBuff(tag)) return;
 
+        ApplyBuffInterval(Buff.Create(tag, type, intensity, duration));
+    }
+
+    private void ApplyBuffInterval(Buff buff)
+    {
         parent_buff.AddChild(buff);
         buff.OnBuffAdded(this);
 
@@ -165,39 +175,21 @@ public class Unit : KinematicBody2D
 
     public void Dive()
     {
-        if (!HMap.IsOnTeamColor(GlobalPosition, team)) return;
-
-        if (isLanding)
-        {
-            isDiving = false;
-            isLanding = false;
-        }
-
         if (IsDiving) return;
-
         IsDiving = true;
 
-        ApplyBuff(Buff.Create("Dive", BuffType.Dive, 0.5f, -1));
         sprite.Texture = diveTexture;
-
         weapon.Visible = false;
     }
 
     public void Land()
     {
-        if (!isDiving) return;
-        if (isLanding) return;
-        landTimer = landBuffer;
-        isLanding = true;
-    }
-
-    public void LandImmediately()
-    {
-        RemoveBuff("Dive");
         sprite.Texture = normalTexture;
         weapon.Visible = true;
 
         isDiving = false;
-        isLanding = false;
+
+        RemoveBuff("Dive_Land");
+        RemoveBuff("Dive_Ink");
     }
 }

@@ -39,13 +39,8 @@ public class Controller : Component<Unit>
         if (Input.IsActionJustPressed("move_dive"))
             Host.Dive();
 
-        if (Input.IsActionPressed("move_dive"))
-            if (!HMap.IsOnTeamColor(GlobalPosition, Host.team))
-                Host.Land();
-            else Host.Dive();
-
         if (Input.IsActionJustReleased("move_dive"))
-            Host.LandImmediately();
+            Host.Land();
 
 
         Host.Weapon.LookAt(Mouse.GetGlobalPos());
