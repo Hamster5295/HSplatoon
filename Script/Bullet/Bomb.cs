@@ -10,6 +10,7 @@ public class Bomb : Component<Bullet>
         base._Ready();
 
         area = GetNode<Area2D>("Area");
+        area.GetNode<CollisionShape2D>("Col").Shape.Set("radius", HMap.GetSize() * Host.Host.spread);
 
         Host.Connect(nameof(Bullet.OnDestory), this, nameof(OnDestory));
     }

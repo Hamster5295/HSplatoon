@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Prefab/Bullet/Bomb.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 22.3607
+
+[node name="Bomb_MK1" instance=ExtResource( 1 )]
+speed = 800.0
+speedDecrease = 1200.0
+
+[node name="Col" parent="Component/Bomb/Area" index="0"]
+shape = SubResource( 2 )
+
+[node name="Col" parent="." index="2"]
+shape = SubResource( 1 )

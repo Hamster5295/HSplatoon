@@ -65,19 +65,13 @@ public class HMap : TileMap
         instance.ClaimInterval(globalPos, t);
     }
 
-    private void ClaimInterval(Vector2 globalPos, Team t)
+    private void ClaimInterval(Vector2 globalPos, Team t, bool update = true)
     {
         var tilePos = WorldToMap(globalPos);
         if (!map.ContainsKey(tilePos)) map.Add(tilePos, t);
         else map[tilePos] = t;
-    }
 
-    private void ClaimWithTileInterval(Vector2 tilePos, Team t)
-    {
-        if (!map.ContainsKey(tilePos)) map.Add(tilePos, t);
-        else map[tilePos] = t;
-
-        Update();
+        if (update) Update();
     }
 
     public static void ClaimCircle(Vector2 globalCenter, int radius, Team t)
@@ -94,9 +88,16 @@ public class HMap : TileMap
             for (int j = -radius; j <= radius; j++)
             {
                 Vector2 pos = new Vector2(i, j);
+                Vector2 globalPos = MapToWorld(centerPos + pos) + CellSize / 2;
                 if (pos.Length() <= radius)
                 {
-                    ClaimWithTileInterval(centerPos + pos, t);
+                    var list = GetWorld2d().DirectSpaceState.IntersectRay(globalCenter, globalPos, collisionLayer: 0b100);
+                    if (list.Count == 0)
+                        ClaimInterval(globalPos, t, false);
+                    else
+                    {
+                        // GD.Print(list["collider"]);
+                    }
                 }
             }
         }

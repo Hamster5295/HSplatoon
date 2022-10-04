@@ -6,12 +6,13 @@ public class Bullet : Area2D
     [Signal] public delegate void OnMove(float delta);
     [Signal] public delegate void OnDestory();
 
-    [Export] public float speed;
+    [Export] public float speed, speedDecrease;
 
     private float damage, range;
     private int colorSpread;
 
     private Unit owner;
+    private WeaponComponent host;
 
     private float timer = 0, travelled = 0;
 
@@ -19,9 +20,11 @@ public class Bullet : Area2D
     public int ColorSpread { get => colorSpread; private set => colorSpread = value; }
     public Unit UnitOwner { get => owner; private set => owner = value; }
     public float Damage { get => damage; set => damage = value; }
+    public WeaponComponent Host { get => host; set => host = value; }
 
     public Bullet Init(WeaponComponent weapon)
     {
+        Host = weapon;
         UnitOwner = weapon.Host.Host;
 
         Rotate(Mathf.Deg2Rad(weapon.arc) * (GD.Randf() - 0.5f));
@@ -36,11 +39,12 @@ public class Bullet : Area2D
         return this;
     }
 
-    public override void _Process(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         var deltaDistance = speed * delta;
         Translate(Vector2.Up.Rotated(Rotation) * deltaDistance);
         travelled += deltaDistance;
+        speed -= speedDecrease * delta;
 
         EmitSignal(nameof(OnMove), deltaDistance);
 

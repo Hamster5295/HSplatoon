@@ -8,6 +8,9 @@ public class WeaponComponent : Component<Weapon>
 
     protected void Fire()
     {
+        if (Host.Host.Ink < inkCost) return;
+        Host.Host.Ink -= inkCost;
+
         Host.Fire(bullet.Instance<Bullet>().Init(this));
     }
 }

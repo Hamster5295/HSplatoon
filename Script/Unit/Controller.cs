@@ -8,7 +8,9 @@ public class Controller : Component<Unit>
     {
         if (@event is InputEventMouseButton e)
         {
-            if (@e.Pressed) { Host.Weapon.HandleBegin(); isMouseHolded = true; }
+            if (e.ButtonIndex != (int)ButtonList.Left) return;
+
+            if (e.Pressed) { Host.Weapon.HandleBegin(); isMouseHolded = true; }
             else { Host.Weapon.HandleEnd(); isMouseHolded = false; }
         }
     }

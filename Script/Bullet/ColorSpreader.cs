@@ -46,7 +46,7 @@ public class ColorSpreader : Component<Bullet>
 
     private void Spread()
     {
-        HMap.ClaimCircle(Host.GlobalPosition, Host.ColorSpread, Host.UnitOwner.team);
+        HMap.ClaimCircle(GlobalPosition, Host.ColorSpread, Host.UnitOwner.team);
 
         // circle = GD.Load<Texture>("res://Texture/Paint.png");
 

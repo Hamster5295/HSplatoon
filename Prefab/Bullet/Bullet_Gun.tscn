@@ -15,10 +15,10 @@ scale = Vector2( 0.04, 0.05 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, 90 )
 
-[node name="Col" parent="." index="1"]
-shape = SubResource( 1 )
-
 [node name="ColorSpread" type="Node2D" parent="." index="2"]
 script = ExtResource( 3 )
 count = 3
 rand = 1.0
+
+[node name="Col" parent="." index="3"]
+shape = SubResource( 1 )

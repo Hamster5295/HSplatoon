@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Prefab/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Script/Util/HMap.cs" type="Script" id=5]
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24, 24 )
+
 [node name="Sample" type="Node2D"]
 
 [node name="Cam" type="Camera2D" parent="."]
-unique_name_in_owner = true
 current = true
 process_mode = 0
 smoothing_enabled = true
@@ -22,22 +24,22 @@ editor_draw_drag_margin = true
 [node name="CameraInstance" type="Node2D" parent="Cam"]
 script = ExtResource( 2 )
 
+[node name="ColorMap" type="TileMap" parent="."]
+cell_size = Vector2( 8, 8 )
+format = 1
+script = ExtResource( 5 )
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
 [node name="Remote" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Cam")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 112, 0 )
+collision_layer = 4
 
 [node name="Icon" type="Sprite" parent="StaticBody2D"]
-position = Vector2( 312, -26 )
 texture = ExtResource( 3 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2( 312, -26 )
-polygon = PoolVector2Array( 32, -32, 32, 32, -32, 32, -32, -32, 31, -32 )
-
-[node name="ColorMap" type="TileMap" parent="."]
-cell_size = Vector2( 16, 16 )
-format = 1
-script = ExtResource( 5 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
