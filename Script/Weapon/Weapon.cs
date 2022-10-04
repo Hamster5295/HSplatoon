@@ -8,16 +8,19 @@ public class Weapon : Component<Unit>
     [Signal] public delegate void OnUseEnd();
 
     [Signal] public delegate void OnUseSecondary();
+    [Signal] public delegate void OnActivateSecondary();
+    [Signal] public delegate void OnActivateSpecial();
     [Signal] public delegate void OnUseSpecial();
 
     [Export] public string weaponName;
-    [Export] public WeaponType type;
     [Export] public float recoil;
 
 
     private Node2D parent_bullet;
     private Sprite sprite;
     private Tween tween;
+    private WeaponState state = WeaponState.Primary;
+    private int stateCounter = 0;
 
     private int headIndex = 0;
 
@@ -70,21 +73,60 @@ public class Weapon : Component<Unit>
 
     public void HandleBegin()
     {
-        EmitSignal(nameof(OnUseBegin));
+        switch (state)
+        {
+            case WeaponState.Primary:
+                EmitSignal(nameof(OnUseBegin));
+                break;
+
+            case WeaponState.Secondary:
+                EmitSignal(nameof(OnUseSecondary));
+                break;
+
+            case WeaponState.Special:
+                EmitSignal(nameof(OnUseSpecial));
+                break;
+        }
     }
 
     public void HandleStay(float delta)
     {
-        EmitSignal(nameof(OnUseStay), delta);
+        if (state == WeaponState.Primary)
+            EmitSignal(nameof(OnUseStay), delta);
     }
 
     public void HandleEnd()
     {
-        EmitSignal(nameof(OnUseEnd));
+        if (state == WeaponState.Primary)
+            EmitSignal(nameof(OnUseEnd));
+        else
+        {
+            stateCounter--;
+            if (stateCounter <= 0)
+                state = WeaponState.Primary;
+        }
+    }
+
+    public void HandleSecondary()
+    {
+        EmitSignal(nameof(OnActivateSecondary));
+    }
+
+    public void HandleSpecial()
+    {
+        EmitSignal(nameof(OnActivateSpecial));
+    }
+
+    public void SetState(WeaponState state, int count)
+    {
+        if (count <= 0) return;
+
+        this.state = state;
+        stateCounter = count;
     }
 }
 
-public enum WeaponType
+public enum WeaponState
 {
-    Gun, Bucket, Brush
+    Primary, Secondary, Special
 }

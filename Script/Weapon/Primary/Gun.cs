@@ -7,12 +7,6 @@ public class Gun : PrimaryWeapon
     private float timer = 0;
     private bool isUsing = false;
 
-    public override void _Ready()
-    {
-        base._Ready();
-        Host.type = WeaponType.Gun;
-    }
-
     public override void _Process(float delta)
     {
         if (!isUsing && timer < cd)
