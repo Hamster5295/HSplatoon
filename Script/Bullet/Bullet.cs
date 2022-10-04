@@ -59,7 +59,11 @@ public class Bullet : Area2D
 
         if (n is Unit u)
         {
-            u.TakeDamage(Damage);
+            bool killed = u.TakeDamage(Damage);
+            if (killed)
+            {
+                owner.OnKillEnemy();
+            }
         }
     }
 

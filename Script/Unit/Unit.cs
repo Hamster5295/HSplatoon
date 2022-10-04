@@ -3,7 +3,10 @@ using System.Collections.Generic;
 
 public class Unit : KinematicBody2D
 {
-    public static float DAMAGE_PER_SECOND_ON_ENEMY_COLOR = 10, SPEED_DECREASE_WHEN_HIT = -0.3f;
+    public static float DAMAGE_PER_SECOND_ON_ENEMY_COLOR = 10,
+    SPEED_DECREASE_WHEN_HIT = -0.3f,
+    ENERGY_NATURAL_GAIN = 20,
+    ENERGY_KILL_GAIN = 10;
 
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkGainSpeed, landBuffer;
     [Export] public Team team;
@@ -15,7 +18,7 @@ public class Unit : KinematicBody2D
     private Color color;
     private Texture normalTexture;
 
-    private float hp, ink, targetRotation;
+    private float hp, ink, targetRotation, energy;
     private Vector2 currentSpeed, accel = Vector2.Zero;
     private bool isDiving = false;
 
@@ -61,6 +64,8 @@ public class Unit : KinematicBody2D
     public Weapon Weapon { get => weapon; }
     public Color Color { get => color; private set => color = value; }
     public bool IsDiving { get => isDiving; private set => isDiving = value; }
+    public float Energy { get => energy; set => energy = Mathf.Clamp(value, 0, 100); }
+
     // public float TargetRotation { get => targetRotation; set => targetRotation = value; }
 
     //Buff由Tag控制唯一性
@@ -116,6 +121,8 @@ public class Unit : KinematicBody2D
         {
             TakeDamage(DAMAGE_PER_SECOND_ON_ENEMY_COLOR * delta);
         }
+
+        Energy += ENERGY_NATURAL_GAIN * delta;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -158,11 +165,13 @@ public class Unit : KinematicBody2D
         }
     }
 
-    public void TakeDamage(float damage)
+    public bool TakeDamage(float damage)
     {
         HP -= damage;
 
         ApplyBuff("DamageSD", BuffType.Speed, SPEED_DECREASE_WHEN_HIT, 0.5f);
+
+        return HP <= 0;
     }
 
     public void SetWeapon(PackedScene w)
@@ -220,5 +229,10 @@ public class Unit : KinematicBody2D
 
         RemoveBuff("Dive_Land");
         RemoveBuff("Dive_Ink");
+    }
+
+    public void OnKillEnemy()
+    {
+        Energy += ENERGY_KILL_GAIN;
     }
 }

@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Prefab/Weapon/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Weapon/Secondary/SecondaryWeapon.cs" type="Script" id=2]
-[ext_resource path="res://Prefab/Bullet/Bomb_MK1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefab/Bullet/MK1/Bomb_MK1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Script/Weapon/Special/SpecialWeapon.cs" type="Script" id=4]
+[ext_resource path="res://Prefab/Bullet/MK1/Bullet_Super_MK1.tscn" type="PackedScene" id=5]
 
 [node name="Gun-MK1" instance=ExtResource( 1 )]
 weaponName = "测试用枪"
@@ -17,3 +19,12 @@ damage = 60.0
 range = 250.0
 inkCost = 30.0
 spread = 10
+
+[node name="Super" type="Node2D" parent="Components" index="2"]
+script = ExtResource( 4 )
+bullet = ExtResource( 5 )
+damage = 80.0
+cd = 0.7
+range = 300.0
+spread = 8
+length = 2.7

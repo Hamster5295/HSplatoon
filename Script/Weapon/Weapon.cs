@@ -101,8 +101,9 @@ public class Weapon : Component<Unit>
             EmitSignal(nameof(OnUseEnd));
         else
         {
+            if(stateCounter == -1) return;
             stateCounter--;
-            if (stateCounter <= 0)
+            if (stateCounter == 0)
                 state = WeaponState.Primary;
         }
     }
@@ -119,7 +120,7 @@ public class Weapon : Component<Unit>
 
     public void SetState(WeaponState state, int count)
     {
-        if (count <= 0) return;
+        // if (count <= 0) return;
 
         this.state = state;
         stateCounter = count;

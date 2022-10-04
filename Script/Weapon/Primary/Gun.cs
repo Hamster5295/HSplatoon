@@ -2,9 +2,6 @@ using Godot;
 
 public class Gun : PrimaryWeapon
 {
-    [Export] public float cd;
-
-    private float timer = 0;
     private bool isUsing = false;
 
     public override void _Process(float delta)

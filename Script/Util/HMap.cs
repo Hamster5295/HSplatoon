@@ -94,10 +94,6 @@ public class HMap : TileMap
                     var list = GetWorld2d().DirectSpaceState.IntersectRay(globalCenter, globalPos, collisionLayer: 0b100);
                     if (list.Count == 0)
                         ClaimInterval(globalPos, t, false);
-                    else
-                    {
-                        // GD.Print(list["collider"]);
-                    }
                 }
             }
         }
