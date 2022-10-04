@@ -25,6 +25,7 @@ public class Bullet : Area2D
 
         Position = weapon.GetHead();
         GlobalRotation = weapon.GlobalRotation;
+        Rotate(Mathf.Deg2Rad(weapon.arc) * (GD.Randf() - 0.5f));
 
         damage = weapon.damage;
         debuff = weapon.speedDecrease;

@@ -8,10 +8,10 @@
 radius = 2.23607
 
 [node name="Bullet_Gun" instance=ExtResource( 1 )]
-speed = 800.0
+speed = 1200.0
 
 [node name="Sprite" parent="." index="0"]
-scale = Vector2( 0.02, 0.03 )
+scale = Vector2( 0.04, 0.05 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, 90 )
 

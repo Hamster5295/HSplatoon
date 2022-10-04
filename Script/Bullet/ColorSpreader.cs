@@ -19,11 +19,13 @@ public class ColorSpreader : Component<Bullet>
         base._Ready();
         Host.Connect(nameof(Bullet.OnMove), this, nameof(OnMove));
         Host.Connect(nameof(Bullet.OnDestory), this, nameof(OnDestory));
-        deltaDistance = Host.Range / (float)count;
+        deltaDistance = Host.Range / (float)(count - 1);
 
         paintParent = Host.UnitOwner.GetParent().GetNode<Node2D>("ColorMap");
 
         offset = (GD.Randf() - 0.5f) * 2 * rand * 16;
+
+        Spread();
     }
 
     private void OnMove(float delta)

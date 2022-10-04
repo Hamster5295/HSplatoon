@@ -47,7 +47,5 @@ public class Controller : Component<Unit>
         Host.Weapon.Rotate(Mathf.Tau / 4);
 
         if (isMouseHolded) Host.Weapon.HandleStay(delta);
-
-        GD.Print(Host.speed);
     }
 }
