@@ -22,6 +22,7 @@ texture = ExtResource( 2 )
 offset = Vector2( 0, -60 )
 
 [node name="Controller" type="Node2D" parent="Component" index="0"]
+process_priority = -1
 script = ExtResource( 3 )
 
 [node name="Col" parent="." index="4"]

@@ -13,8 +13,8 @@ public class Unit : KinematicBody2D
     private Color color;
     private Texture normalTexture;
 
-    private float hp, ink, targetRotation, originalSpeed;
-    private Vector2 currentSpeed;
+    private float hp, ink, targetRotation;
+    private Vector2 currentSpeed, accel = Vector2.Zero;
     private bool isDiving = false;
 
     public float HP
@@ -37,9 +37,22 @@ public class Unit : KinematicBody2D
         get => currentSpeed;
         set
         {
-            var length = value.Length();
-            if (length > currentSpeed.Length() && length > speed) return;
-            currentSpeed = value;
+            var origin = currentSpeed;
+            if (origin.Length() < speed)
+            {
+                if (value.Length() > speed)
+                {
+                    currentSpeed = value.Normalized() * speed;
+                }
+                else currentSpeed = value;
+            }
+            else
+            {
+                if (origin.Length() > value.Length())
+                {
+                    currentSpeed = value;
+                }
+            }
         }
     }
 
@@ -58,7 +71,6 @@ public class Unit : KinematicBody2D
         HP = maxHP;
         Color = TeamUtils.GetColor(team);
         ink = maxInk;
-        originalSpeed = speed;
 
         parent_weapon = GetNode<Node2D>("Weapon");
         parent_buff = GetNode<Node2D>("Buff");
@@ -77,10 +89,10 @@ public class Unit : KinematicBody2D
     {
         if (IsDiving)
         {
-            Ink += inkGainSpeed * delta;
-
             if (HMap.IsOnTeamColor(GlobalPosition, team))
             {
+                Ink += inkGainSpeed * delta;
+
                 RemoveBuff("Dive_Land");
                 ApplyBuff("Dive_Ink", BuffType.Dive, 1, -1);
             }
@@ -98,6 +110,9 @@ public class Unit : KinematicBody2D
         var deltaSpeed = acceleration / 2 * delta * CurrentSpeed.Normalized();
         CurrentSpeed -= deltaSpeed.Length() > CurrentSpeed.Length() ? CurrentSpeed : deltaSpeed;
 
+        CurrentSpeed += accel;
+        accel = Vector2.Zero;
+
         if (currentSpeed.Length() == 0) return;
         targetRotation = Vector2.Up.AngleTo(currentSpeed);
 
@@ -113,7 +128,7 @@ public class Unit : KinematicBody2D
 
     public void ApplyAccel(Vector2 direction, float delta)
     {
-        CurrentSpeed += acceleration * delta * direction;
+        accel += acceleration * delta * direction;
     }
 
     public void ChangeDirection(Vector2 axis)
@@ -164,6 +179,7 @@ public class Unit : KinematicBody2D
     {
         if (!HasBuff(tag)) return;
 
+        buffs[tag].OnBuffRemoved();
         buffs[tag].QueueFree();
         buffs.Remove(tag);
     }

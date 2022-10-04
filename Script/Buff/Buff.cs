@@ -60,7 +60,7 @@ public class Buff : Node2D, IInfomatable
         }
     }
 
-    public override void _ExitTree()
+    public void OnBuffRemoved()
     {
         if (!IsInstanceValid(owner)) return;
 

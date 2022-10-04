@@ -48,6 +48,6 @@ public class Controller : Component<Unit>
 
         if (isMouseHolded) Host.Weapon.HandleStay(delta);
 
-
+        GD.Print(Host.speed);
     }
 }
