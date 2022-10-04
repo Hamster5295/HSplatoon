@@ -1,6 +1,6 @@
 using Godot;
 
-public class Gun : Component<Weapon>
+public class Gun : PrimaryWeapon
 {
     [Export] public float cd;
 
@@ -10,11 +10,7 @@ public class Gun : Component<Weapon>
     public override void _Ready()
     {
         base._Ready();
-
         Host.type = WeaponType.Gun;
-        Host.Connect(nameof(Weapon.OnUseBegin), this, nameof(OnUseBegin));
-        Host.Connect(nameof(Weapon.OnUseEnd), this, nameof(OnUseEnd));
-        Host.Connect(nameof(Weapon.OnUseStay), this, nameof(OnUseStay));
     }
 
     public override void _Process(float delta)
@@ -25,7 +21,7 @@ public class Gun : Component<Weapon>
         }
     }
 
-    public void OnUseStay(float delta)
+    public override void OnUseStay(float delta)
     {
         timer += delta;
         if (timer >= cd)
@@ -35,7 +31,7 @@ public class Gun : Component<Weapon>
         }
     }
 
-    public void OnUseBegin()
+    public override void OnUseBegin()
     {
         isUsing = true;
         if (timer >= cd)
@@ -45,7 +41,7 @@ public class Gun : Component<Weapon>
         }
     }
 
-    public void OnUseEnd()
+    public override void OnUseEnd()
     {
         isUsing = false;
     }

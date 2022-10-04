@@ -7,6 +7,9 @@ public class Weapon : Component<Unit>
     [Signal] public delegate void OnUseStay(float delta);
     [Signal] public delegate void OnUseEnd();
 
+    [Signal] public delegate void OnUseSecondary();
+    [Signal] public delegate void OnUseSpecial();
+
     [Export] public string weaponName;
     [Export] public PackedScene bullet;
     [Export] public WeaponType type;
