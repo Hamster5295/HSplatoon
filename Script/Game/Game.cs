@@ -7,7 +7,6 @@ public class Game : Node2D
 
     public static Game instance;
 
-    private Tween tween;
     private Timer timer;
 
     private GameState state;
@@ -21,8 +20,9 @@ public class Game : Node2D
         instance = this;
         state = GameState.Ready;
         timer = GetNode<Timer>("Timer");
-        tween = GetNode<Tween>("Tween");
         timer.Connect("timeout", this, nameof(FinishGame));
+
+        CallDeferred(nameof(StartBeginningAnimation));
 
         // StartGame();
     }
@@ -63,6 +63,13 @@ public class Game : Node2D
         }
 
         players[u].Revive(REVIVE_TIME);
+    }
+
+    private void StartBeginningAnimation()
+    {
+        var logo = CombatUIRoot.instance.combatLogo;
+        logo.Connect(nameof(CombatLogo.OnAnimationFinished), this, nameof(StartGame));
+        logo.Start();
     }
 }
 

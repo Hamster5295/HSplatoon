@@ -1,15 +1,34 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Script/Unit/Unit.cs" type="Script" id=1]
 [ext_resource path="res://Texture/DivedUnit.png" type="Texture" id=2]
+[ext_resource path="res://Texture/GameUnit.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 15.0
+height = 10.0
 
 [node name="Unit" type="KinematicBody2D"]
 z_index = 10
 script = ExtResource( 1 )
-acceleration = 0.0
+__meta__ = {
+"_editor_description_": ""
+}
+maxHP = 100.0
+speed = 200.0
+acceleration = 1500.0
+rotateSpeed = 3.14
+inkGainSpeed = 10.0
+landBuffer = 0.1
 diveTexture = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -60 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Component" type="Node2D" parent="."]
 
@@ -18,3 +37,8 @@ diveTexture = ExtResource( 2 )
 [node name="Buff" type="Node2D" parent="."]
 
 [node name="Col" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -3 )
+shape = SubResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Prefab/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
@@ -10,11 +10,19 @@
 [ext_resource path="res://Texture/CombatLogo.png" type="Texture" id=8]
 [ext_resource path="res://Script/UI/Combat/CombatUIRoot.cs" type="Script" id=9]
 [ext_resource path="res://Script/UI/Combat/CombatLogo.cs" type="Script" id=10]
+[ext_resource path="res://Texture/GO.png" type="Texture" id=11]
+[ext_resource path="res://Texture/Ready.png" type="Texture" id=12]
+[ext_resource path="res://Prefab/Unit.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 24 )
 
 [node name="Sample" type="Node2D"]
+
+[node name="ColorMap" type="TileMap" parent="."]
+cell_size = Vector2( 8, 8 )
+format = 1
+script = ExtResource( 5 )
 
 [node name="Game" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -29,11 +37,41 @@ __meta__ = {
 "_gizmo_extents_": 0.0
 }
 
+[node name="GamePlayer2" parent="Game" instance=ExtResource( 6 )]
+unit = ExtResource( 13 )
+weapon = ExtResource( 7 )
+
+[node name="Point" parent="Game/GamePlayer2" index="0"]
+position = Vector2( -90, 37 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
+
+[node name="GamePlayer3" parent="Game" instance=ExtResource( 6 )]
+unit = ExtResource( 13 )
+weapon = ExtResource( 7 )
+team = 3
+
+[node name="Point" parent="Game/GamePlayer3" index="0"]
+position = Vector2( 59, -81 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
+
+[node name="GamePlayer4" parent="Game" instance=ExtResource( 6 )]
+unit = ExtResource( 13 )
+weapon = ExtResource( 7 )
+team = 3
+
+[node name="Point" parent="Game/GamePlayer4" index="0"]
+position = Vector2( 54, 51 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
+
 [node name="Timer" type="Timer" parent="Game"]
 wait_time = 120.0
 one_shot = true
-
-[node name="Tween" type="Tween" parent="Game"]
 
 [node name="Cam" type="Camera2D" parent="."]
 current = true
@@ -48,11 +86,6 @@ editor_draw_drag_margin = true
 
 [node name="CameraInstance" type="Node2D" parent="Cam"]
 script = ExtResource( 2 )
-
-[node name="ColorMap" type="TileMap" parent="."]
-cell_size = Vector2( 8, 8 )
-format = 1
-script = ExtResource( 5 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 112, 0 )
@@ -69,12 +102,15 @@ shape = SubResource( 1 )
 [node name="UIRoot" type="Control" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 9 )
 
 [node name="CombatLogo" type="Control" parent="UI/UIRoot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 10 )
+speed = 1.0
 
 [node name="StartImg" type="TextureRect" parent="UI/UIRoot/CombatLogo"]
 anchor_left = 0.5
@@ -85,9 +121,45 @@ margin_left = -250.0
 margin_top = -250.0
 margin_right = 250.0
 margin_bottom = 250.0
+mouse_filter = 2
 texture = ExtResource( 8 )
 expand = true
+
+[node name="ReadyImg" type="TextureRect" parent="UI/UIRoot/CombatLogo"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -50.0
+margin_right = 200.0
+margin_bottom = 50.0
+rect_pivot_offset = Vector2( 200, 50 )
+mouse_filter = 2
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="GoImg" type="TextureRect" parent="UI/UIRoot/CombatLogo"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -100.0
+margin_right = 150.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 150, 100 )
+mouse_filter = 2
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
 
 [node name="Tween" type="Tween" parent="UI/UIRoot/CombatLogo"]
 
 [editable path="Game/GamePlayer"]
+[editable path="Game/GamePlayer2"]
+[editable path="Game/GamePlayer3"]
+[editable path="Game/GamePlayer4"]

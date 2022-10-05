@@ -5,7 +5,7 @@ public class Unit : KinematicBody2D
 {
     public static float DAMAGE_PER_SECOND_ON_ENEMY_COLOR = 10,
     SPEED_DECREASE_WHEN_HIT = -0.3f,
-    ENERGY_NATURAL_GAIN = 20,
+    ENERGY_NATURAL_GAIN = 2,
     ENERGY_KILL_GAIN = 10;
 
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkGainSpeed, landBuffer;
@@ -261,6 +261,7 @@ public class Unit : KinematicBody2D
 
     public void OnRevive()
     {
+        hp = maxHP;
         Visible = true;
         state = UnitState.Normal;
     }

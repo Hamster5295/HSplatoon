@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Prefab/Unit.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Texture/GameUnit.png" type="Texture" id=2]
 [ext_resource path="res://Script/Unit/Controller.cs" type="Script" id=3]
-
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 15.0
-height = 10.0
 
 [node name="Player" instance=ExtResource( 1 )]
 maxHP = 100.0
@@ -16,15 +11,6 @@ rotateSpeed = 3.14
 inkGainSpeed = 10.0
 landBuffer = 0.1
 
-[node name="Sprite" parent="." index="0"]
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 2 )
-offset = Vector2( 0, -60 )
-
 [node name="Controller" type="Node2D" parent="Component" index="0"]
 process_priority = -1
 script = ExtResource( 3 )
-
-[node name="Col" parent="." index="4"]
-position = Vector2( 0, -3 )
-shape = SubResource( 1 )

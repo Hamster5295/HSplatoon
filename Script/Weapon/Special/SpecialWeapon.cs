@@ -42,7 +42,7 @@ public class SpecialWeapon : WeaponComponent
 
     public virtual void OnActivateSpecial()
     {
-        GD.Print(Host.Host.Energy);
+        // GD.Print(Host.Host.Energy);
         if (Host.Host.Energy < 100) return;
         Host.Host.Energy -= 100;
 

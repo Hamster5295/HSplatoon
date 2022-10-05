@@ -3,15 +3,11 @@ using Godot;
 public class GamePlayer : Component<Game>
 {
     [Export] public PackedScene unit, weapon;
+    [Export] public Team team;
 
     private Unit u;
     private float reviveTimer = 0;
     private Vector2 point;
-
-    public void Init()
-    {
-
-    }
 
     public override void _Ready()
     {
@@ -19,6 +15,7 @@ public class GamePlayer : Component<Game>
         point = GetNode<Position2D>("Point").GlobalPosition;
 
         u = unit.Instance<Unit>();
+        u.team = team;
         u.State = UnitState.Freeze;
         u.SetWeapon(weapon);
         u.GlobalPosition = point;
