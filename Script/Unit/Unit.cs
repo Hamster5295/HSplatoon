@@ -21,6 +21,7 @@ public class Unit : KinematicBody2D
     private float hp, ink, targetRotation, energy;
     private Vector2 currentSpeed, accel = Vector2.Zero;
     private bool isDiving = false;
+    private UnitState state = UnitState.Normal;
 
     public float HP
     {
@@ -31,6 +32,7 @@ public class Unit : KinematicBody2D
             if (hp < 0)
             {
                 //死亡逻辑
+                OnDead();
             }
         }
     }
@@ -65,6 +67,7 @@ public class Unit : KinematicBody2D
     public Color Color { get => color; private set => color = value; }
     public bool IsDiving { get => isDiving; private set => isDiving = value; }
     public float Energy { get => energy; set => energy = Mathf.Clamp(value, 0, 100); }
+    public UnitState State { get => state; set => state = value; }
 
     // public float TargetRotation { get => targetRotation; set => targetRotation = value; }
 
@@ -88,12 +91,15 @@ public class Unit : KinematicBody2D
         normalTexture = sprite.Texture;
 
         //For test only
-        SetWeapon(debug_weapon);
+        if (debug_weapon != null)
+            SetWeapon(debug_weapon);
 
     }
 
     public override void _Process(float delta)
     {
+        if (state != UnitState.Normal) return;
+
         if (IsDiving)
         {
             if (HMap.IsOnTeamColor(GlobalPosition, team))
@@ -127,6 +133,8 @@ public class Unit : KinematicBody2D
 
     public override void _PhysicsProcess(float delta)
     {
+        if (state != UnitState.Normal) return;
+
         MoveAndSlide(CurrentSpeed);
         var deltaSpeed = acceleration / 2 * delta * CurrentSpeed.Normalized();
         CurrentSpeed -= deltaSpeed.Length() > CurrentSpeed.Length() ? CurrentSpeed : deltaSpeed;
@@ -149,6 +157,7 @@ public class Unit : KinematicBody2D
 
     public void ApplyAccel(Vector2 direction, float delta)
     {
+        if (state != UnitState.Normal) return;
         accel += acceleration * delta * direction;
     }
 
@@ -177,6 +186,13 @@ public class Unit : KinematicBody2D
     public void SetWeapon(PackedScene w)
     {
         weapon = w.Instance<Weapon>();
+        if (parent_weapon == null) parent_weapon = GetNode<Node2D>("Weapon");
+
+        if (parent_weapon.GetChildCount() > 0)
+            foreach (var item in parent_weapon.GetChildren())
+            {
+                ((Node2D)item).QueueFree();
+            }
         parent_weapon.AddChild(Weapon);
     }
 
@@ -235,4 +251,22 @@ public class Unit : KinematicBody2D
     {
         Energy += ENERGY_KILL_GAIN;
     }
+
+    public void OnDead()
+    {
+        Visible = false;
+        state = UnitState.Dead;
+        Game.instance.RegisterRevive(this);
+    }
+
+    public void OnRevive()
+    {
+        Visible = true;
+        state = UnitState.Normal;
+    }
+}
+
+public enum UnitState
+{
+    Normal, Dead, Freeze
 }

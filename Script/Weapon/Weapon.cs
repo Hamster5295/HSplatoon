@@ -73,6 +73,8 @@ public class Weapon : Component<Unit>
 
     public void HandleBegin()
     {
+        if (Host.State != UnitState.Normal) return;
+
         switch (state)
         {
             case WeaponState.Primary:
@@ -91,17 +93,21 @@ public class Weapon : Component<Unit>
 
     public void HandleStay(float delta)
     {
+        if (Host.State != UnitState.Normal) return;
+
         if (state == WeaponState.Primary)
             EmitSignal(nameof(OnUseStay), delta);
     }
 
     public void HandleEnd()
     {
+        if (Host.State != UnitState.Normal) return;
+
         if (state == WeaponState.Primary)
             EmitSignal(nameof(OnUseEnd));
         else
         {
-            if(stateCounter == -1) return;
+            if (stateCounter == -1) return;
             stateCounter--;
             if (stateCounter == 0)
                 state = WeaponState.Primary;
@@ -110,11 +116,15 @@ public class Weapon : Component<Unit>
 
     public void HandleSecondary()
     {
+        if (Host.State != UnitState.Normal) return;
+
         EmitSignal(nameof(OnActivateSecondary));
     }
 
     public void HandleSpecial()
     {
+        if (Host.State != UnitState.Normal) return;
+
         EmitSignal(nameof(OnActivateSpecial));
     }
 

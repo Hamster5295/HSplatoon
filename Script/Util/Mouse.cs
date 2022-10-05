@@ -16,6 +16,6 @@ public class Mouse : Node2D
 
     private Vector2 GetGlobalPosInternal()
     {
-        return CameraInstance.current.Position - GetViewportRect().Size / 2 + GetViewport().GetMousePosition();
+        return CameraInstance.instance.Position - GetViewportRect().Size / 2 + GetViewport().GetMousePosition();
     }
 }

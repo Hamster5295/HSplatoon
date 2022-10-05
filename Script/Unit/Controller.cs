@@ -17,6 +17,10 @@ public class Controller : Component<Unit>
 
     public override void _PhysicsProcess(float delta)
     {
+        if (Host.State != UnitState.Normal) return;
+
+        CameraInstance.instance.GlobalPosition = GlobalPosition;
+
         if (Input.IsActionPressed("move_up"))
         {
             Host.ChangeDirection(Vector2.Up);
