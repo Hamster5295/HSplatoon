@@ -46,4 +46,4 @@ Demo game for the practice of BingYan Studio
 ## 10.6 一天
 1. 做好了UI、地图
 2. 完善了对局系统的细节部分
-3. 新武器：滚筒
+3. 新武器：滚筒（准确来说是笔刷，只是长得像滚筒，因为他不能碾人）
