@@ -26,6 +26,11 @@ public class HMap : TileMap
         return instance.CellSize;
     }
 
+    public static Dictionary<Vector2, Team> GetMap()
+    {
+        return instance.map;
+    }
+
     public static bool IsOnTeamColor(Vector2 globalPos, Team t)
     {
         return instance.IsSameTeamInterval(globalPos, t);

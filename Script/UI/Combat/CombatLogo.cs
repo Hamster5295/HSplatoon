@@ -1,6 +1,6 @@
 using Godot;
 
-public class CombatLogo : Control, IEffect
+public class CombatLogo : Control
 {
     [Signal] public delegate void OnAnimationFinished();
 

@@ -8,12 +8,16 @@ public class Game : Node2D
     public static Game instance;
 
     private Timer timer;
+    private Team playerTeam;
+    private Team enemyTeam;
 
     private GameState state;
     private Dictionary<Unit, GamePlayer> players = new Dictionary<Unit, GamePlayer>();
 
     public GameState State
     { get => state; }
+    public Team PlayerTeam { get => playerTeam; }
+    public Team EnemyTeam { get => enemyTeam; }
 
     public override void _Ready()
     {
@@ -46,11 +50,22 @@ public class Game : Node2D
         {
             item.Key.State = UnitState.Freeze;
         }
+
+        int p = 0, e = 0;
+        foreach (var item in HMap.GetMap())
+        {
+            if (item.Value == playerTeam) p++;
+            else if (item.Value == enemyTeam) e++;
+        }
+
+        CombatUIRoot.instance.end.Start(p, e);
     }
 
     public void AddUnit(Unit u, GamePlayer player)
     {
         players.Add(u, player);
+        if (player.type == TeamType.Player) playerTeam = player.team;
+        if (player.type == TeamType.Enemy) enemyTeam = player.team;
         GetParent().CallDeferred("add_child", u);
     }
 

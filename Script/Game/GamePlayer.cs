@@ -4,6 +4,8 @@ public class GamePlayer : Component<Game>
 {
     [Export] public PackedScene unit, weapon;
     [Export] public Team team;
+    // [Export] public bool isPlayer = false;
+    [Export] public TeamType type;
 
     private Unit u;
     private float reviveTimer = 0;
@@ -41,4 +43,9 @@ public class GamePlayer : Component<Game>
     {
         reviveTimer = time;
     }
+}
+
+public enum TeamType
+{
+    Player, Enemy
 }

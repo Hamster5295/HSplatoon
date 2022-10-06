@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Prefab/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
@@ -14,6 +14,13 @@
 [ext_resource path="res://Texture/Ready.png" type="Texture" id=12]
 [ext_resource path="res://Prefab/Unit.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Texture/Rect_Wall.png" type="Texture" id=14]
+[ext_resource path="res://Script/UI/EndUI.cs" type="Script" id=15]
+[ext_resource path="res://Texture/Finished.png" type="Texture" id=16]
+[ext_resource path="res://Texture/Cat1.png" type="Texture" id=17]
+[ext_resource path="res://Texture/Cat2.png" type="Texture" id=18]
+[ext_resource path="res://Font/AlimamaShuHeiTi-Bold.ttf" type="DynamicFontData" id=19]
+[ext_resource path="res://Texture/Flag_Stick.png" type="Texture" id=20]
+[ext_resource path="res://Texture/Flag_Face.png" type="Texture" id=21]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 28, 28, 4, 28, 4, 4, 28, 4 )
@@ -60,6 +67,390 @@ outlines = [ PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 ) ]
 1/shape_one_way_margin = 0.0
 1/shapes = [  ]
 1/z_index = 0
+
+[sub_resource type="BitmapFont" id=5]
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="DynamicFont" id=12]
+size = 41
+font_data = ExtResource( 19 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 47
+font_data = ExtResource( 19 )
+
+[sub_resource type="Animation" id=13]
+resource_name = "End"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Finish:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1024, 230 ), Vector2( 0, 230 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Finish:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( -0.4, 0, 1.7, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.3, 1.3 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1.3, 1.3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Finish:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.7, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Cat1:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Cat2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Cat1:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2.2, 2.6, 3, 3.4, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Cat2:rect_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 2.2, 2.6, 3, 3.4, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("PGB_Player:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("PGB_Enemy:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Label_Player:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Label_Enemy:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Count_Player:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Count_Enemy:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("PGB_Player:value")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 2.2, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 10.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("PGB_Enemy:value")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 2.2, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 10.0 ]
+}
+
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Finish:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Finish:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Finish:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1024, 230 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Cat1:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Cat2:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Cat1:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Cat2:rect_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("PGB_Player:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("PGB_Enemy:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Label_Player:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Label_Enemy:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Count_Player:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Count_Enemy:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("PGB_Player:value")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("PGB_Enemy:value")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [node name="Sample" type="Node2D"]
 
@@ -110,6 +501,7 @@ __meta__ = {
 unit = ExtResource( 13 )
 weapon = ExtResource( 7 )
 team = 3
+type = 1
 
 [node name="Point" parent="Nav/Game/GamePlayer3" index="0"]
 position = Vector2( 412, -172 )
@@ -121,6 +513,7 @@ __meta__ = {
 unit = ExtResource( 13 )
 weapon = ExtResource( 7 )
 team = 3
+type = 1
 
 [node name="Point" parent="Nav/Game/GamePlayer4" index="0"]
 position = Vector2( 428, 204 )
@@ -129,7 +522,7 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="Nav/Game"]
-wait_time = 120.0
+wait_time = 5.0
 one_shot = true
 
 [node name="Cam" type="Camera2D" parent="Nav"]
@@ -214,8 +607,143 @@ stretch_mode = 6
 [node name="Tween" type="Tween" parent="UI/UIRoot/CombatLogo"]
 
 [node name="EndUI" type="Control" parent="UI/UIRoot"]
-margin_right = 40.0
-margin_bottom = 40.0
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 15 )
+
+[node name="Tween" type="Tween" parent="UI/UIRoot/EndUI"]
+
+[node name="BG" type="ColorRect" parent="UI/UIRoot/EndUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.392157 )
+
+[node name="Finish" type="TextureRect" parent="UI/UIRoot/EndUI"]
+margin_left = -1024.0
+margin_top = 230.0
+margin_right = 8.0
+margin_bottom = 378.0
+rect_pivot_offset = Vector2( 516, 74 )
+mouse_filter = 2
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="Cat1" type="TextureRect" parent="UI/UIRoot/EndUI"]
+margin_left = 43.0
+margin_top = 261.0
+margin_right = 303.0
+margin_bottom = 461.0
+rect_pivot_offset = Vector2( 130, 200 )
+mouse_filter = 2
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 6
+
+[node name="Cat2" type="TextureRect" parent="UI/UIRoot/EndUI"]
+margin_left = 788.0
+margin_top = 319.0
+margin_right = 968.0
+margin_bottom = 459.0
+rect_pivot_offset = Vector2( 90, 140 )
+mouse_filter = 2
+texture = ExtResource( 18 )
+expand = true
+stretch_mode = 6
+
+[node name="PGB_Player" type="ProgressBar" parent="UI/UIRoot/EndUI"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -77.0
+custom_fonts/font = SubResource( 5 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 8 )
+
+[node name="PGB_Enemy" type="ProgressBar" parent="UI/UIRoot/EndUI"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1024.0
+margin_top = -77.0
+margin_right = 1024.0
+rect_scale = Vector2( -1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 9 )
+
+[node name="Label_Player" type="Label" parent="UI/UIRoot/EndUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 31.0
+margin_top = -133.0
+margin_right = 339.0
+margin_bottom = -83.0
+custom_fonts/font = SubResource( 12 )
+text = "我方队伍"
+valign = 2
+
+[node name="Label_Enemy" type="Label" parent="UI/UIRoot/EndUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 680.0
+margin_top = -133.0
+margin_right = 988.0
+margin_bottom = -83.0
+custom_fonts/font = SubResource( 12 )
+text = "敌方队伍"
+align = 2
+valign = 2
+
+[node name="Count_Player" type="Label" parent="UI/UIRoot/EndUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 31.0
+margin_top = -63.0
+margin_right = 339.0
+margin_bottom = -13.0
+custom_fonts/font = SubResource( 11 )
+
+[node name="Count_Enemy" type="Label" parent="UI/UIRoot/EndUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 685.0
+margin_top = -63.0
+margin_right = 993.0
+margin_bottom = -13.0
+custom_fonts/font = SubResource( 11 )
+align = 2
+
+[node name="Flag" type="TextureRect" parent="UI/UIRoot/EndUI"]
+visible = false
+margin_left = 317.0
+margin_top = 315.0
+margin_right = 324.0
+margin_bottom = 407.0
+texture = ExtResource( 20 )
+expand = true
+stretch_mode = 6
+
+[node name="F" type="TextureRect" parent="UI/UIRoot/EndUI/Flag"]
+margin_left = 3.0
+margin_right = 65.0
+margin_bottom = 43.0
+texture = ExtResource( 21 )
+expand = true
+stretch_mode = 6
+
+[node name="Ani" type="AnimationPlayer" parent="UI/UIRoot/EndUI"]
+anims/End = SubResource( 13 )
+anims/RESET = SubResource( 14 )
+
+[node name="PlayerFlagPos" type="Position2D" parent="UI/UIRoot/EndUI"]
+position = Vector2( 319, 408 )
+
+[node name="EnemyFlagPos" type="Position2D" parent="UI/UIRoot/EndUI"]
+position = Vector2( 748, 416 )
 
 [editable path="Nav/Game/GamePlayer"]
 [editable path="Nav/Game/GamePlayer2"]
