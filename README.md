@@ -42,3 +42,8 @@ Demo game for the practice of BingYan Studio
 1. 做完了对局系统的框架
 2. 完成了玩家的出生、复活机制
 3. 开始制作地图（demo用）
+
+## 10.6 一天
+1. 做好了UI、地图
+2. 完善了对局系统的细节部分
+3. 新武器：滚筒
