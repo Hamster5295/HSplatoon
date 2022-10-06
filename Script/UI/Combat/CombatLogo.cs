@@ -23,14 +23,14 @@ public class CombatLogo : Control
     public void Start()
     {
         tween.StopAll();
-        tween.InterpolateProperty(logo, "modulate:a", 1, 0, speed, delay: speed);
-        tween.InterpolateProperty(ready, "modulate:a", 0, 1, speed / 2, delay: speed * 2);
-        tween.InterpolateProperty(ready, "modulate:a", 1, 0, speed / 4, delay: speed * 3.5f);
-        tween.InterpolateProperty(ready, "rect_scale", Vector2.One, Vector2.One * 1.3f, speed / 4, delay: speed * 3.5f);
-        tween.InterpolateProperty(go, "modulate:a", 0, 1, speed / 2, delay: speed * 4f);
-        tween.InterpolateProperty(go, "modulate:a", 1, 0, speed / 4, delay: speed * 5f);
-        tween.InterpolateProperty(go, "rect_scale", Vector2.One, Vector2.One * 1.3f, speed / 4, delay: speed * 5f);
-        tween.InterpolateCallback(this, speed * 5.25f, "hide");
+        tween.InterpolateProperty(logo, "modulate:a", 1, 0, speed, delay: speed * 2);
+        tween.InterpolateProperty(ready, "modulate:a", 0, 1, speed / 2, delay: speed * 3);
+        tween.InterpolateProperty(ready, "modulate:a", 1, 0, speed / 4, delay: speed * 4.5f);
+        tween.InterpolateProperty(ready, "rect_scale", Vector2.One, Vector2.One * 1.3f, speed / 4, delay: speed * 4.5f);
+        tween.InterpolateProperty(go, "modulate:a", 0, 1, speed / 2, delay: speed * 5f);
+        tween.InterpolateProperty(go, "modulate:a", 1, 0, speed / 4, delay: speed * 6f);
+        tween.InterpolateProperty(go, "rect_scale", Vector2.One, Vector2.One * 1.3f, speed / 4, delay: speed * 6f);
+        tween.InterpolateCallback(this, speed * 6.25f, "hide");
         tween.Start();
     }
 

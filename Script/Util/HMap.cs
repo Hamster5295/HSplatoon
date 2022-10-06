@@ -6,11 +6,19 @@ public class HMap : TileMap
 {
     private static HMap instance;
     private static Texture circle = GD.Load<Texture>("res://Texture/Paint.png");
+
+    [Export] public Vector2 mapCorner1, mapCorner2;
+
     private Dictionary<Vector2, Team> map = new Dictionary<Vector2, Team>();
+    private int mapSize;
 
     public override void _Ready()
     {
         instance = this;
+        var c1 = WorldToMap(mapCorner1);
+        var c2 = WorldToMap(mapCorner2);
+        var c = (c1 - c2).Abs();
+        mapSize = Mathf.RoundToInt(c.x * c.y);
     }
 
     public override void _Draw()
@@ -29,6 +37,11 @@ public class HMap : TileMap
     public static Dictionary<Vector2, Team> GetMap()
     {
         return instance.map;
+    }
+
+    public static int GetMapSize()
+    {
+        return instance.mapSize;
     }
 
     public static bool IsOnTeamColor(Vector2 globalPos, Team t)

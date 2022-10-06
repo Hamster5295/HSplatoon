@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Prefab/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Font/AlimamaShuHeiTi-Bold.ttf" type="DynamicFontData" id=19]
 [ext_resource path="res://Texture/Flag_Stick.png" type="Texture" id=20]
 [ext_resource path="res://Texture/Flag_Face.png" type="Texture" id=21]
+[ext_resource path="res://Font/Ali.tres" type="DynamicFont" id=22]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 28, 28, 4, 28, 4, 4, 28, 4 )
@@ -471,6 +472,8 @@ collision_layer = 4
 format = 1
 tile_data = PoolIntArray( -2228286, 0, 0, -2228283, 0, 0, -2228280, 0, 0, -2228277, 0, 0, -2228274, 0, 0, -2228271, 0, 0, -2228267, 0, 0, -2228264, 0, 0, -2228261, 0, 0, -2228258, 0, 0, -2228255, 0, 0, -2228251, 0, 0, -2228248, 0, 0, -2228245, 0, 0, -2228242, 0, 0, -2228239, 0, 0, -2228235, 0, 0, -2228232, 0, 0, -2228229, 0, 0, -2228226, 0, 0, -2293759, 0, 0, -2293755, 0, 0, -2293752, 0, 0, -2293749, 0, 0, -2293746, 0, 0, -2293743, 0, 0, -2293740, 0, 0, -2293737, 0, 0, -2293734, 0, 0, -2293731, 0, 0, -2293728, 0, 0, -2293725, 0, 0, -2293722, 0, 0, -2293719, 0, 0, -2293716, 0, 0, -2293713, 0, 0, -2293710, 0, 0, -2293707, 0, 0, -2293704, 0, 0, -2293702, 0, 0, -2293701, 0, 0, -2228165, 0, 0, -2031678, 0, 0, -2031557, 0, 0, -1835070, 0, 0, -1834949, 0, 0, -1638462, 0, 0, -1638341, 0, 0, -1441854, 0, 0, -1441733, 0, 0, -1310722, 0, 0, -1245246, 0, 0, -1245186, 0, 0, -1179650, 0, 0, -1245125, 0, 0, -1114114, 0, 0, -1048638, 0, 0, -1048578, 0, 0, -983042, 0, 0, -1048517, 0, 0, -917506, 0, 0, -852030, 0, 0, -851970, 0, 0, -786434, 0, 0, -851909, 0, 0, -655422, 0, 0, -655301, 0, 0, -458814, 0, 0, -458693, 0, 0, -262206, 0, 0, -262085, 0, 0, -65598, 0, 0, -65477, 0, 0, 131010, 0, 0, 131131, 0, 0, 327618, 0, 0, 327739, 0, 0, 524226, 0, 0, 524347, 0, 0, 655358, 0, 0, 720834, 0, 0, 720894, 0, 0, 786430, 0, 0, 720955, 0, 0, 851966, 0, 0, 917442, 0, 0, 917502, 0, 0, 983038, 0, 0, 917563, 0, 0, 1048574, 0, 0, 1114050, 0, 0, 1114110, 0, 0, 1179646, 0, 0, 1114171, 0, 0, 1245182, 0, 0, 1310658, 0, 0, 1310779, 0, 0, 1507266, 0, 0, 1507387, 0, 0, 1703874, 0, 0, 1703995, 0, 0, 1900482, 0, 0, 1900603, 0, 0, 2097090, 0, 0, 2097091, 0, 0, 2097092, 0, 0, 2097093, 0, 0, 2097094, 0, 0, 2097095, 0, 0, 2097096, 0, 0, 2097097, 0, 0, 2097098, 0, 0, 2097099, 0, 0, 2097100, 0, 0, 2097101, 0, 0, 2097102, 0, 0, 2097103, 0, 0, 2097104, 0, 0, 2097105, 0, 0, 2097106, 0, 0, 2097107, 0, 0, 2097108, 0, 0, 2097109, 0, 0, 2097110, 0, 0, 2097111, 0, 0, 2097112, 0, 0, 2097113, 0, 0, 2097114, 0, 0, 2097115, 0, 0, 2097116, 0, 0, 2097117, 0, 0, 2097118, 0, 0, 2097119, 0, 0, 2097120, 0, 0, 2097121, 0, 0, 2097122, 0, 0, 2097123, 0, 0, 2097124, 0, 0, 2097125, 0, 0, 2097126, 0, 0, 2097127, 0, 0, 2097128, 0, 0, 2097129, 0, 0, 2097130, 0, 0, 2097131, 0, 0, 2097132, 0, 0, 2097133, 0, 0, 2097134, 0, 0, 2097135, 0, 0, 2097136, 0, 0, 2097137, 0, 0, 2097138, 0, 0, 2097139, 0, 0, 2097140, 0, 0, 2097141, 0, 0, 2097142, 0, 0, 2097143, 0, 0, 2097144, 0, 0, 2097145, 0, 0, 2097146, 0, 0, 2097147, 0, 0, 2097148, 0, 0, 2097149, 0, 0, 2097150, 0, 0, 2097151, 0, 0, 2031616, 0, 0, 2031617, 0, 0, 2031618, 0, 0, 2031619, 0, 0, 2031620, 0, 0, 2031621, 0, 0, 2031622, 0, 0, 2031623, 0, 0, 2031624, 0, 0, 2031625, 0, 0, 2031626, 0, 0, 2031627, 0, 0, 2031628, 0, 0, 2031629, 0, 0, 2031630, 0, 0, 2031631, 0, 0, 2031632, 0, 0, 2031633, 0, 0, 2031634, 0, 0, 2031635, 0, 0, 2031636, 0, 0, 2031637, 0, 0, 2031638, 0, 0, 2031639, 0, 0, 2031640, 0, 0, 2031641, 0, 0, 2031642, 0, 0, 2031643, 0, 0, 2031644, 0, 0, 2031645, 0, 0, 2031646, 0, 0, 2031647, 0, 0, 2031648, 0, 0, 2031649, 0, 0, 2031651, 0, 0, 2031654, 0, 0, 2031657, 0, 0, 2031660, 0, 0, 2031663, 0, 0, 2031666, 0, 0, 2031669, 0, 0, 2031672, 0, 0, 2031675, 0, 0 )
 script = ExtResource( 5 )
+mapCorner1 = Vector2( -464, -248 )
+mapCorner2 = Vector2( 472, 248 )
 
 [node name="Nav" type="NavigationAgent2D" parent="."]
 
@@ -522,7 +525,7 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="Nav/Game"]
-wait_time = 5.0
+wait_time = 2.0
 one_shot = true
 
 [node name="Cam" type="Camera2D" parent="Nav"]
@@ -548,6 +551,7 @@ mouse_filter = 2
 script = ExtResource( 9 )
 
 [node name="CombatLogo" type="Control" parent="UI/UIRoot"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -557,7 +561,7 @@ speed = 1.0
 [node name="BG" type="ColorRect" parent="UI/UIRoot/CombatLogo"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.392157 )
+color = Color( 0, 0, 0, 0.588235 )
 
 [node name="StartImg" type="TextureRect" parent="UI/UIRoot/CombatLogo"]
 anchor_left = 0.5
@@ -619,7 +623,7 @@ script = ExtResource( 15 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 0.392157 )
+color = Color( 0, 0, 0, 0.588235 )
 
 [node name="Finish" type="TextureRect" parent="UI/UIRoot/EndUI"]
 margin_left = -1024.0
@@ -631,6 +635,17 @@ mouse_filter = 2
 texture = ExtResource( 16 )
 expand = true
 stretch_mode = 6
+
+[node name="Result" type="Label" parent="UI/UIRoot/EndUI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -145.5
+margin_top = 120.0
+margin_right = 145.5
+margin_bottom = 191.0
+custom_fonts/font = ExtResource( 22 )
+align = 1
+valign = 1
 
 [node name="Cat1" type="TextureRect" parent="UI/UIRoot/EndUI"]
 margin_left = 43.0
@@ -723,6 +738,7 @@ margin_left = 317.0
 margin_top = 315.0
 margin_right = 324.0
 margin_bottom = 407.0
+rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 20 )
 expand = true
 stretch_mode = 6
@@ -740,10 +756,14 @@ anims/End = SubResource( 13 )
 anims/RESET = SubResource( 14 )
 
 [node name="PlayerFlagPos" type="Position2D" parent="UI/UIRoot/EndUI"]
-position = Vector2( 319, 408 )
+position = Vector2( 372, 265 )
 
 [node name="EnemyFlagPos" type="Position2D" parent="UI/UIRoot/EndUI"]
-position = Vector2( 748, 416 )
+position = Vector2( 654, 262 )
+
+[node name="Control" type="Control" parent="UI/UIRoot"]
+margin_right = 40.0
+margin_bottom = 40.0
 
 [editable path="Nav/Game/GamePlayer"]
 [editable path="Nav/Game/GamePlayer2"]

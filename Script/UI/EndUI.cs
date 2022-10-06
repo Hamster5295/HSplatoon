@@ -10,7 +10,7 @@ public class EndUI : Control
 
     private TextureRect finish, cat1, cat2, flag, flagFace;
     private ProgressBar playerBar, enemyBar;
-    private Label playerText, playerCounter, enemyText, enemyCounter;
+    private Label playerText, playerCounter, enemyText, enemyCounter, result;
     private Position2D playerPos, enemyPos;
 
     private AnimationPlayer ani;
@@ -32,6 +32,7 @@ public class EndUI : Control
         enemyText = GetNode<Label>("Label_Enemy");
         playerCounter = GetNode<Label>("Count_Player");
         enemyCounter = GetNode<Label>("Count_Enemy");
+        result = GetNode<Label>("Result");
         ani = GetNode<AnimationPlayer>("Ani");
 
         playerPos = GetNode<Position2D>("PlayerFlagPos");
@@ -46,6 +47,9 @@ public class EndUI : Control
         enemyBar.Modulate = enemyColor;
         playerText.Modulate = playerColor;
         enemyText.Modulate = enemyColor;
+
+        cat1.Visible = false;
+        cat2.Visible = false;
     }
 
     public void Start(int playerCount, int enemyCount)
@@ -61,32 +65,49 @@ public class EndUI : Control
         TextureRect winner, loser;
         Vector2 pos = Vector2.Zero;
 
-        if (playerC >= enemyC)
+        float baseNumber = HMap.GetMapSize();
+        float playerPercent = (playerC / baseNumber), enemyPercent = (enemyC / baseNumber);
+        float occupiedBaseNumber = playerC + enemyC;
+        if (occupiedBaseNumber == 0)
+        {
+            playerC++;
+            enemyC++;
+            occupiedBaseNumber = 2;
+        }
+
+        if (playerC > enemyC)
         {
             winner = cat1;
             loser = cat2;
             pos = playerPos.GlobalPosition;
             flagFace.Modulate = playerColor;
+            result.Text = "我方获胜";
+            result.Modulate = playerColor;
         }
-        else
+        else if (playerC < enemyC)
         {
             winner = cat2;
             loser = cat1;
             pos = enemyPos.GlobalPosition;
             flagFace.Modulate = enemyColor;
+            result.Text = "敌方获胜";
+            result.Modulate = enemyColor;
+        }
+        else
+        {
+            result.Text = "平局";
+            Tie();
+            return;
         }
 
         flag.RectPosition = pos;
         flag.Visible = true;
 
-        float baseNumber = playerC + enemyC;
-        float playerPercent = (playerC / baseNumber), enemyPercent = (enemyC / baseNumber);
+        playerCounter.Text = Mathf.Round(playerPercent * 100) + "%";
+        enemyCounter.Text = Mathf.Round(enemyPercent * 100) + "%";
 
-        playerCounter.Text = playerPercent * 100 + "%";
-        enemyCounter.Text = enemyPercent * 100 + "%";
-
-        tween.InterpolateProperty(playerBar, "value", null, playerBar.MaxValue * playerPercent, 0.3f);
-        tween.InterpolateProperty(enemyBar, "value", null, enemyBar.MaxValue * enemyPercent, 0.3f);
+        tween.InterpolateProperty(playerBar, "value", null, playerBar.MaxValue * (playerC / occupiedBaseNumber), 0.3f);
+        tween.InterpolateProperty(enemyBar, "value", null, enemyBar.MaxValue * (enemyC / occupiedBaseNumber), 0.3f);
 
         // playerBar.Value = playerBar.MaxValue * playerPercent;
         // enemyBar.Value = enemyBar.MaxValue * enemyPercent;
@@ -96,5 +117,14 @@ public class EndUI : Control
         // winner.RectScale *= 1.2f;
         // loser.RectScale += Vector2.Up * 0.4f;
         tween.Start();
+    }
+
+    private void Tie()
+    {
+        tween.InterpolateProperty(playerBar, "value", null, playerBar.MaxValue / 2, 0.3f);
+        tween.InterpolateProperty(enemyBar, "value", null, enemyBar.MaxValue / 2, 0.3f);
+
+        playerCounter.Text = "50%";
+        enemyCounter.Text = "50%";
     }
 }
