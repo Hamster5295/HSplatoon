@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Prefab/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
@@ -13,12 +13,42 @@
 [ext_resource path="res://Texture/GO.png" type="Texture" id=11]
 [ext_resource path="res://Texture/Ready.png" type="Texture" id=12]
 [ext_resource path="res://Prefab/Unit.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Texture/Rect_Wall.png" type="Texture" id=14]
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 28, 28, 4, 28, 4, 4, 28, 4 )
+
+[sub_resource type="TileSet" id=2]
+0/name = "Rect_Wall.png 0"
+0/texture = ExtResource( 14 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 3 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
 
 [node name="Sample" type="Node2D"]
 
 [node name="ColorMap" type="TileMap" parent="."]
+tile_set = SubResource( 2 )
 cell_size = Vector2( 8, 8 )
+collision_layer = 4
 format = 1
+tile_data = PoolIntArray( -2228286, 0, 0, -2228283, 0, 0, -2228280, 0, 0, -2228277, 0, 0, -2228274, 0, 0, -2228271, 0, 0, -2228267, 0, 0, -2228264, 0, 0, -2228261, 0, 0, -2228258, 0, 0, -2228255, 0, 0, -2228251, 0, 0, -2228248, 0, 0, -2228245, 0, 0, -2228242, 0, 0, -2228239, 0, 0, -2228235, 0, 0, -2228232, 0, 0, -2228229, 0, 0, -2228226, 0, 0, -2293759, 0, 0, -2293755, 0, 0, -2293752, 0, 0, -2293749, 0, 0, -2293746, 0, 0, -2293743, 0, 0, -2293740, 0, 0, -2293737, 0, 0, -2293734, 0, 0, -2293731, 0, 0, -2293728, 0, 0, -2293725, 0, 0, -2293722, 0, 0, -2293719, 0, 0, -2293716, 0, 0, -2293713, 0, 0, -2293710, 0, 0, -2293707, 0, 0, -2293704, 0, 0, -2293702, 0, 0, -2293701, 0, 0, -2228165, 0, 0, -2031678, 0, 0, -2031557, 0, 0, -1835070, 0, 0, -1834949, 0, 0, -1638462, 0, 0, -1638341, 0, 0, -1441854, 0, 0, -1441733, 0, 0, -1245246, 0, 0, -1245125, 0, 0, -1048638, 0, 0, -1048517, 0, 0, -852030, 0, 0, -851909, 0, 0, -655422, 0, 0, -655301, 0, 0, -458814, 0, 0, -458693, 0, 0, -262206, 0, 0, -262085, 0, 0, -65598, 0, 0, -65477, 0, 0, 131010, 0, 0, 131131, 0, 0, 327618, 0, 0, 327739, 0, 0, 524226, 0, 0, 524347, 0, 0, 720834, 0, 0, 720955, 0, 0, 917442, 0, 0, 917563, 0, 0, 1114050, 0, 0, 1114171, 0, 0, 1310658, 0, 0, 1310779, 0, 0, 1507266, 0, 0, 1507387, 0, 0, 1703874, 0, 0, 1703995, 0, 0, 1900482, 0, 0, 1900603, 0, 0, 2097090, 0, 0, 2097093, 0, 0, 2097096, 0, 0, 2097099, 0, 0, 2097102, 0, 0, 2097106, 0, 0, 2097109, 0, 0, 2097112, 0, 0, 2097115, 0, 0, 2097118, 0, 0, 2097122, 0, 0, 2097125, 0, 0, 2097128, 0, 0, 2097131, 0, 0, 2097134, 0, 0, 2097138, 0, 0, 2097141, 0, 0, 2097144, 0, 0, 2097147, 0, 0, 2097150, 0, 0, 2031618, 0, 0, 2031621, 0, 0, 2031624, 0, 0, 2031627, 0, 0, 2031630, 0, 0, 2031633, 0, 0, 2031636, 0, 0, 2031639, 0, 0, 2031642, 0, 0, 2031645, 0, 0, 2031648, 0, 0, 2031651, 0, 0, 2031654, 0, 0, 2031657, 0, 0, 2031660, 0, 0, 2031663, 0, 0, 2031666, 0, 0, 2031669, 0, 0, 2031672, 0, 0, 2031675, 0, 0 )
 script = ExtResource( 5 )
 
 [node name="Game" type="Node2D" parent="."]
@@ -29,7 +59,7 @@ unit = ExtResource( 1 )
 weapon = ExtResource( 7 )
 
 [node name="Point" parent="Game/GamePlayer" index="0"]
-position = Vector2( -89, -80 )
+position = Vector2( -396, -188 )
 __meta__ = {
 "_gizmo_extents_": 0.0
 }
@@ -39,7 +69,7 @@ unit = ExtResource( 13 )
 weapon = ExtResource( 7 )
 
 [node name="Point" parent="Game/GamePlayer2" index="0"]
-position = Vector2( -90, 37 )
+position = Vector2( -380, 172 )
 __meta__ = {
 "_gizmo_extents_": 0.0
 }
@@ -50,7 +80,7 @@ weapon = ExtResource( 7 )
 team = 3
 
 [node name="Point" parent="Game/GamePlayer3" index="0"]
-position = Vector2( 59, -81 )
+position = Vector2( 412, -172 )
 __meta__ = {
 "_gizmo_extents_": 0.0
 }
@@ -61,7 +91,7 @@ weapon = ExtResource( 7 )
 team = 3
 
 [node name="Point" parent="Game/GamePlayer4" index="0"]
-position = Vector2( 54, 51 )
+position = Vector2( 428, 204 )
 __meta__ = {
 "_gizmo_extents_": 0.0
 }
@@ -85,6 +115,7 @@ editor_draw_drag_margin = true
 script = ExtResource( 2 )
 
 [node name="Obstacles" type="Node2D" parent="."]
+visible = false
 
 [node name="Wall" parent="Obstacles" instance=ExtResource( 3 )]
 position = Vector2( -4, -268 )
@@ -115,6 +146,7 @@ scale = Vector2( 2, 33 )
 scale = Vector2( 1, 1.4 )
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="UIRoot" type="Control" parent="UI"]
 anchor_right = 1.0

@@ -59,6 +59,7 @@ public class Bullet : Area2D
 
         if (n is Unit u)
         {
+            if (u.team == owner.team) return;
             bool killed = u.TakeDamage(Damage);
             if (killed)
             {
