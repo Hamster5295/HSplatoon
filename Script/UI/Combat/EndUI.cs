@@ -123,6 +123,7 @@ public class EndUI : Control
     {
         tween.InterpolateProperty(playerBar, "value", null, playerBar.MaxValue / 2, 0.3f);
         tween.InterpolateProperty(enemyBar, "value", null, enemyBar.MaxValue / 2, 0.3f);
+        tween.Start();
 
         playerCounter.Text = "50%";
         enemyCounter.Text = "50%";

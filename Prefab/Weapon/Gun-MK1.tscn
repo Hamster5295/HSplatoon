@@ -10,6 +10,8 @@
 weaponName = "测试用枪"
 
 [node name="Gun" parent="Components" index="0"]
+damage = 20.0
+range = 240.0
 spread = 6
 
 [node name="Bomb" type="Node2D" parent="Components" index="1"]

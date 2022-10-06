@@ -34,7 +34,7 @@ public class GamePlayer : Component<Game>
             if (reviveTimer <= 0)
             {
                 u.GlobalPosition = point;
-                u.OnRevive();
+                u.Revive();
             }
         }
     }

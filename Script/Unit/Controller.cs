@@ -2,11 +2,19 @@ using Godot;
 
 public class Controller : Component<Unit>
 {
+    public static Controller instance;
+
     private bool isMouseHolded = false;
+
+    public override void _Ready()
+    {
+        base._Ready();
+        instance = this;
+    }
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if(Host.State != UnitState.Normal) return;
+        if (Host.State != UnitState.Normal) return;
 
         if (@event is InputEventMouseButton e)
         {
@@ -45,10 +53,14 @@ public class Controller : Component<Unit>
         }
 
         if (Input.IsActionJustPressed("move_dive"))
+        {
             Host.Dive();
+        }
 
         if (Input.IsActionJustReleased("move_dive"))
+        {
             Host.Land();
+        }
 
 
         Host.Weapon.LookAt(Mouse.GetGlobalPos());

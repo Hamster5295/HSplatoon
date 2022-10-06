@@ -8,7 +8,16 @@ public class Unit : KinematicBody2D
     ENERGY_NATURAL_GAIN = 2,
     ENERGY_KILL_GAIN = 20;
 
-    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkGainSpeed, landBuffer;
+    [Signal] public delegate void OnHPChanged(float hp, float maxHP);
+    [Signal] public delegate void OnInkChanged(float ink, float maxInk);
+    [Signal] public delegate void OnEnergyChanged(float energy, float maxEnergy);
+    [Signal] public delegate void OnDive();
+    [Signal] public delegate void OnLand();
+    [Signal] public delegate void OnWeaponStateChanged(Weapon w);
+    [Signal] public delegate void OnDead();
+    [Signal] public delegate void OnRevived();
+
+    [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, maxEnergy = 100, inkGainSpeed, landBuffer;
     [Export] public Team team;
     [Export(PropertyHint.ResourceType, "Texture")] public Texture diveTexture;
     [Export] public PackedScene debug_weapon;
@@ -30,15 +39,26 @@ public class Unit : KinematicBody2D
         private set
         {
             hp = value;
+
+            EmitSignal(nameof(OnHPChanged), hp, maxHP);
+
             if (hp < 0)
             {
                 //死亡逻辑
-                OnDead();
+                Die();
             }
         }
     }
 
-    public float Ink { get => ink; set => ink = Mathf.Clamp(value, 0, maxInk); }
+    public float Ink
+    {
+        get => ink;
+        set
+        {
+            ink = Mathf.Clamp(value, 0, maxInk);
+            EmitSignal(nameof(OnInkChanged), ink, maxInk);
+        }
+    }
 
     public Vector2 CurrentSpeed
     {
@@ -67,7 +87,14 @@ public class Unit : KinematicBody2D
     public Weapon Weapon { get => weapon; }
     public Color Color { get => color; private set => color = value; }
     public bool IsDiving { get => isDiving; private set => isDiving = value; }
-    public float Energy { get => energy; set => energy = Mathf.Clamp(value, 0, 100); }
+    public float Energy
+    {
+        get => energy; set
+        {
+            energy = Mathf.Clamp(value, 0, maxEnergy);
+            EmitSignal(nameof(OnEnergyChanged), energy, maxEnergy);
+        }
+    }
     public UnitState State { get => state; set => state = value; }
 
     // public float TargetRotation { get => targetRotation; set => targetRotation = value; }
@@ -236,6 +263,8 @@ public class Unit : KinematicBody2D
 
         sprite.Texture = diveTexture;
         weapon.Visible = false;
+
+        EmitSignal(nameof(OnDive));
     }
 
     public void Land()
@@ -247,6 +276,8 @@ public class Unit : KinematicBody2D
 
         RemoveBuff("Dive_Land");
         RemoveBuff("Dive_Ink");
+
+        EmitSignal(nameof(OnLand));
     }
 
     public void OnKillEnemy()
@@ -254,21 +285,25 @@ public class Unit : KinematicBody2D
         Energy += ENERGY_KILL_GAIN;
     }
 
-    public void OnDead()
+    public void Die()
     {
         Visible = false;
         state = UnitState.Dead;
         Game.instance.RegisterRevive(this);
         col.SetDeferred("disabled", true);
+
+        EmitSignal(nameof(OnDead));
     }
 
-    public void OnRevive()
+    public void Revive()
     {
         hp = maxHP;
         Visible = true;
         state = UnitState.Normal;
 
         col.SetDeferred("disabled", false);
+
+        EmitSignal(nameof(OnRevived));
     }
 }
 

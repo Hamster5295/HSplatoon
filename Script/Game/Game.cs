@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Game : Node2D
 {
+    [Signal] public delegate void OnTimeTick(int second);
+
     private static float REVIVE_TIME = 3;
 
     public static Game instance;
@@ -12,7 +14,8 @@ public class Game : Node2D
     private Team enemyTeam;
 
     private GameState state;
-    private Dictionary<Unit, GamePlayer> players = new Dictionary<Unit, GamePlayer>();
+    private List<Unit> gamePlayers = new List<Unit>();
+    private Dictionary<Unit, GamePlayer> playerDic = new Dictionary<Unit, GamePlayer>();
 
     public GameState State
     { get => state; }
@@ -31,11 +34,17 @@ public class Game : Node2D
         // StartGame();
     }
 
+    public override void _Process(float delta)
+    {
+        if (state == GameState.Running) EmitSignal(nameof(OnTimeTick), timer.TimeLeft);
+    }
+
     public void StartGame()
     {
         state = GameState.Running;
+        CombatUIRoot.instance.combatUI.Visible = true;
 
-        foreach (var item in players)
+        foreach (var item in playerDic)
         {
             item.Key.State = UnitState.Normal;
         }
@@ -46,7 +55,7 @@ public class Game : Node2D
     public void FinishGame()
     {
         state = GameState.Finished;
-        foreach (var item in players)
+        foreach (var item in playerDic)
         {
             item.Key.State = UnitState.Freeze;
         }
@@ -63,7 +72,8 @@ public class Game : Node2D
 
     public void AddUnit(Unit u, GamePlayer player)
     {
-        players.Add(u, player);
+        gamePlayers.Add(u);
+        playerDic.Add(u, player);
         if (player.type == TeamType.Player) playerTeam = player.team;
         if (player.type == TeamType.Enemy) enemyTeam = player.team;
         GetParent().CallDeferred("add_child", u);
@@ -71,13 +81,13 @@ public class Game : Node2D
 
     public void RegisterRevive(Unit u)
     {
-        if (!players.ContainsKey(u))
+        if (!playerDic.ContainsKey(u))
         {
             GD.PrintErr("出现了没注册的Unit, 厚礼蟹");
             return;
         }
 
-        players[u].Revive(REVIVE_TIME);
+        playerDic[u].Revive(REVIVE_TIME);
     }
 
     private void StartBeginningAnimation()
@@ -85,6 +95,11 @@ public class Game : Node2D
         var logo = CombatUIRoot.instance.combatLogo;
         logo.Connect(nameof(CombatLogo.OnAnimationFinished), this, nameof(StartGame));
         logo.Start();
+    }
+
+    public Unit GetUnit(int index)
+    {
+        return gamePlayers[index];
     }
 }
 

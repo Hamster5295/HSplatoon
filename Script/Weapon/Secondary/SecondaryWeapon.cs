@@ -10,6 +10,8 @@ public class SecondaryWeapon : WeaponComponent
 
         Host.Connect(nameof(Weapon.OnUseSecondary), this, nameof(OnUseSecondary));
         Host.Connect(nameof(Weapon.OnActivateSecondary), this, nameof(OnActivateSecondary));
+
+        Host.secondaryWeapon = this;
     }
 
     public virtual void OnUseSecondary()

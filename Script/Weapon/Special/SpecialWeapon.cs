@@ -6,12 +6,17 @@ public class SpecialWeapon : WeaponComponent
     protected bool isActive = false;
     protected float lengthTimer = 0;
 
+    private Unit u;
+
     public override void _Ready()
     {
         base._Ready();
 
+        if(u==null) u = Host.Host;
+
         Host.Connect(nameof(Weapon.OnUseSpecial), this, nameof(OnUseSpecial));
         Host.Connect(nameof(Weapon.OnActivateSpecial), this, nameof(OnActivateSpecial));
+        Host.specialWeapon = this;
     }
 
     public override void _Process(float delta)
@@ -19,6 +24,9 @@ public class SpecialWeapon : WeaponComponent
         if (lengthTimer > 0)
         {
             lengthTimer -= delta;
+
+            u.Energy = u.maxEnergy * lengthTimer / length;
+
             if (lengthTimer <= 0)
             {
                 Host.SetState(WeaponState.Primary, -1);
@@ -43,8 +51,10 @@ public class SpecialWeapon : WeaponComponent
     public virtual void OnActivateSpecial()
     {
         // GD.Print(Host.Host.Energy);
-        if (Host.Host.Energy < 100) return;
-        Host.Host.Energy -= 100;
+        if (u == null) u = Host.Host;
+
+        if (u.Energy < u.maxEnergy) return;
+        u.Energy -= u.maxEnergy;
 
         Host.SetState(WeaponState.Special, -1);
         lengthTimer = length;

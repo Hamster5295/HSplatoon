@@ -15,13 +15,15 @@ public class Weapon : Component<Unit>
     [Export] public string weaponName;
     [Export] public float recoil;
 
+    public SecondaryWeapon secondaryWeapon;
+    public SpecialWeapon specialWeapon;
+
 
     private Node parent_bullet;
     private Sprite sprite;
     private Tween tween;
     private WeaponState state = WeaponState.Primary;
     private int stateCounter = 0;
-
     private int headIndex = 0;
 
     private List<Position2D> heads = new List<Position2D>();
@@ -134,6 +136,8 @@ public class Weapon : Component<Unit>
 
         this.state = state;
         stateCounter = count;
+
+        Host.EmitSignal(nameof(Unit.OnWeaponStateChanged), this);
     }
 }
 
