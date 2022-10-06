@@ -4,12 +4,6 @@
 [ext_resource path="res://Script/Unit/Controller.cs" type="Script" id=3]
 
 [node name="Player" instance=ExtResource( 1 )]
-maxHP = 100.0
-speed = 200.0
-acceleration = 1500.0
-rotateSpeed = 3.14
-inkGainSpeed = 10.0
-landBuffer = 0.1
 
 [node name="Controller" type="Node2D" parent="Component" index="0"]
 process_priority = -1
