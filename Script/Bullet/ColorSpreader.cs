@@ -22,7 +22,7 @@ public class ColorSpreader : Component<Bullet>
         Host.Connect(nameof(Bullet.OnDestory), this, nameof(OnDestory));
         deltaDistance = Host.Range / (float)count;
 
-        paintParent = Host.UnitOwner.GetParent().GetNode<Node2D>("ColorMap");
+        paintParent = Host.UnitOwner.GetParent().GetParent().GetNode<Node2D>("ColorMap");
 
         offset = (GD.Randf() - 0.5f) * 2 * rand * HMap.GetSize().x;
 

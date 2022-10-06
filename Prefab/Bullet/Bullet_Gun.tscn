@@ -8,7 +8,7 @@
 radius = 2.23607
 
 [node name="Bullet_Gun" instance=ExtResource( 1 )]
-speed = 1000.0
+speed = 800.0
 
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 0.04, 0.05 )

@@ -16,7 +16,7 @@ public class Weapon : Component<Unit>
     [Export] public float recoil;
 
 
-    private Node2D parent_bullet;
+    private Node parent_bullet;
     private Sprite sprite;
     private Tween tween;
     private WeaponState state = WeaponState.Primary;
@@ -34,7 +34,7 @@ public class Weapon : Component<Unit>
 
         sprite = GetNode<Sprite>("Sprite");
         tween = GetNode<Tween>("Tween");
-        parent_bullet = Host.GetNode<Node2D>("..");
+        parent_bullet = Host.GetNode<Node>("..");
 
         foreach (var item in GetNode<Node2D>("Heads").GetChildren())
         {

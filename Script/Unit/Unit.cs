@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public class Unit : KinematicBody2D
 {
-    public static float DAMAGE_PER_SECOND_ON_ENEMY_COLOR = 10,
+    public static float DAMAGE_PER_SECOND_ON_ENEMY_COLOR = 5,
     SPEED_DECREASE_WHEN_HIT = -0.3f,
     ENERGY_NATURAL_GAIN = 2,
-    ENERGY_KILL_GAIN = 10;
+    ENERGY_KILL_GAIN = 20;
 
     [Export] public float maxHP, speed, acceleration = 50f, rotateSpeed, maxInk = 100, inkGainSpeed, landBuffer;
     [Export] public Team team;
@@ -259,7 +259,7 @@ public class Unit : KinematicBody2D
         Visible = false;
         state = UnitState.Dead;
         Game.instance.RegisterRevive(this);
-        col.Disabled = true;
+        col.SetDeferred("disabled", true);
     }
 
     public void OnRevive()
@@ -268,7 +268,7 @@ public class Unit : KinematicBody2D
         Visible = true;
         state = UnitState.Normal;
 
-        col.Disabled = false;
+        col.SetDeferred("disabled", false);
     }
 }
 
