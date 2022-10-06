@@ -30,6 +30,7 @@ public class CombatLogo : Control, IEffect
         tween.InterpolateProperty(go, "modulate:a", 0, 1, speed / 2, delay: speed * 4f);
         tween.InterpolateProperty(go, "modulate:a", 1, 0, speed / 4, delay: speed * 5f);
         tween.InterpolateProperty(go, "rect_scale", Vector2.One, Vector2.One * 1.3f, speed / 4, delay: speed * 5f);
+        tween.InterpolateCallback(this, speed * 5.25f, "hide");
         tween.Start();
     }
 

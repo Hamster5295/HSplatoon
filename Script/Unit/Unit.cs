@@ -17,6 +17,7 @@ public class Unit : KinematicBody2D
     private Weapon weapon;
     private Color color;
     private Texture normalTexture;
+    private CollisionShape2D col;
 
     private float hp, ink, targetRotation, energy;
     private Vector2 currentSpeed, accel = Vector2.Zero;
@@ -85,6 +86,7 @@ public class Unit : KinematicBody2D
         parent_weapon = GetNode<Node2D>("Weapon");
         parent_buff = GetNode<Node2D>("Buff");
         sprite = GetNode<Sprite>("Sprite");
+        col = GetNode<CollisionShape2D>("Col");
 
         Modulate = Color;
 
@@ -257,6 +259,7 @@ public class Unit : KinematicBody2D
         Visible = false;
         state = UnitState.Dead;
         Game.instance.RegisterRevive(this);
+        col.Disabled = true;
     }
 
     public void OnRevive()
@@ -264,6 +267,8 @@ public class Unit : KinematicBody2D
         hp = maxHP;
         Visible = true;
         state = UnitState.Normal;
+
+        col.Disabled = false;
     }
 }
 
