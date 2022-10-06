@@ -25,10 +25,13 @@ public class Weapon : Component<Unit>
     private WeaponState state = WeaponState.Primary;
     private int stateCounter = 0;
     private int headIndex = 0;
+    private bool isRotationLocked = false;
 
     private List<Position2D> heads = new List<Position2D>();
 
     public List<Position2D> Heads { get => heads; private set => heads = value; }
+    public bool IsRotationLocked { get => isRotationLocked; set => isRotationLocked = value; }
+    public WeaponState State { get => state; }
 
     public override void _Ready()
     {
@@ -56,6 +59,8 @@ public class Weapon : Component<Unit>
         bullet.Position = GetHead();
         bullet.Rotation = GlobalRotation;
 
+        bullet.ApplyDeltaAngle();
+
         parent_bullet.AddChild(bullet);
 
         tween.StopAll();
@@ -77,7 +82,7 @@ public class Weapon : Component<Unit>
     {
         if (Host.State != UnitState.Normal) return;
 
-        switch (state)
+        switch (State)
         {
             case WeaponState.Primary:
                 EmitSignal(nameof(OnUseBegin));
@@ -97,7 +102,7 @@ public class Weapon : Component<Unit>
     {
         if (Host.State != UnitState.Normal) return;
 
-        if (state == WeaponState.Primary)
+        if (State == WeaponState.Primary)
             EmitSignal(nameof(OnUseStay), delta);
     }
 
@@ -105,14 +110,17 @@ public class Weapon : Component<Unit>
     {
         if (Host.State != UnitState.Normal) return;
 
-        if (state == WeaponState.Primary)
+        if (State == WeaponState.Primary)
             EmitSignal(nameof(OnUseEnd));
         else
         {
             if (stateCounter == -1) return;
             stateCounter--;
             if (stateCounter == 0)
+            {
                 state = WeaponState.Primary;
+                Host.EmitSignal(nameof(Unit.OnWeaponStateChanged), this);
+            }
         }
     }
 

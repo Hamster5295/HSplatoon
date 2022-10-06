@@ -8,7 +8,7 @@ public class Bullet : Area2D
 
     [Export] public float speed, speedDecrease;
 
-    private float damage, range;
+    private float damage, range, deltaAngle;
     private int colorSpread;
 
     private Unit owner;
@@ -27,7 +27,7 @@ public class Bullet : Area2D
         Host = weapon;
         UnitOwner = weapon.Host.Host;
 
-        Rotate(Mathf.Deg2Rad(weapon.arc) * (GD.Randf() - 0.5f));
+        deltaAngle = Mathf.Deg2Rad(weapon.arc) * (GD.Randf() - 0.5f);
 
         Damage = weapon.damage;
         Range = weapon.range;
@@ -66,6 +66,11 @@ public class Bullet : Area2D
                 owner.OnKillEnemy();
             }
         }
+    }
+
+    public void ApplyDeltaAngle()
+    {
+        Rotate(deltaAngle);
     }
 
     public void Release()

@@ -1,8 +1,28 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Prefab/Weapon/Weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Script/Weapon/Primary/Brush.cs" type="Script" id=2]
+[ext_resource path="res://Prefab/Bullet/Bullet_Gun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Texture/Brush.png" type="Texture" id=4]
 
 [node name="Brush" instance=ExtResource( 1 )]
 weaponName = "Brush"
 
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, -120 )
+
 [node name="Brush" type="Node2D" parent="Components" index="0"]
+script = ExtResource( 2 )
+bullet = ExtResource( 3 )
+damage = 36.0
+cd = 1.0
+range = 80.0
+inkCost = 8.0
+arc = 20.0
+ammoCount = 3.0
+spread = 6
+longPressLength = 0.5
+brushInkCost = 5.0
+brushRadius = 4

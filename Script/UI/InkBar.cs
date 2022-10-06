@@ -31,6 +31,8 @@ public class InkBar : ProgressBar
         SelfModulate = player.Color;
 
         var sec = player.Weapon.secondaryWeapon;
+        if (!IsInstanceValid(sec)) return;
+
         line.RectPosition = Vector2.Right * (RectSize.y * (1 - sec.inkCost / player.maxInk));
 
         Value = MaxValue * player.Ink / player.maxInk;

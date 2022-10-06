@@ -63,8 +63,11 @@ public class Controller : Component<Unit>
         }
 
 
-        Host.Weapon.LookAt(Mouse.GetGlobalPos());
-        Host.Weapon.Rotate(Mathf.Tau / 4);
+        if (!Host.Weapon.IsRotationLocked)
+        {
+            Host.Weapon.LookAt(Mouse.GetGlobalPos());
+            Host.Weapon.Rotate(Mathf.Tau / 4);
+        }
 
         if (isMouseHolded) Host.Weapon.HandleStay(delta);
 

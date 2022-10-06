@@ -20,11 +20,11 @@ __meta__ = {
 }
 bullet = ExtResource( 4 )
 damage = 5.0
+cd = 0.15
 range = 300.0
 inkCost = 1.0
 arc = 10.0
 spread = 3
-cd = 0.15
 
 [node name="Head" parent="Heads" index="0"]
 position = Vector2( 0, -19 )

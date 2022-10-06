@@ -298,6 +298,7 @@ public class Unit : KinematicBody2D
     public void Revive()
     {
         hp = maxHP;
+        energy = 0;
         Visible = true;
         state = UnitState.Normal;
 

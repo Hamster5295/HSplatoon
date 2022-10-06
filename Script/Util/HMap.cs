@@ -92,12 +92,12 @@ public class HMap : TileMap
         if (update) Update();
     }
 
-    public static void ClaimCircle(Vector2 globalCenter, int radius, Team t)
+    public static void ClaimCircle(Vector2 globalCenter, int radius, Team t, bool smooth = false)
     {
-        instance.ClaimCircleInterval(globalCenter, radius, t);
+        instance.ClaimCircleInterval(globalCenter, radius, t, smooth);
     }
 
-    private void ClaimCircleInterval(Vector2 globalCenter, int radius, Team t)
+    private void ClaimCircleInterval(Vector2 globalCenter, int radius, Team t, bool smooth)
     {
         var centerPos = WorldToMap(globalCenter);
 
@@ -107,11 +107,24 @@ public class HMap : TileMap
             {
                 Vector2 pos = new Vector2(i, j);
                 Vector2 globalPos = MapToWorld(centerPos + pos) + CellSize / 2;
-                if (pos.Length() <= radius)
+
+                if (!smooth)
                 {
-                    var list = GetWorld2d().DirectSpaceState.IntersectRay(globalCenter, globalPos, collisionLayer: 0b100);
-                    if (list.Count == 0)
-                        ClaimInterval(globalPos, t, false);
+                    if (pos.Length() <= radius)
+                    {
+                        var list = GetWorld2d().DirectSpaceState.IntersectRay(globalCenter, globalPos, collisionLayer: 0b100);
+                        if (list.Count == 0)
+                            ClaimInterval(globalPos, t, false);
+                    }
+                }
+                else
+                {
+                    if (pos.Length() < radius)
+                    {
+                        var list = GetWorld2d().DirectSpaceState.IntersectRay(globalCenter, globalPos, collisionLayer: 0b100);
+                        if (list.Count == 0)
+                            ClaimInterval(globalPos, t, false);
+                    }
                 }
             }
         }
