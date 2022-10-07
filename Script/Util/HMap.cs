@@ -44,6 +44,11 @@ public class HMap : TileMap
         return instance.mapSize;
     }
 
+    public static Vector2 GetMapSizeV()
+    {
+        return (instance.mapCorner1 - instance.mapCorner2).Abs();
+    }
+
     public static bool IsOnTeamColor(Vector2 globalPos, Team t)
     {
         return instance.IsSameTeamInterval(globalPos, t);
@@ -85,6 +90,12 @@ public class HMap : TileMap
 
     private void ClaimInterval(Vector2 globalPos, Team t, bool update = true)
     {
+
+        if (globalPos.x > Mathf.Max(mapCorner1.x, mapCorner2.x)) return;
+        if (globalPos.x < Mathf.Min(mapCorner1.x, mapCorner2.x)) return;
+        if (globalPos.y > Mathf.Max(mapCorner1.y, mapCorner2.y)) return;
+        if (globalPos.y < Mathf.Min(mapCorner1.y, mapCorner2.y)) return;
+
         var tilePos = WorldToMap(globalPos);
         if (!map.ContainsKey(tilePos)) map.Add(tilePos, t);
         else map[tilePos] = t;

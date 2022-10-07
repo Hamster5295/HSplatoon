@@ -2,7 +2,7 @@ using Godot;
 
 public class Brush : PrimaryWeapon
 {
-    [Export] public float longPressLength, brushInkCost;
+    [Export] public float longPressLength, brushInkCost, brushSpeedBoost = 0.2f;
     [Export] public int brushRadius;
 
     private Unit u;
@@ -13,7 +13,13 @@ public class Brush : PrimaryWeapon
     public override void _Ready()
     {
         base._Ready();
+        CallDeferred(nameof(Init));
+    }
+
+    private void Init()
+    {
         u = Host.Host;
+        u.Connect(nameof(Unit.OnDead), this, nameof(StopBrush));
     }
 
     public override void _Process(float delta)
@@ -57,9 +63,9 @@ public class Brush : PrimaryWeapon
             {
                 brushCDTimer = 0;
 
-                if (u.Ink >= brushInkCost * delta)
+                if (u.Ink >= brushInkCost)
                 {
-                    u.ApplyBuff("Brush", BuffType.Speed, 0.5f, -1);
+                    u.ApplyBuff("Brush", BuffType.Speed, brushSpeedBoost, -1);
                     HMap.ClaimCircle(GlobalPosition, brushRadius, u.team, true);
                     u.Ink -= brushInkCost * delta;
                 }
@@ -74,6 +80,8 @@ public class Brush : PrimaryWeapon
 
     private void StopBrush()
     {
+
+        GD.Print("gg");
         isBrushing = false;
         u.RemoveBuff("Brush");
         Host.IsRotationLocked = false;

@@ -66,8 +66,6 @@ public class Bullet : Area2D
     {
         if (n == UnitOwner) return;
 
-        Release();
-
         if (n is Unit u)
         {
             if (u.team == owner.team) return;
@@ -77,6 +75,7 @@ public class Bullet : Area2D
                 owner.OnKillEnemy();
             }
         }
+        Release();
     }
 
     public void ApplyDeltaAngle()

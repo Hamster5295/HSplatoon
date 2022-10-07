@@ -27,8 +27,9 @@ public class Unit : KinematicBody2D
     private Color color;
     private Texture normalTexture;
     private CollisionShape2D col;
+    private NavigationAgent2D nav;
 
-    private float hp, ink, targetRotation, energy;
+    private float hp, ink, targetRotation, energy, regainTimer = 0;
     private Vector2 currentSpeed, accel = Vector2.Zero;
     private bool isDiving = false;
     private UnitState state = UnitState.Normal;
@@ -38,6 +39,8 @@ public class Unit : KinematicBody2D
         get => hp;
         private set
         {
+            if (value < hp) regainTimer = 3;
+
             hp = value;
 
             EmitSignal(nameof(OnHPChanged), hp, maxHP);
@@ -96,6 +99,7 @@ public class Unit : KinematicBody2D
         }
     }
     public UnitState State { get => state; set => state = value; }
+    public NavigationAgent2D Nav { get => nav; }
 
     // public float TargetRotation { get => targetRotation; set => targetRotation = value; }
 
@@ -114,6 +118,7 @@ public class Unit : KinematicBody2D
         parent_buff = GetNode<Node2D>("Buff");
         sprite = GetNode<Sprite>("Sprite");
         col = GetNode<CollisionShape2D>("Col");
+        nav = GetNode<NavigationAgent2D>("Nav");
 
         Modulate = Color;
 
@@ -136,7 +141,7 @@ public class Unit : KinematicBody2D
                 Ink += inkGainSpeed * delta;
 
                 RemoveBuff("Dive_Land");
-                ApplyBuff("Dive_Ink", BuffType.Dive, 1, -1);
+                ApplyBuff("Dive_Ink", BuffType.Dive, 0.5f, -1);
             }
             else
             {
@@ -171,6 +176,16 @@ public class Unit : KinematicBody2D
         CurrentSpeed += accel;
         accel = Vector2.Zero;
 
+        if (regainTimer > 0)
+        {
+            regainTimer -= delta;
+        }
+        else if (hp < maxHP && IsOnTeamColor())
+        {
+            HP += 30 * delta;
+            GD.Print('h');
+        }
+
         if (currentSpeed.Length() == 0) return;
         targetRotation = Vector2.Up.AngleTo(currentSpeed);
 
@@ -187,7 +202,7 @@ public class Unit : KinematicBody2D
     public void ApplyAccel(Vector2 direction, float delta)
     {
         if (state != UnitState.Normal) return;
-        accel += acceleration * delta * direction;
+        accel += acceleration * delta * direction.Normalized();
     }
 
     public void ChangeDirection(Vector2 axis)
@@ -207,7 +222,7 @@ public class Unit : KinematicBody2D
     {
         HP -= damage;
 
-        ApplyBuff("DamageSD", BuffType.Speed, SPEED_DECREASE_WHEN_HIT, 0.5f);
+        ApplyBuff("DamageSD", BuffType.Speed, SPEED_DECREASE_WHEN_HIT, 0.3f);
 
         return HP <= 0;
     }
@@ -297,14 +312,22 @@ public class Unit : KinematicBody2D
 
     public void Revive()
     {
-        hp = maxHP;
+        HP = maxHP;
         energy = 0;
+        ink = maxInk;
         Visible = true;
         state = UnitState.Normal;
+
+        if (Game.instance.State == GameState.Finished) state = UnitState.Freeze;
 
         col.SetDeferred("disabled", false);
 
         EmitSignal(nameof(OnRevived));
+    }
+
+    public bool IsOnTeamColor()
+    {
+        return HMap.IsOnTeamColor(GlobalPosition, team);
     }
 }
 

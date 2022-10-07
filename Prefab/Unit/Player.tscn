@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Prefab/Unit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefab/Unit/Unit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Unit/Controller.cs" type="Script" id=3]
 
 [node name="Player" instance=ExtResource( 1 )]

@@ -5,7 +5,7 @@ public class Game : Node2D
 {
     [Signal] public delegate void OnTimeTick(int second);
 
-    private static float REVIVE_TIME = 3;
+    private static float REVIVE_TIME = 5;
 
     public static Game instance;
 
@@ -100,6 +100,11 @@ public class Game : Node2D
     public Unit GetUnit(int index)
     {
         return gamePlayers[index];
+    }
+
+    public GamePlayer GetGamePlayer(Unit u)
+    {
+        return playerDic[u];
     }
 }
 

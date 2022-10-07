@@ -8,10 +8,32 @@ public class HPBar : ProgressBar
     private Unit player;
     private Tween tween;
 
+    private bool isShowing = false;
+
+    private float timer = 0;
+
     public override void _Ready()
     {
-        SelfModulate = new Color(1, 1, 1, 0);
         CallDeferred(nameof(InitPlayer));
+
+        tween = GetNode<Tween>("Tween");
+
+        SelfModulate = new Color(1, 1, 1, 0);
+    }
+
+    public override void _Process(float delta)
+    {
+        if (timer > 0)
+        {
+            timer -= delta;
+            if (timer <= 0 && isShowing)
+            {
+                isShowing = false;
+                tween.StopAll();
+                tween.InterpolateProperty(this, "self_modulate:a", 1, 0, animateSpeed);
+                tween.Start();
+            }
+        }
     }
 
     private void InitPlayer()
@@ -23,10 +45,12 @@ public class HPBar : ProgressBar
 
     private void OnHPChanged(float hp, float maxHP)
     {
+        // GD.Print("gg");
+        tween.StopAll();
+        timer = showLength;
+        isShowing = true;
+
         Value = MaxValue * hp / maxHP;
         SelfModulate = Colors.White;
-
-        tween.StopAll();
-        tween.InterpolateProperty(this, "modulate:a", 1, 0, animateSpeed, delay: showLength);
     }
 }

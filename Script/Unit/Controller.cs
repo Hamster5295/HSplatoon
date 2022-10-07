@@ -14,7 +14,7 @@ public class Controller : Component<Unit>
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        if (Host.State != UnitState.Normal) return;
+        if (Host.State == UnitState.Freeze) return;
 
         if (@event is InputEventMouseButton e)
         {

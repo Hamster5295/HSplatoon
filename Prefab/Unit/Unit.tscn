@@ -18,7 +18,7 @@ maxHP = 100.0
 speed = 200.0
 acceleration = 1500.0
 rotateSpeed = 3.14
-inkGainSpeed = 10.0
+inkGainSpeed = 30.0
 landBuffer = 0.1
 diveTexture = ExtResource( 2 )
 
@@ -42,3 +42,5 @@ shape = SubResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Nav" type="NavigationAgent2D" parent="."]

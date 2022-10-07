@@ -47,12 +47,14 @@ public class Weapon : Component<Unit>
         }
 
         Host.Connect(nameof(Unit.OnDive), this, nameof(HandleEnd));
+        Host.Connect(nameof(Unit.OnDead), this, nameof(SetState), new Godot.Collections.Array() { WeaponState.Primary, -1 });
     }
 
     public void Fire(Bullet bullet)
     {
         // if (Host.Ink < inkCost) return;
         if (Host.IsDiving) return;
+        if (Host.State == UnitState.Dead) return;
         // Host.Ink -= inkCost;
 
         headIndex++;

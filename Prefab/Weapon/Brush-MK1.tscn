@@ -8,6 +8,12 @@
 
 [node name="Brush-MK1" instance=ExtResource( 1 )]
 
+[node name="Brush" parent="Components" index="0"]
+cd = 0.1
+range = 100.0
+inkCost = 5.0
+brushRadius = 5
+
 [node name="TriangleBomb" type="Node2D" parent="Components" index="1"]
 script = ExtResource( 2 )
 bullet = ExtResource( 3 )
