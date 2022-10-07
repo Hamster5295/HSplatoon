@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Prefab/Unit/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Util/CameraInstance.cs" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Script/UI/Combat/CombatLogo.cs" type="Script" id=10]
 [ext_resource path="res://Texture/GO.png" type="Texture" id=11]
 [ext_resource path="res://Texture/Ready.png" type="Texture" id=12]
+[ext_resource path="res://Texture/Btn_Home.png" type="Texture" id=13]
 [ext_resource path="res://Texture/Rect_Wall.png" type="Texture" id=14]
 [ext_resource path="res://Script/UI/Combat/EndUI.cs" type="Script" id=15]
 [ext_resource path="res://Texture/Finished.png" type="Texture" id=16]
@@ -21,16 +22,19 @@
 [ext_resource path="res://Texture/Flag_Stick.png" type="Texture" id=20]
 [ext_resource path="res://Texture/Flag_Face.png" type="Texture" id=21]
 [ext_resource path="res://Font/Ali.tres" type="DynamicFont" id=22]
-[ext_resource path="res://Script/UI/InkBar.cs" type="Script" id=23]
+[ext_resource path="res://Script/UI/Combat/InkBar.cs" type="Script" id=23]
 [ext_resource path="res://Script/UI/Combat/TimeText.cs" type="Script" id=24]
 [ext_resource path="res://Texture/EnergyBar_BG.png" type="Texture" id=25]
 [ext_resource path="res://Texture/EnergyBar_Bar.png" type="Texture" id=26]
-[ext_resource path="res://Script/UI/EnergyBar.cs" type="Script" id=27]
+[ext_resource path="res://Script/UI/Combat/EnergyBar.cs" type="Script" id=27]
 [ext_resource path="res://Prefab/UI/PlayerStatusUI.tscn" type="PackedScene" id=28]
-[ext_resource path="res://Script/UI/HPBar.cs" type="Script" id=29]
+[ext_resource path="res://Script/UI/Combat/HPBar.cs" type="Script" id=29]
 [ext_resource path="res://Prefab/Weapon/Brush-MK1.tscn" type="PackedScene" id=30]
 [ext_resource path="res://Script/UI/Combat/TipText.cs" type="Script" id=31]
 [ext_resource path="res://Prefab/Unit/AI_Unit.tscn" type="PackedScene" id=32]
+[ext_resource path="res://Texture/Btn_Home_Clicked.png" type="Texture" id=33]
+[ext_resource path="res://Scene/StartMenu.tscn" type="PackedScene" id=34]
+[ext_resource path="res://Script/UI/Btn_ChangeScene.cs" type="Script" id=35]
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 28, 28, 4, 28, 4, 4, 28, 4 )
@@ -295,6 +299,18 @@ tracks/14/keys = {
 "update": 0,
 "values": [ 0.0, 0.0, 20.0 ]
 }
+tracks/15/type = "value"
+tracks/15/path = NodePath("BackBtn:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 4.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=14]
 length = 0.001
@@ -477,6 +493,18 @@ tracks/14/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("BackBtn:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [node name="Sample" type="Node2D"]
@@ -925,6 +953,20 @@ margin_bottom = 43.0
 texture = ExtResource( 21 )
 expand = true
 stretch_mode = 6
+
+[node name="BackBtn" type="TextureButton" parent="UI/UIRoot/EndUI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -110.0
+margin_top = 30.0
+margin_right = -30.0
+margin_bottom = 110.0
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 33 )
+texture_hover = ExtResource( 13 )
+expand = true
+script = ExtResource( 35 )
+nextScene = ExtResource( 34 )
 
 [node name="Ani" type="AnimationPlayer" parent="UI/UIRoot/EndUI"]
 anims/End = SubResource( 13 )
