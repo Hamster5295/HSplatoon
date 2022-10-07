@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Prefab/Bullet/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Script/Bullet/Deployer.cs" type="Script" id=3]
+
+[node name="Deployer" instance=ExtResource( 1 )]
+lifeTime = 0.1
+
+[node name="Deployer" type="Node2D" parent="." index="3"]
+script = ExtResource( 3 )

@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Prefab/Weapon/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Script/Weapon/Secondary/SecondaryWeapon.cs" type="Script" id=2]
-[ext_resource path="res://Prefab/Bullet/MK1/Bomb_MK1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefab/Bullet/Gun-MK1/Bomb_MK1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Script/Weapon/Special/SpecialWeapon.cs" type="Script" id=4]
-[ext_resource path="res://Prefab/Bullet/MK1/Bullet_Super_MK1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefab/Bullet/Gun-MK1/Bullet_Super_MK1.tscn" type="PackedScene" id=5]
 
 [node name="Gun-MK1" instance=ExtResource( 1 )]
 weaponName = "测试用枪"

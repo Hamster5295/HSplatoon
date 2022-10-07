@@ -6,9 +6,9 @@ public class Bullet : Area2D
     [Signal] public delegate void OnMove(float delta);
     [Signal] public delegate void OnDestory();
 
-    [Export] public float speed, speedDecrease;
+    [Export] public float speed, speedDecrease, lifeTime = -1;
 
-    private float damage, range, deltaAngle;
+    private float damage, range, deltaAngle, lifeTimer = 0;
     private int colorSpread;
 
     private Unit owner;
@@ -39,12 +39,23 @@ public class Bullet : Area2D
         return this;
     }
 
+    public override void _Process(float delta)
+    {
+        if (lifeTime == -1) return;
+        if (lifeTimer < lifeTime)
+        {
+            lifeTimer += delta;
+        }
+        else Release();
+    }
+
     public override void _PhysicsProcess(float delta)
     {
         var deltaDistance = speed * delta;
         Translate(Vector2.Up.Rotated(Rotation) * deltaDistance);
         travelled += deltaDistance;
         speed -= speedDecrease * delta;
+        if (speed < 0) speed = 0;
 
         EmitSignal(nameof(OnMove), deltaDistance);
 

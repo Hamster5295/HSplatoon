@@ -1,21 +1,24 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Prefab/Bullet/Bomb.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Texture/Ammo_Super_1.png" type="Texture" id=2]
+[ext_resource path="res://Texture/TriangleBomb.png" type="Texture" id=2]
 [ext_resource path="res://Script/Util/Rotater.cs" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 96.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 29.0172
+radius = 19.0263
 
-[node name="Bullet_Super_MK1" instance=ExtResource( 1 )]
-speed = 800.0
+[node name="Bomb_Triangle" instance=ExtResource( 1 )]
+speed = 1200.0
+speedDecrease = 2400.0
+lifeTime = 3.0
 
 [node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.08, 0.08 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, -30 )
+offset = Vector2( 8, -60 )
 script = ExtResource( 3 )
 rotateSpeed = 3.14
 
