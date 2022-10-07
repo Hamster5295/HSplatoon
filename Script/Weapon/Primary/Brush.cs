@@ -54,6 +54,7 @@ public class Brush : PrimaryWeapon
             isBrushing = true;
             Host.IsRotationLocked = true;
             Host.Rotation = 0;
+            u.IsDestructive = true;
         }
 
         if (isBrushing)
@@ -80,10 +81,9 @@ public class Brush : PrimaryWeapon
 
     private void StopBrush()
     {
-
-        GD.Print("gg");
         isBrushing = false;
         u.RemoveBuff("Brush");
+        u.IsDestructive = false;
         Host.IsRotationLocked = false;
     }
 }

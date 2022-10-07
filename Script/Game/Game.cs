@@ -68,6 +68,8 @@ public class Game : Node2D
         }
 
         CombatUIRoot.instance.end.Start(p, e);
+
+        CameraInstance.instance.Position = Vector2.Zero;
     }
 
     public void AddUnit(Unit u, GamePlayer player)

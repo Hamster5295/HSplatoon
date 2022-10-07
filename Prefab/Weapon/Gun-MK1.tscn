@@ -13,7 +13,7 @@ weaponName = "测试用枪"
 damage = 20.0
 cd = 0.2
 range = 240.0
-inkCost = 3.0
+inkCost = 5.0
 spread = 6
 
 [node name="Bomb" type="Node2D" parent="Components" index="1"]
@@ -21,7 +21,7 @@ script = ExtResource( 2 )
 bullet = ExtResource( 3 )
 damage = 60.0
 range = 250.0
-inkCost = 30.0
+inkCost = 120.0
 spread = 10
 
 [node name="Super" type="Node2D" parent="Components" index="2"]

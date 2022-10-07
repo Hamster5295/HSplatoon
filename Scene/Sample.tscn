@@ -529,7 +529,7 @@ __meta__ = {
 
 [node name="GamePlayer4" parent="TileMap/Game" instance=ExtResource( 6 )]
 unit = ExtResource( 32 )
-weapon = ExtResource( 7 )
+weapon = ExtResource( 30 )
 team = 3
 type = 1
 
@@ -540,7 +540,7 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="TileMap/Game"]
-wait_time = 100.0
+wait_time = 90.0
 one_shot = true
 
 [node name="Cam" type="Camera2D" parent="TileMap"]
@@ -582,7 +582,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 10 )
-speed = 1.0
+speed = 0.6
 
 [node name="BG" type="ColorRect" parent="UI/UIRoot/CombatLogo"]
 anchor_right = 1.0

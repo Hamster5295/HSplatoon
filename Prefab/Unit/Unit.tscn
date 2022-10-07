@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Script/Unit/Unit.cs" type="Script" id=1]
 [ext_resource path="res://Texture/DivedUnit.png" type="Texture" id=2]
 [ext_resource path="res://Texture/GameUnit.png" type="Texture" id=3]
+[ext_resource path="res://Script/Effect/ReleaseEffect.cs" type="Script" id=4]
+[ext_resource path="res://Prefab/Effect/Particle.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 15.0
@@ -18,7 +20,8 @@ maxHP = 100.0
 speed = 200.0
 acceleration = 1500.0
 rotateSpeed = 3.14
-inkGainSpeed = 30.0
+maxInk = 500.0
+inkGainSpeed = 150.0
 landBuffer = 0.1
 diveTexture = ExtResource( 2 )
 
@@ -42,5 +45,9 @@ shape = SubResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Eff" type="Node2D" parent="."]
+script = ExtResource( 4 )
+effect = ExtResource( 5 )
 
 [node name="Nav" type="NavigationAgent2D" parent="."]

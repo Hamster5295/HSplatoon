@@ -21,3 +21,7 @@ script = ExtResource( 4 )
 [node name="Area" type="Area2D" parent="Component/Bomb" index="0"]
 
 [node name="Col" type="CollisionShape2D" parent="Component/Bomb/Area" index="0"]
+
+[node name="Eff" parent="." index="3"]
+scale = 1.0
+scale = 1.0

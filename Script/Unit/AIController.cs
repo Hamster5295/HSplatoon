@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class AIController : Component<Unit>
 {
+    [Export] public float targetCD = 0.5f, randomCD = 1f;
+
     private Team t;
 
     private Vector2 next, map;
@@ -34,22 +36,32 @@ public class AIController : Component<Unit>
         Host.ApplyAccel(next - GlobalPosition, delta);
         nav.SetVelocity(Host.CurrentSpeed);
 
+        //锁定目标
         if (targetTimer > 0)
         {
             targetTimer -= delta;
         }
         else
         {
-            targetTimer = 1;
+            targetTimer = targetCD;
             UpdateTargets();
         }
 
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i].State != UnitState.Normal) { targets.RemoveAt(i); i--; }
+        }
+        //------
+
+        //索敌
         if (targets.Count > 0)
         {
             nav.SetTargetLocation(targets[0].GlobalPosition);
-            fireTimer = 2;
+            fireTimer = (targets[0].GlobalPosition - GlobalPosition).LengthSquared() <= 22500 ? 0.1f : 1;
+            Host.Weapon.LookAt(targets[0].GlobalPosition);
+            Host.Weapon.Rotate(Mathf.Tau / 4);
         }
-        else
+        else//否则就随机找位置涂色
         {
             if (randomTimer <= 0)
             {
@@ -58,7 +70,7 @@ public class AIController : Component<Unit>
                 // targetPos.x = Mathf.Clamp(targetPos.x, -map.x / 2, map.x / 2);
                 // targetPos.y = Mathf.Clamp(targetPos.y, -map.y / 2, map.y / 2);
                 nav.SetTargetLocation(map * (GD.Randf() - 0.5f));
-                randomTimer = 1;
+                randomTimer = randomCD;
             }
             else
             {
@@ -66,6 +78,7 @@ public class AIController : Component<Unit>
             }
         }
 
+        //潜水与涂地逻辑：如果在旱地就涂色，水里就潜水
         if (Host.IsOnTeamColor())
         {
             if (fireTimer <= 0)
@@ -81,9 +94,11 @@ public class AIController : Component<Unit>
             }
         }
 
+        //检查：有目标时不潜水，墨水不够就潜水
         if (targets.Count > 0) Host.Land();
         if (Host.Ink < 10) { Host.Dive(); return; }
 
+        //开火
         if (fireTimer > 0)
         {
             fireTimer -= delta;

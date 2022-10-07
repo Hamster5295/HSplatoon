@@ -5,7 +5,7 @@ public class Unit : KinematicBody2D
 {
     public static float DAMAGE_PER_SECOND_ON_ENEMY_COLOR = 5,
     SPEED_DECREASE_WHEN_HIT = -0.3f,
-    ENERGY_NATURAL_GAIN = 2,
+    ENERGY_NATURAL_GAIN = 3,
     ENERGY_KILL_GAIN = 20;
 
     [Signal] public delegate void OnHPChanged(float hp, float maxHP);
@@ -31,7 +31,7 @@ public class Unit : KinematicBody2D
 
     private float hp, ink, targetRotation, energy, regainTimer = 0;
     private Vector2 currentSpeed, accel = Vector2.Zero;
-    private bool isDiving = false;
+    private bool isDiving = false, isDestructive = false;
     private UnitState state = UnitState.Normal;
 
     public float HP
@@ -100,6 +100,7 @@ public class Unit : KinematicBody2D
     }
     public UnitState State { get => state; set => state = value; }
     public NavigationAgent2D Nav { get => nav; }
+    public bool IsDestructive { get => isDestructive; set => isDestructive = value; }
 
     // public float TargetRotation { get => targetRotation; set => targetRotation = value; }
 
@@ -169,7 +170,15 @@ public class Unit : KinematicBody2D
     {
         if (state != UnitState.Normal) return;
 
-        MoveAndSlide(CurrentSpeed);
+        if (isDestructive && TestMove(Transform, Vector2.Up.Rotated(GlobalRotation) * delta))
+        {
+            var col = MoveAndCollide(Vector2.Up.Rotated(GlobalRotation) * delta);
+            if (col.Collider is Unit u)
+            {
+                if (u.team != team) u.TakeDamage(u.maxHP);
+            }
+        }
+        else MoveAndSlide(CurrentSpeed);
         var deltaSpeed = acceleration / 2 * delta * CurrentSpeed.Normalized();
         CurrentSpeed -= deltaSpeed.Length() > CurrentSpeed.Length() ? CurrentSpeed : deltaSpeed;
 
@@ -183,7 +192,7 @@ public class Unit : KinematicBody2D
         else if (hp < maxHP && IsOnTeamColor())
         {
             HP += 30 * delta;
-            GD.Print('h');
+
         }
 
         if (currentSpeed.Length() == 0) return;

@@ -14,9 +14,6 @@ public class TipText : Label
     {
         tween = GetNode<Tween>("Tween");
         parent = GetParent<Control>();
-
-
-
         CallDeferred(nameof(InitUnit));
     }
 
@@ -25,6 +22,8 @@ public class TipText : Label
         u = Controller.instance.Host;
 
         u.Connect(nameof(Unit.OnWeaponStateChanged), this, nameof(OnWeaponStateChanged));
+        u.Connect(nameof(Unit.OnDead), this, nameof(OnDead));
+        u.Connect(nameof(Unit.OnRevived), this, nameof(OnRevived));
 
         currentY = parent.RectPosition.y;
         parent.RectPosition += Vector2.Down * parent.RectSize.y;
@@ -48,6 +47,22 @@ public class TipText : Label
                 Appear();
                 break;
         }
+    }
+
+    private void OnDead()
+    {
+        CallDeferred(nameof(OnDeadInterval));
+    }
+
+    private void OnRevived()
+    {
+        Disappear();
+    }
+
+    private void OnDeadInterval()
+    {
+        Text = "等待复活..";
+        Appear();
     }
 
     private void Appear()

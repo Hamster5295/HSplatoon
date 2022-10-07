@@ -10,6 +10,7 @@ public class Controller : Component<Unit>
     {
         base._Ready();
         instance = this;
+        Host.Connect(nameof(Unit.OnDead), this, nameof(OnDead));
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -80,5 +81,10 @@ public class Controller : Component<Unit>
         {
             Host.Weapon.HandleSpecial();
         }
+    }
+
+    private void OnDead()
+    {
+        CameraInstance.instance.GlobalPosition = Vector2.Zero;
     }
 }
