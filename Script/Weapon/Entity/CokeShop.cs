@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class CokeShop : Area2D, IDeployable
 {
+    [Export] public float buff, length;
+
     private Sprite coke1, coke2;
 
     private Team team;
@@ -50,7 +52,7 @@ public class CokeShop : Area2D, IDeployable
             already.Add(u);
             count--;
 
-            u.ApplyBuff("Coke", BuffType.Speed, 0.3f, 5);
+            u.ApplyBuff("Coke", BuffType.Speed, buff, length);
 
             UpdateCoke();
         }

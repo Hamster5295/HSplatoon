@@ -45,6 +45,8 @@ public class Weapon : Component<Unit>
         {
             if (item is Position2D p) Heads.Add(p);
         }
+
+        Host.Connect(nameof(Unit.OnDive), this, nameof(HandleEnd));
     }
 
     public void Fire(Bullet bullet)
@@ -81,6 +83,7 @@ public class Weapon : Component<Unit>
     public void HandleBegin()
     {
         if (Host.State != UnitState.Normal) return;
+        if (Host.IsDiving) return;
 
         switch (State)
         {
@@ -101,6 +104,7 @@ public class Weapon : Component<Unit>
     public void HandleStay(float delta)
     {
         if (Host.State != UnitState.Normal) return;
+        if (Host.IsDiving) return;
 
         if (State == WeaponState.Primary)
             EmitSignal(nameof(OnUseStay), delta);
@@ -108,7 +112,7 @@ public class Weapon : Component<Unit>
 
     public void HandleEnd()
     {
-        if (Host.State != UnitState.Normal) return;
+        if (Host.State == UnitState.Freeze) return;
 
         if (State == WeaponState.Primary)
             EmitSignal(nameof(OnUseEnd));

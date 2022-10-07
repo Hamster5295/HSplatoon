@@ -19,6 +19,6 @@ public class TimeText : Label
         int m = second / 60;
         int s = second % 60;
 
-        return m + (m < 10 ? "0" : "") + ":" + (s < 10 ? "0" : "") + s;
+        return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
     }
 }

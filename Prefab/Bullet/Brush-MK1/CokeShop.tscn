@@ -9,6 +9,8 @@ radius = 50.1597
 
 [node name="CokeShop" type="Area2D"]
 script = ExtResource( 3 )
+buff = 0.5
+length = 4.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.1, 0.1 )
