@@ -3,6 +3,13 @@
 
 Demo game for the practice of BingYan Studio
 
+## 操作说明
+WASD 移动
+鼠标左键 瞄准、射击
+鼠标右键 按住时潜水
+E键 启用副武器
+Q键 启用大招
+E、Q键激活后，仍需要用鼠标左键瞄准、射击
 
 ## 开发日志
 ### 10.1 上午
