@@ -22,11 +22,13 @@ public class WeaponSelector : Control
             case 0:
                 btn_gun.Pressed = true;
                 btn_brush.Pressed = false;
+                GlobalData.playerSelected = GlobalData.gun;
                 break;
 
             case 1:
                 btn_gun.Pressed = false;
                 btn_brush.Pressed = true;
+                GlobalData.playerSelected = GlobalData.brush;
                 break;
         }
     }

@@ -4,7 +4,7 @@ public class GamePlayer : Component<Game>
 {
     [Export] public PackedScene unit, weapon;
     [Export] public Team team;
-    // [Export] public bool isPlayer = false;
+    [Export] public bool isPlayer = false;
     [Export] public TeamType type;
 
     private Unit u;
@@ -15,6 +15,11 @@ public class GamePlayer : Component<Game>
     {
         base._Ready();
         point = GetNode<Position2D>("Point").GlobalPosition;
+
+        if (isPlayer)
+        {
+            weapon = GlobalData.playerSelected;
+        }
 
         u = unit.Instance<Unit>();
         u.team = team;

@@ -28,6 +28,7 @@ public class SecondaryWeapon : WeaponComponent
 
     public virtual void OnActivateSecondary()
     {
+        if(timer > 0) return;
         if (Host.Host.Ink < inkCost) return;
         Host.SetState(WeaponState.Secondary, count);
     }

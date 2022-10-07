@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Font/AlimamaShuHeiTi-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Texture/Btn_Start_Clicked.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Texture/Btn_Brush.png" type="Texture" id=7]
 [ext_resource path="res://Script/UI/Btn_ChangeScene.cs" type="Script" id=8]
 [ext_resource path="res://Script/UI/WeaponSelector.cs" type="Script" id=9]
-[ext_resource path="res://Scene/Sample.tscn" type="PackedScene" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 101
@@ -46,7 +45,7 @@ texture_pressed = ExtResource( 2 )
 texture_hover = ExtResource( 3 )
 expand = true
 script = ExtResource( 8 )
-nextScene = ExtResource( 10 )
+nextScene = "res://Scene/Sample.tscn"
 
 [node name="Selection" type="Control" parent="."]
 anchor_top = 1.0

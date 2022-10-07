@@ -3,7 +3,7 @@ using System;
 
 public class Btn_ChangeScene : TextureButton
 {
-    [Export] public PackedScene nextScene;
+    [Export(PropertyHint.File)] public string nextScene;
 
     public override void _Ready()
     {
@@ -12,6 +12,6 @@ public class Btn_ChangeScene : TextureButton
 
     private void OnClick()
     {
-        GetTree().ChangeSceneTo(nextScene);
+        GetTree().ChangeScene(nextScene);
     }
 }

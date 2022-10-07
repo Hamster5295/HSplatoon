@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="H Splatoon"
-run/main_scene="res://Scene/Sample.tscn"
+run/main_scene="res://Scene/StartMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
