@@ -100,6 +100,22 @@ public class AIController : Component<Unit>
         if (targets.Count > 0) Host.Land();
         if (Host.Ink < 10) { Host.Dive(); return; }
 
+
+        //副武器与大招
+        if (targets.Count > 0 && Host.Weapon.secondaryWeapon.inkCost < Host.Ink)
+        {
+            Host.Weapon.HandleSecondary();
+            fireTimer = 0.1f;
+            Host.Weapon.HandleBegin();
+        }
+
+        if (Host.Energy == Host.maxEnergy)
+        {
+            Host.Weapon.HandleSpecial();
+            fireTimer = 3f;
+            Host.Weapon.HandleBegin();
+        }
+
         //开火
         if (fireTimer > 0)
         {

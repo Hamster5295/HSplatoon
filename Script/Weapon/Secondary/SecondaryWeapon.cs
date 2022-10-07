@@ -14,9 +14,16 @@ public class SecondaryWeapon : WeaponComponent
         Host.secondaryWeapon = this;
     }
 
+    public override void _Process(float delta)
+    {
+        if (timer > 0) timer -= delta;
+    }
+
     public virtual void OnUseSecondary()
     {
+        if (timer > 0) return;
         Fire();
+        timer = cd;
     }
 
     public virtual void OnActivateSecondary()

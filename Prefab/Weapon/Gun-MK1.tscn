@@ -20,6 +20,7 @@ spread = 6
 script = ExtResource( 2 )
 bullet = ExtResource( 3 )
 damage = 60.0
+cd = 3.0
 range = 250.0
 inkCost = 120.0
 spread = 10
