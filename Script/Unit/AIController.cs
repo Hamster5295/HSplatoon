@@ -58,11 +58,13 @@ public class AIController : Component<Unit>
         {
             nav.SetTargetLocation(targets[0].GlobalPosition);
             fireTimer = (targets[0].GlobalPosition - GlobalPosition).LengthSquared() <= 22500 ? 0.1f : 1;
+
             Host.Weapon.LookAt(targets[0].GlobalPosition);
             Host.Weapon.Rotate(Mathf.Tau / 4);
         }
         else//否则就随机找位置涂色
         {
+            Host.Weapon.Rotation = 0;
             if (randomTimer <= 0)
             {
                 // var rand = GD.Randf() * Mathf.Tau;
